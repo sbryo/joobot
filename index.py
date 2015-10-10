@@ -4,7 +4,6 @@
 
 import flask
 import os
-import functools
 
 app = flask.Flask(__name__)
 
