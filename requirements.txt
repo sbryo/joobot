@@ -1,2 +1,2 @@
 Flask
-functools
+functools==0.5
