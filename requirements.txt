@@ -1,2 +1,3 @@
 Flask
 functools==0.5
+setuptools==1.0
