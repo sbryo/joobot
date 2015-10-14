@@ -174,5 +174,5 @@ def public_append():
 
 if __name__ == "__main__":
     app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
-    app.run(port=8080, host="www.dinero-web.ml", debug=True)
+    app.run(port=8080, host="0.0.0.0", debug=True)
 
