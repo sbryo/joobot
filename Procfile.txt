@@ -1,2 +1,0 @@
-web: gunicorn Dinero.wsgi:app --log-file=-
-worker: python index.py

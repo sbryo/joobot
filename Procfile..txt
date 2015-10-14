@@ -1,0 +1,2 @@
+web: gunicorn Dinero.wsgi
+worker: python index.py
