@@ -2,8 +2,9 @@
 ### This Web-App Created BY SHAKED BRAIMOK ###
 ####### APP NAME: Dinero #######
 
-import flask
 import os
+
+import flask
 
 app = flask.Flask(__name__)
 

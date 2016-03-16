@@ -1,9 +1,8 @@
 #!/usr/bin/env python2.6
 
-from pygoogle import pygoogle
-from BeautifulSoup import BeautifulSoup
-import os 
+import os
 
+from pygoogle import pygoogle
 
 # GET THE INPUT FROM THE WEB (THE FILE OF THE USER THAT GET INPUT FROM WEB #
 FILE = open('users-folders/shaked/SearchFile.txt','r')

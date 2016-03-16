@@ -1,16 +1,15 @@
 #!/usr/bin/env python2.7
  
 # get_links.py
- 
 
-import exceptions
-import re
+
 import sys
 import urllib
-import urllib2 
 import urlparse
+
 from BeautifulSoup import BeautifulSoup
- 
+
+
 class MyOpener(urllib.FancyURLopener):
     version = 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.15) Gecko/20110303 Firefox/3.6.15'
  

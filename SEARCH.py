@@ -1,11 +1,9 @@
 #!/usr/bin/env python2.6
 
-from pygoogle import pygoogle
-from BeautifulSoup import BeautifulSoup
-import os 
+import os
 import urllib
-import urllib2
-import urlparse
+
+from pygoogle import pygoogle
 
 
 class MyOpener(urllib.FancyURLopener):

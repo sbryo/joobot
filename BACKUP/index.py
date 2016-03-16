@@ -2,10 +2,9 @@
 ### This Web-App Created BY SHAKED BRAIMOK ###
 ####### APP NAME: My-News #######
 
-import flask
-import os
 import functools
 
+import flask
 
 app = flask.Flask(__name__)
 
