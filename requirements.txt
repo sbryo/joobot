@@ -1,6 +1,5 @@
 Flask
 gunicorn
 flask-script
-os
 urllib
 ebaysdk
