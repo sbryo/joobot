@@ -27,23 +27,20 @@ def test():
 
 @app.route("/search",methods=['GET', 'POST'])
 def append():
-		if "add" in flask.request.form:
-			#data = str(flask.request.data)
-			text = flask.request.form['add']
-			processed_text = text.upper()
-			file = open("users-folders/shaked/SearchFile.txt",'w')
-			file.write(processed_text)
-			file.close()
-		if "add2" in flask.request.form:
-			text = flask.request.form['add2']
-            processed_text = text.upper()
-            file = open("users-folders/shaked/SearchFile.txt",'a')
-            file.write(";"+processed_text)
-            file.close()
-	try:
-		os.system("python2.6 SEARCH.py")
-	except:	
-		os.system(echo "exception")
+	if "add" in flask.request.form:
+		#data = str(flask.request.data)
+		text = flask.request.form['add']
+    		processed_text = text.upper()
+		file = open("users-folders/shaked/SearchFile.txt",'w')
+		file.write(processed_text)
+		file.close()
+	if "add2" in flask.request.form:
+		text = flask.request.form['add2']
+                processed_text = text.upper()
+                file = open("users-folders/shaked/SearchFile.txt",'a')
+                file.write(";"+processed_text)
+                file.close()
+	os.system("python2.6 SEARCH.py")
 	return flask.redirect("/results")
 		
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
