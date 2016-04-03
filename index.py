@@ -3,7 +3,6 @@
 ####### APP NAME: Dinero #######
 
 import os
-
 import flask
 
 app = flask.Flask(__name__)
@@ -24,6 +23,10 @@ def test():
  #   file = open("users-folders/shaked/Results.txt",'r')
   #  lines = file.readlines()
    # return flask.render_template('results.html',lines=lines)
+
+@app.route("/my-space")
+def my_space():
+	return flask.render_template('my-space.html')
 
 @app.route("/search",methods=['GET', 'POST'])
 def append():
