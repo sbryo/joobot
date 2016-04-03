@@ -13,9 +13,10 @@ def start():
 	return flask.render_template('index.html')
 
 
-@app.route("/test")
+@app.route("/loading")
 def test():
-	return flask.render_template('searcher.html')
+    #while results file is null
+	return flask.render_template('loading.html')
 
 #@app.route("/results")
 #@check_login
@@ -36,6 +37,7 @@ def append():
     		processed_text = text.upper()
 		file = open("users-folders/shaked/SearchFile.txt",'w')
 		file.write(processed_text)
+
 		file.close()
 	if "add2" in flask.request.form:
 		text = flask.request.form['add2']
