@@ -45,6 +45,7 @@ def append():
                 file = open("users-folders/shaked/SearchFile.txt",'a')
                 file.write(";"+processed_text)
                 file.close()
+
 	os.system("python2.6 SEARCH.py")
 	return flask.redirect("/results")
 		
