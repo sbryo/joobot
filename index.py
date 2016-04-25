@@ -49,7 +49,7 @@ def append():
                 file = open(PATH+"/users-folders/shaked/SearchFile.txt",'a')
                 file.write(";"+processed_text)
                 file.close()
-	os.system("python2.6 SEARCH.py")
+	os.system("python2.6 "+PATH+"/SEARCH.py")
 	return flask.redirect("/results")
 		
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
