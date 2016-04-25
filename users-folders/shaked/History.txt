@@ -1,6 +1,6 @@
-Test=Testhttp://www.ebay.com/bhp/diesel-watch
-http://www.ebay.com/sch/Diesel-Watches/14324/bn_2188940/i.html
-http://stores.ebay.com/Jomashop/Diesel-Watches-/_i.html?_fsub=1839480012
+diesel watch=http://www.ebay.com/bhp/diesel-watch
+diesel watch=http://www.ebay.com/sch/Diesel-Watches/14324/bn_2188940/i.html
+diesel watch=http://stores.ebay.com/Jomashop/Diesel-Watches-/_i.html?_fsub=1839480012
 http://www.ebay.co.uk/bhp/diesel-watch
 https://www.hodinkee.com/articles/hodinkee-guide-to-buying-watches-on-ebay
 https://www.ebay-kleinanzeigen.de/s-diesel-uhr/k0

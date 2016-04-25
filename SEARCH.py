@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.6
+#!/usr/bin/env python2.7
 
 import os
 import urllib
@@ -19,7 +19,7 @@ PRODUCT = SPLIT[0]
 WEBS = SPLIT[1].split(',')
 FILE.close()
 LIST2 = []
-os.system("echo > users-folders/shaked/Results.txt")
+#os.system("echo > users-folders/shaked/Results.txt")
 
 RESULTS_FILE = open("users-folders/shaked/Results.txt",'a')
 HISTORY_FILE = open("users-folders/shaked/History.txt",'a')
@@ -27,9 +27,10 @@ HISTORY_FILE = open("users-folders/shaked/History.txt",'a')
 for WEB in WEBS:
 	print WEB
 	# SEARCH AND GET URLs	
-	G = pygoogle(PRODUCT+" "+WEB)
+	G = pygoogle(PRODUCT+" "+WEB,pages=5)
 	URLS_LIST = G.get_urls()
 	for i in URLS_LIST:
+		print i
 		#URL= i.split("'")[1]
 		URL=i
 		for WEB in WEBS:

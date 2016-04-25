@@ -72,19 +72,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Results</h2>
+                    <h2>History</h2>
                     <hr class="star-primary">
 					
 <h5>Search your preferably product</h5>
 
-  <table id="results" cellspacing="0" width="100%">
+  <table id="history" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Price</th>
                 <th>Rank</th>
                 <th>Web</th>
-                <th>Favorite</th>
+                <th>Delete</th>
                <!-- <th>Jira-Issue</th>-->
             </tr>
         </thead>
@@ -94,7 +94,7 @@
                 <th>Price</th>
                 <th>Rank</th>
                 <th>Web</th>
-                <th>Favorite</th>
+                <th>Delete</th>
                <!-- <th>Jira-Issue</th>-->
             </tr>
         </tfoot>
@@ -105,7 +105,7 @@
                 <td>{{x[1]}}</td>
                 <td>{{x[2]}}</td>
                 <td>{{x[3]}}</td>
-                <td><form method="post" action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[0]}}"><p class="submit"><input type="submit" value="Like" class="btn btn-success" id={{x[0]}} ></p></td>
+                <td><form method="post" action="http://dinero-web.heroku.com/history/delete/{{x[0]}}"><p class="submit"><input type="submit" value="Delete" class="btn btn-danger" id={{x[0]}} ></p></td>
              
                 </tr>
         {% endfor %} -->
@@ -230,7 +230,7 @@
         }
     ]
 } );
-                                $("#results").DataTable();
+                                $("#history").DataTable();
                               
                         } );
                         </script>

@@ -80,7 +80,7 @@ def my_history_page():
 		#link = x[1]
 		#titles.append(title)
 		#links.append(link)
-    return flask.render_template('history.html',list=list)
+    return flask.render_template('my-history.html',list=list)
 
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
 def addtofavorites(LINE):
@@ -110,7 +110,7 @@ def my_archive_page():
         if '=' in line:
 		x = line.split("=")
                 list.append(x)
-    return flask.render_template('favorites.html',list=list)
+    return flask.render_template('my-favorites.html',list=list)
 
 
 @app.route("/results")
@@ -157,7 +157,7 @@ def history_delete(LINE):
                 else:
                         continue
         H_FILE.close()
-        return flask.redirect("history")
+        return flask.redirect("/history")
 
 
 @app.route("/public")
