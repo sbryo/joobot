@@ -68,7 +68,7 @@ def remove(LINE):
 @app.route("/history")
 def my_history_page():
     list = []
-    file = open("./users-folders/shaked/History.txt",'r')
+    file = open("dinero/users-folders/shaked/History.txt",'r')
     lines = file.readlines()
     file.close()
     for line in lines:
@@ -115,7 +115,7 @@ def my_archive_page():
 @app.route("/results")
 def my_archive_page2():
     list = []
-    F_FILE = open("./users-folders/shaked/Results.txt",'r')
+    F_FILE = open("dinero/users-folders/shaked/Results.txt",'r')
     lines = F_FILE.readlines()
     F_FILE.close()
     for line in lines:
