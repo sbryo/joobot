@@ -35,17 +35,16 @@ def append():
 		#data = str(flask.request.data)
 		text = flask.request.form['add']
     		processed_text = text.upper()
-		file = open("users-folders/shaked/SearchFile.txt",'w')
+		file = open("./users-folders/shaked/SearchFile.txt",'w')
 		file.write(processed_text)
 		file.close()
 
 	if "add2" in flask.request.form:
 		text = flask.request.form['add2']
                 processed_text = text.upper()
-                file = open("users-folders/shaked/SearchFile.txt",'a')
+                file = open("./users-folders/shaked/SearchFile.txt",'a')
                 file.write(";"+processed_text)
                 file.close()
-
 	os.system("python2.6 SEARCH.py")
 	return flask.redirect("/results")
 		
