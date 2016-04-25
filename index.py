@@ -102,7 +102,7 @@ def addtofavorites(LINE):
 @app.route("/favorites")
 def my_archive_page():
     list = []
-    F_FILE = open("./users-folders/shaked/Favorites.txt",'r')
+    F_FILE = open("users-folders/shaked/Favorites.txt",'r')
     lines = F_FILE.readlines()	
     F_FILE.close()
     for line in lines:
@@ -115,7 +115,7 @@ def my_archive_page():
 @app.route("/results")
 def my_archive_page2():
     list = []
-    F_FILE = open("dinero/users-folders/shaked/Results.txt",'r')
+    F_FILE = open("users-folders/shaked/Results.txt",'r')
     lines = F_FILE.readlines()
     F_FILE.close()
     for line in lines:
