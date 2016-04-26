@@ -8,15 +8,17 @@
     <style>
 .floating-box {
     float: left;
-    width: 80px;
+    width: 50px;
     height: 50px;
     margin: 10px;
     border: 1px solid #0B2161;
+    display: inline;
 }
 
 .after-box {
-
+    text-align: center;
     height: 65px;
+
 }
 </style>
 
@@ -125,19 +127,20 @@
 
 <!-- icons buttons: -->
 <div id="icons">
-<p><input class="floating-box" type="image" src="../static/img/ebay.png" alt="Submit" width="48" height="48"></p>
-    <p><input class="floating-box" type="image" src="../static/img/alii.png" alt="Submit" width="48" height="48"></p>
-    <p><input class="floating-box" type="image" src="../static/img/dealextreame.png" alt="Submit" width="48" height="48"></p>
-    <p><input class="floating-box" type="image" src="../static/img/amazon.jpg" alt="Submit" width="48" height="48"></p>
+
+<p><input id=ebay class="floating-box img-thumbnail" type="image" src="../static/img/ebay.png" width="48" height="48"></p>
+    <p><input class="floating-box img-thumbnail" type="image" src="../static/img/alii.png"  alt="checkbox" width="48" height="48"></p>
+    <p><input class="floating-box img-thumbnail" type="image" src="../static/img/dealextreame.png"  alt="checkbox" width="48" height="48"></p>
+    <p><input class="floating-box img-thumbnail" type="image" src="../static/img/amazon.jpg"  alt="checkbox" width="48" height="48"></p>
 </div>
 
     <!-- Webs field:
 <p><input type="text" name="add2" value="" placeholder="Web,Web,Web..."></p>
         </p>
 -->
-<center>
+<div></div>
 <p class="submit"><input type="submit" value="Search Now" class="btn btn-success after-box"></p>
-</center>
+
 </form>
 
 		
@@ -183,20 +186,7 @@
 	 <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
                         <script>
                         $(document).ready(function() {
-                                $('#example').DataTable({
-    buttons: [
-        {
-            extend: 'excel',
-            text: 'Save current page',
-            exportOptions: {
-                modifier: {
-                    page: 'current'
-                }
-            }
-        }
-    ]
-} );
-                                $("#results").DataTable();
+                                  $("#results").DataTable();
                         } );
                         </script>
 
