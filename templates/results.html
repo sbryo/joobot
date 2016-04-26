@@ -91,31 +91,19 @@
   <table id="results" cellspacing="0" width="100%" class="ui celled table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Rank</th>
-                <th>Web</th>
-                <th>Favorite</th>
-               <!-- <th>Jira-Issue</th>-->
+
             </tr>
         </thead>
         <tfoot>
-            <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Rank</th>
-                <th>Web</th>
-                <th>Favorite</th>
-               <!-- <th>Jira-Issue</th>-->
-            </tr>
+
         </tfoot>
         <tbody>
         {% for x in list %}
             <tr>
-                <td>{{x[0]}}</td>
-                <td>{{x[1]}}</td>
-                <td>{{x[2]}}</td>
-                <td>{{x[3]}}</td>
+                <td><b>Title:</b> {{x[0]}}</td>
+                <td><b>Price:</b> {{x[1]}}</td>
+                <td><b>Rank:</b> {{x[2]}}</td>
+                <td><b>URL:</b> {{x[3]}}</td>
                 <td><form method="post" action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[0]}}"><p class="submit"><input type="submit" value="Like" class="btn btn-success" id={{x[0]}} ></p></td>
              
                 </tr>
