@@ -11,6 +11,10 @@ app = flask.Flask(__name__)
 
 @app.route("/")
 def start():
+	return flask.render_template('dinero-login.html')
+
+@app.route("/dinero")
+def dinero():
 	return flask.render_template('index.html')
 
 
