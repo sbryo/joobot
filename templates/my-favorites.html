@@ -22,6 +22,12 @@
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.semanticui.min.css">
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/DataTables/datatables.css">
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -77,34 +83,19 @@
 					
 <h5>Search your preferably product</h5>
 
-  <table id="favorites" cellspacing="0" width="100%">
+  <table id="favorites" cellspacing="0" width="100%" class="ui celled table">
         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Rank</th>
-                <th>Web</th>
-                <th>Delete</th>
-               <!-- <th>Jira-Issue</th>-->
-            </tr>
-        </thead>
+          </thead>
         <tfoot>
-            <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Rank</th>
-                <th>Web</th>
-                <th>Delete</th>
-               <!-- <th>Jira-Issue</th>-->
-            </tr>
         </tfoot>
         <tbody>
         {% for x in list %}
             <tr>
-                <td>{{x[0]}}</td>
-                <td>{{x[1]}}</td>
-                <td>{{x[2]}}</td>
-                <td>{{x[3]}}</td>
+             <tr>
+                <td><b>Title:</b> <font color="#18bc9c">{{x[0]}}</font></td>
+                <td><b>Price:</b> {{x[1]}}</td>
+                <td><b>Rank:</b> {{x[2]}}</td>
+                <td><form method="post" href={{ x[3] }}><p class="submit"><input type="submit" value="Buy" class="btn btn-primary" id={{x[0]}} ></p></td>
                 <td><form method="post" action="http://dinero-web.heroku.com/favoites/delete/{{x[0]}}"><p class="submit"><input type="submit" value="Delete" class="btn btn-danger" id={{x[0]}} ></p></td>
              
                 </tr>
