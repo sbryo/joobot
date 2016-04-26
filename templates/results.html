@@ -228,7 +228,11 @@
 	 <script type="../static/text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
                         <script>
                         $(document).ready(function() {
-                                $('#results').DataTable();
+                                $('#results').DataTable({
+                                    responsive=true
+                                                        });
+
+
 
                               
                         } );
