@@ -88,8 +88,8 @@
 					
 <h5>Dinero Found these items for you : </h5>
 
-                <div id="loading"></div>
-<div id="content">
+                <div id="load"></div>
+<div id="contents">
 
 
 
@@ -229,13 +229,18 @@
                         } );
                         </script>
 
-<script type="text/javascript">// <![CDATA[
-        function preloader(){
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("content").style.display = "block";
-        }//preloader
-        window.onload = preloader;
-// ]]></script>
+<script type="text/javascript">document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+       document.getElementById('contents').style.visibility="hidden";
+  } else if (state == 'complete') {
+      setTimeout(function(){
+         document.getElementById('interactive');
+         document.getElementById('load').style.visibility="hidden";
+         document.getElementById('contents').style.visibility="visible";
+      },1000);
+  }
+}</script>
 
 
 
