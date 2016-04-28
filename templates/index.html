@@ -19,6 +19,18 @@
     text-align: center;
     height: 65px;
 
+
+        #load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    background:url("http://2.bp.blogspot.com/-JbBntT9YAY4/ViO_tqgWarI/AAAAAAAAAJk/9Q5Yyg4Hf8g/s1600-r/loading_cart.gif") no-repeat center center
+}
+
+
+
+
 }
 </style>
 
@@ -120,6 +132,9 @@
 					
 <h5>Easy To Shop !</h5>
 
+                                   <center><div id="load"></div></center>
+<div id="contents">
+
 <form method="post" action="http://dinero-web.heroku.com/search">
 <p><input type="text" name="add" value="" placeholder="Item Name"></p>
       
@@ -161,7 +176,7 @@
             <i class="fa fa-chevron-up"></i>
         </a>
     </div>
-
+</div>
 
 
     <!-- jQuery -->
@@ -189,6 +204,22 @@
                                   $("#results").DataTable();
                         } );
                         </script>
+
+
+<script type="text/javascript">document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+       document.getElementById('load').style.visibility="visible";
+       document.getElementById('contents').style.visibility="hidden";
+  } else if (state == 'complete') {
+      setTimeout(function(){
+         document.getElementById('interactive');
+         document.getElementById('load').style.visibility="hidden";
+         document.getElementById('contents').style.visibility="visible";
+      },1000);
+  }
+}</script>
+
 
 
 </body>

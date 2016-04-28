@@ -30,6 +30,20 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+           <style>
+
+        #load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    background:url("http://2.bp.blogspot.com/-JbBntT9YAY4/ViO_tqgWarI/AAAAAAAAAJk/9Q5Yyg4Hf8g/s1600-r/loading_cart.gif") no-repeat center center
+}
+
+
+        </style>
+
+
 </head>
 
 <body id="page-top" class="index">
@@ -87,7 +101,8 @@
     </header>
 --> 
 
-
+               <center><div id="load"></div></center>
+<div id="contents">
 
     <!-- About Section -->
     <section id="about">
@@ -113,7 +128,7 @@
             </div>
           
 		  
-		  
+		  </div>
 		  
                 </div>
             </div>
@@ -169,6 +184,22 @@
                               
                         } );
                         </script>
+
+
+
+<script type="text/javascript">document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+       document.getElementById('load').style.visibility="visible";
+       document.getElementById('contents').style.visibility="hidden";
+  } else if (state == 'complete') {
+      setTimeout(function(){
+         document.getElementById('interactive');
+         document.getElementById('load').style.visibility="hidden";
+         document.getElementById('contents').style.visibility="visible";
+      },1000);
+  }
+}</script>
 
 
 </body>
