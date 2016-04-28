@@ -2,7 +2,7 @@ import urllib2
 import urllib
 import json
 
-url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&"
+url = "https://www.google.com/?gfe_rd=cr&ei=P9MhV63HHvHR8gfOgpSQAQ&gws_rd=cr&fg=1#q="
 
 query = raw_input("What do you want to search for ? >> ")
 

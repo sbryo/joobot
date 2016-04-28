@@ -15,8 +15,14 @@ assert(response.reply.ack == 'Success')
 #get the list:
 assert(type(response.reply.searchResult.item) == list)
 #item = response.reply.searchResult.item[0]
-for item in response.reply.searchResult.item:
-	print item
+####for item in response.reply.searchResult.item:
+	####print item
+
+r=api.response_dict()
+print r['itemSearchURL']
+
+
+
 
 	#item=json.loads(str(item))
 	#print item['title']
