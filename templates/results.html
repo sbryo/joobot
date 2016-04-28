@@ -34,7 +34,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
          <link rel="stylesheet" type="text/css" href="../static/DataTables/datatables.css">
-        <style>#results { color:black;  }</style>
+        <style>#results { color:black;  }
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    background:url("https://www.google.co.il/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjJkauz8rDMAhUWOsAKHRTnCrQQjRwIBw&url=%2Furl%3Fsa%3Di%26rct%3Dj%26q%3D%26esrc%3Ds%26source%3Dimages%26cd%3D%26cad%3Drja%26uact%3D8%26ved%3D0ahUKEwjJkauz8rDMAhUWOsAKHRTnCrQQjRwIBw%26url%3Dhttp%253A%252F%252Fwww.downgraf.com%252Finspiration%252F25-beautiful-loading-bar-design-examples-gif-animated%252F%26psig%3DAFQjCNG361wZ5xqhwNAi5LQCHC0Q9S25RQ%26ust%3D1461917813793622&psig=AFQjCNG361wZ5xqhwNAi5LQCHC0Q9S25RQ&ust=1461917813793622") no-repeat center center rgba(0,0,0,0.25)
+}
+
+        </style>
 
 
 
@@ -232,6 +241,7 @@
 <script type="text/javascript">document.onreadystatechange = function () {
   var state = document.readyState
   if (state == 'interactive') {
+       document.getElementById('load').style.visibility="visible";
        document.getElementById('contents').style.visibility="hidden";
   } else if (state == 'complete') {
       setTimeout(function(){
