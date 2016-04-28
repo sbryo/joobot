@@ -89,10 +89,10 @@
         <tbody>
         {% for x in list %}
              <tr>
-                <td><b>Title:</b> <font color="#18bc9c">{{x[0]}}</font></td>
+                <td><big><b> <font color="#18bc9c">{{x[0]}}</font></big></td></b>
                 <td><b>Price:</b> {{x[1]}}</td>
                 <td><b>Rank:</b> {{x[2]}}</td>
-                <td><form method="post" href={{ x[3] }}><p class="submit"><input type="submit" value="Buy" class="btn btn-primary" id={{x[0]}} </p></td>
+                <td><form method="post" href="{{x[3]}}"><p class="submit"><input type="submit" value="Buy" class="btn btn-primary" id="{{x[0]}}" </p></td>
                 <td><form method="post" action="http://dinero-web.heroku.com/favoites/delete/{{x[0]}}"><p class="submit"><input type="submit" value="Delete" class="btn btn-danger" id={{x[0]}} ></p></td>
              
                 </tr>
