@@ -7062,3 +7062,18 @@ a.list-group-item-danger.active:focus {
 .popover {
   color: #2c3e50;
 }
+div#content {
+    display: none;
+    }
+
+div#loading {
+    top: 200 px;
+    margin: auto;
+    position: absolute;
+    z-index: 1000;
+    width: 160px;
+    height: 24px;
+    background: url(../img/loadingimage.gif) no-repeat;
+    cursor: wait;
+    }
+

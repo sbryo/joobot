@@ -88,6 +88,13 @@
 					
 <h5>Dinero Found these items for you : </h5>
 
+                <div id="loading"></div>
+<div id="content">
+
+
+
+
+
   <table id="results" cellspacing="0" width="100%" class="ui celled table">
        <tbody>
         {% for x in list %}
@@ -188,6 +195,7 @@
             </div>
         </div>
     </div>
+    </div>
 
     <!-- jQuery -->
     <script src="../static/js/jquery.js"></script>
@@ -220,6 +228,17 @@
                               
                         } );
                         </script>
+
+<script type="text/javascript">// <![CDATA[
+        function preloader(){
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("content").style.display = "block";
+        }//preloader
+        window.onload = preloader;
+// ]]></script>
+
+
+
 
 
 </body>
