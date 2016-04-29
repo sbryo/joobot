@@ -8,7 +8,7 @@ import json
 #api connection:
 api = Connection(appid='Shaked-B-976d-45bc-a23a-71ab251884fb',config_file=None)
 #response details:
-response = api.execute('findItemsAdvanced',{'keywords':'Woman Bag'})
+response = api.execute('findItemsAdvanced',{'keywords':'Armani Watch'})
 assert(response.reply.ack == 'Success')
 #from today:
 #assert(type(response.reply.timestamp) == datetime.datetime)
