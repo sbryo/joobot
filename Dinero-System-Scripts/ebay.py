@@ -15,12 +15,17 @@ try:
     item = response.reply.searchResult.item[0]
     assert(type(item.listingInfo.endTime) == datetime.datetime)
     assert(type(response.dict()) == dict)
+    #print (((str(item).split(','))[10]).split(':')).split(',')
+    #print (str(item).split(','))
 
     for ITEM in response.reply.searchResult.item:
-        FIELDS = str(ITEM).split(',')
-        TITLE = ((FIELDS[4].split(':'))[1])[2:-1]
-        print TITLE
-
+        try:
+            FIELDS = str(ITEM).split(',')
+            TITLE = ((FIELDS[4].split(':'))[1])[2:-1]
+            SHIPPING = ((FIELDS[10].split(':'))[1])[2:-1]
+            print TITLE+" = "+SHIPPING
+        except:
+            continue
 
 
     #list = (str(response.reply.searchResult.item[0])).split(',')
