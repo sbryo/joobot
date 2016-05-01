@@ -18,6 +18,7 @@ try:
     #print (((str(item).split(','))[10]).split(':')).split(',')
     #print (str(item).split(','))
 
+
     for ITEM in response.reply.searchResult.item:
         try:
             FIELDS = str(ITEM).split(',')
@@ -27,6 +28,7 @@ try:
         except:
             continue
 
+    print response.reply.searchResult.item[1]
 
     #list = (str(response.reply.searchResult.item[0])).split(',')
 
