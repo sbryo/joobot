@@ -21,14 +21,38 @@ try:
 
     for ITEM in response.reply.searchResult.item:
         try:
-            FIELDS = str(ITEM).split(',')
-            TITLE = ((FIELDS[4].split(':'))[1])[2:-1]
-            SHIPPING = ((FIELDS[10].split(':'))[1])[2:-1]
-            print TITLE+" = "+SHIPPING
+            LIST = str(ITEM).split("'value':")
+            SHIPPING_PRICE = (LIST[1].split("'"))[1]
+
+            LIST = str(ITEM).split("'title':")
+            TITLE = (LIST[1].split("'"))[1]
+
+            LIST = str(ITEM).split("'viewItemURL':")
+            URL = (LIST[1].split("'"))[1]
+
+            LIST = str(ITEM).split("'galleryURL':")
+            IMG = (LIST[1].split("'"))[1]
+
+            LIST = (str(ITEM).split("'currentPrice':"))[1].split("'value':")
+            PRICE = (LIST[1].split("'"))[1]
+
+
+            print "TITLE = "+TITLE
+            print "PRICE = "+PRICE
+            print "SHIPPING_PRICE = "+SHIPPING_PRICE
+            print "URL = "+URL
+            print "IMG = "+IMG
+            #FIELDS = str(ITEM).split(',')
+           # TITLE = ((FIELDS[4].split(':'))[1])[2:-1]
+           # SHIPPING = ((FIELDS[10].split(':'))[1])[2:-1]
+           # URL = ((FIELDS[10].split(':'))[1])[2:-1]
+            #print TITLE+" = "+SHIPPING
         except:
             continue
 
-    print response.reply.searchResult.item[1]
+
+
+
 
     #list = (str(response.reply.searchResult.item[0])).split(',')
 
