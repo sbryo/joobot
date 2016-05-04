@@ -42,20 +42,23 @@ def my_space():
 
 @app.route("/search",methods=['GET', 'POST'])
 def append():
-	proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-    	(out, err) = proc.communicate()
-	PATH=(out.split('\n'))[0]
+        proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+        (out, err) = proc.communicate()
+        PATH=(out.split('\n'))[0]
 
-	if "add" in flask.request.form:
+        if "add" in flask.request.form:
                 #data = str(flask.request.data)
                 text = flask.request.form['add']
                 processed_text = text.upper()
-                file = open(PATH+"/users-folders/shaked/SearchFile.txt",'w')
-                file.write(processed_text)
-                file.close()
+                #file = open(PATH+"/users-folders/shaked/SearchFile.txt",'w')
+                #file.write(processed_text)
+                #file.close()
 
-        file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
-        response = client.put_file('/shaked/SearchFile.txt', file)
+        #file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
+        try:
+                response = client.put_file('/shaked/SearchFile.txt', processed_text)
+        except:
+                print "input error"
         return flask.redirect("/results")
 
 
