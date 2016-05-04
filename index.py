@@ -9,6 +9,7 @@ import datetime
 from ebaysdk.exception import ConnectionError
 from ebaysdk.finding import Connection
 import json
+import dropbox
 
 
 app = flask.Flask(__name__)
@@ -59,7 +60,7 @@ def append():
                 file.write(";"+processed_text)
                 file.close()
 	#os.system("python "+PATH+"/Dinero-System-Scripts/ebay.py")
-	ebay()
+
 	return flask.redirect("/results")
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
@@ -84,11 +85,17 @@ def remove(LINE):
 
 @app.route("/history")
 def my_history_page():
-    proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    PATH=(out.split('\n'))[0]
+    #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+    #(out, err) = proc.communicate()
+    #PATH=(out.split('\n'))[0]
     list = []
-    file = open(PATH+"/users-folders/shaked/History.txt",'r')
+    app_key='4e3oofj6zqcx5dh'
+    app_secret='vaoz96wg81222c9'
+    flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
+    authorize_url = flow.start()
+    client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
+    file, metadata = client.get_file_and_metadata('/Shaked/History.txt')
+    #file = open(PATH+"/users-folders/shaked/History.txt",'r')
     lines = file.readlines()
     file.close()
     for line in lines:
