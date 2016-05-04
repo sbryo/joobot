@@ -109,7 +109,7 @@
                 <td><b>Price:</b> {{x[1]}}</td>
                 <td><b>Shipping:</b> {{x[2]}}</td>
                  <td><img src={{x[4]}} height="50" width="50" ></td>
-                <td><form method="post" href="{{x[3]}}"><p class="submit"><input type="submit" value="Buy" class="btn btn-primary" id="{{x[0]}}" </p></td>
+                <td><form method="post" action={{x[3]}}><p class="submit"><input type="submit" value="Buy" class="btn btn-primary" id={{x[0]}}></p></td>
                 <td><form method="post" action="http://dinero-web.heroku.com/favoites/delete/{{x[0]}}"><p class="submit"><input type="submit" value="Delete" class="btn btn-danger" id={{x[0]}} ></p></td>
              
                 </tr>
