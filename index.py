@@ -55,13 +55,10 @@ def append():
                 #data = str(flask.request.data)
                 text = flask.request.form['add']
                 processed_text = text.upper()
-                file = open(PATH+"/users-folders/shaked/SearchFile.txt",'w')
-                file.write(processed_text)
-                file.close()
 
         #file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
         try:
-                response = client.put_file('/shaked/SearchFile.txt', file)
+                response = client.put_file('/shaked/SearchFile.txt',processed_text,overwrite=True)
         except:
                 print "input error"
         return flask.redirect("/results")
@@ -157,7 +154,7 @@ def my_archive_page():
 
 @app.route("/results")
 def my_archive_page2():
-    #ebay()
+    ebay()
     proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     PATH=(out.split('\n'))[0]
@@ -294,7 +291,7 @@ def ebay():
                 HISTORY_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
 
                 r_file=open(PATH+"/users-folders/shaked/Results.txt",'r')
-                response = client.put_file('/shaked/Results.txt', r_file)
+                response = client.put_file('/shaked/Results.txt', r_file , overwrite=True)
 
                 h_file=open(PATH+"/users-folders/shaked/History.txt",'r')
                 response = client.put_file('/shaked/History.txt', h_file)
