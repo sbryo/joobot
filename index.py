@@ -156,9 +156,9 @@ def my_archive_page():
 @app.route("/results")
 def my_archive_page2():
     #ebay()
-    #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-    #(out, err) = proc.communicate()
-    #PATH=(out.split('\n'))[0]
+    proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    PATH=(out.split('\n'))[0]
     list = []
     #F_FILE = open(PATH+"/users-folders/shaked/Results.txt",'r')
     app_key='4e3oofj6zqcx5dh'
@@ -171,7 +171,7 @@ def my_archive_page2():
     F_FILE.close()
     for line in lines:
         if '=' in line:
-                x = line.split("=")
+		x = line.split("=")
                 list.append(x)
     return flask.render_template('results.html',list=list)
 
