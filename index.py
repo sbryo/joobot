@@ -59,9 +59,9 @@ def append():
         #file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
         try:
                 response = client.put_file('/shaked/SearchFile.txt',processed_text,overwrite=True)
+                return flask.redirect("/results")
         except:
-                print "input error"
-        return flask.redirect("/results")
+                return flask.redirect("/results")
 
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
@@ -154,7 +154,7 @@ def my_archive_page():
 
 @app.route("/results")
 def my_archive_page2():
-    ebay()
+    #ebay()
     proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     PATH=(out.split('\n'))[0]
@@ -247,7 +247,11 @@ def ebay():
     PATH=(out.split('\n'))[0]
 
     SEARCH_FILE, metadata = client.get_file_and_metadata('/Shaked/SearchFile.txt')
+    H_FILE, metadata = client.get_file_and_metadata('/Shaked/History.txt')
+    F_FILE, metadata = client.get_file_and_metadata('/Shaked/Favorites.txt')
     KEYWORDS = SEARCH_FILE.read()
+    FAVORITES = F_FILE.read()
+    HISTORY = H_FILE.read()
     SEARCH_FILE.close()
     RESULTS_FILE = open(PATH+'/users-folders/shaked/Results.txt','w')
     HISTORY_FILE = open(PATH+'/users-folders/shaked/History.txt','a')
@@ -294,7 +298,7 @@ def ebay():
                 response = client.put_file('/shaked/Results.txt', r_file , overwrite=True)
 
                 h_file=open(PATH+"/users-folders/shaked/History.txt",'r')
-                response = client.put_file('/shaked/History.txt', h_file)
+                response = client.put_file('/shaked/History.txt', h_file, overwrite=True)
 
             except:
                 continue
