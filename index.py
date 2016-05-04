@@ -58,10 +58,11 @@ def append():
 
         #file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
         try:
-                response = client.put_file('/shaked/SearchFile.txt',processed_text,overwrite=True)
-                return flask.redirect("/results")
+            response = client.put_file('/shaked/SearchFile.txt',processed_text,overwrite=True)
+            return flask.redirect("/results")
         except:
-                return flask.redirect("/results")
+            return flask.redirect("/results")
+
 
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
