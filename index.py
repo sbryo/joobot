@@ -45,18 +45,23 @@ def append():
         proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
         (out, err) = proc.communicate()
         PATH=(out.split('\n'))[0]
+        app_key='4e3oofj6zqcx5dh'
+        app_secret='vaoz96wg81222c9'
+        flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
+        authorize_url = flow.start()
+        client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
 
         if "add" in flask.request.form:
                 #data = str(flask.request.data)
                 text = flask.request.form['add']
                 processed_text = text.upper()
-                #file = open(PATH+"/users-folders/shaked/SearchFile.txt",'w')
-                #file.write(processed_text)
-                #file.close()
+                file = open(PATH+"/users-folders/shaked/SearchFile.txt",'w')
+                file.write(processed_text)
+                file.close()
 
         #file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
         try:
-                response = client.put_file('/shaked/SearchFile.txt', processed_text)
+                response = client.put_file('/shaked/SearchFile.txt', file)
         except:
                 print "input error"
         return flask.redirect("/results")
