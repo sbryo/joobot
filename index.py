@@ -46,22 +46,24 @@ def append():
     	(out, err) = proc.communicate()
 	PATH=(out.split('\n'))[0]
 	if "add" in flask.request.form:
-		#data = str(flask.request.data)
-		text = flask.request.form['add']
-    		processed_text = text.upper()
-		file = open(PATH+"/users-folders/shaked/SearchFile.txt",'w')
-		file.write(processed_text)
-		file.close()
+                #data = str(flask.request.data)
+                text = flask.request.form['add']
+                processed_text = text.upper()
+                file = open(PATH+"/users-folders/shaked/SearchFile.txt",'w')
+                file.write(processed_text)
+                file.close()
 
-	if "add2" in flask.request.form:
-		text = flask.request.form['add2']
+        if "add2" in flask.request.form:
+                text = flask.request.form['add2']
                 processed_text = text.upper()
                 file = open(PATH+"/users-folders/shaked/SearchFile.txt",'a')
                 file.write(";"+processed_text)
                 file.close()
-	#os.system("python "+PATH+"/Dinero-System-Scripts/ebay.py")
 
-	return flask.redirect("/results")
+        file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
+        response = client.put_file('/shaked/SearchFile.txt', file)
+        return flask.redirect("/results")
+
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
 def remove(LINE):
@@ -153,6 +155,7 @@ def my_archive_page():
 
 @app.route("/results")
 def my_archive_page2():
+    ebay()
     #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     #(out, err) = proc.communicate()
     #PATH=(out.split('\n'))[0]
@@ -232,12 +235,19 @@ def public_append():
                 return flask.redirect("/public")
 
 def ebay():
+    #DropBox Login
+    app_key='4e3oofj6zqcx5dh'
+    app_secret='vaoz96wg81222c9'
+    flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
+    authorize_url = flow.start()
+    client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
+
     ### FILES
     proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     PATH=(out.split('\n'))[0]
 
-    SEARCH_FILE = open(PATH+'/users-folders/shaked/SearchFile.txt','r')
+    SEARCH_FILE, metadata = client.get_file_and_metadata('/Shaked/SearchFile.txt')
     KEYWORDS = SEARCH_FILE.read()
     SEARCH_FILE.close()
     RESULTS_FILE = open(PATH+'/users-folders/shaked/Results.txt','w')
@@ -280,6 +290,12 @@ def ebay():
 
                 RESULTS_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
                 HISTORY_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
+
+                r_file=open(PATH+"/users-folders/shaked/Results.txt",'r')
+                response = client.put_file('/shaked/Results.txt', r_file)
+
+                h_file=open(PATH+"/users-folders/shaked/History.txt",'r')
+                response = client.put_file('/shaked/History.txt', h_file)
 
             except:
                 continue
