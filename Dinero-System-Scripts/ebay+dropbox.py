@@ -7,6 +7,7 @@ import json
 import subprocess
 import os
 
+#Dropbox Connection
 app_key='4e3oofj6zqcx5dh'
 app_secret='vaoz96wg81222c9'
 flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
@@ -14,13 +15,14 @@ authorize_url = flow.start()
 client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
 
 ### FILES
-proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-(out, err) = proc.communicate()
-PATH=(out.split('\n'))[0]
+#proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+#(out, err) = proc.communicate()
+#PATH=(out.split('\n'))[0]
 
 SEARCH_FILE, metadata = client.get_file_and_metadata('/Shaked/SearchFile.txt')
 KEYWORDS = SEARCH_FILE.read()
 SEARCH_FILE.close()
+print KEYWORDS
 RESULTS_FILE = open('../users-folders/shaked/Results.txt','w')
 HISTORY_FILE = open('../users-folders/shaked/History.txt','a')
 
@@ -62,18 +64,25 @@ try:
             RESULTS_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
             HISTORY_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
 
-            r_file=open("../users-folders/shaked/Results.txt",'r')
-            response = client.put_file('/shaked/Results.txt', r_file)
-
-            h_file=open("../users-folders/shaked/History.txt",'r')
-            response = client.put_file('/shaked/History.txt', h_file)
-
         except:
             continue
+
+    RESULTS_FILE.close()
+    HISTORY_FILE.close()
+
+    print "Uploading now ..."
+
+    r_file=open("../users-folders/shaked/Results.txt",'r')
+    r = r_file.read()
+    response = client.put_file('/shaked/Results.txt', r,overwrite=True)
+
+    h_file=open("../users-folders/shaked/History.txt",'r')
+    h=h_file.read()
+    response = client.put_file('/shaked/History.txt', h,overwrite=True)
+
+    print "Finished ..."
 
 except ConnectionError as e:
     print(e)
     print(e.response.dict())
 
-RESULTS_FILE.close()
-HISTORY_FILE.close()
