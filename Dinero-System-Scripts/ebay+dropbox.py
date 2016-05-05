@@ -70,8 +70,6 @@ try:
     RESULTS_FILE.close()
     HISTORY_FILE.close()
 
-    print "Uploading now ..."
-
     r_file=open("../users-folders/shaked/Results.txt",'r')
     r = r_file.read()
     response = client.put_file('/shaked/Results.txt', r,overwrite=True)
@@ -80,7 +78,6 @@ try:
     h=h_file.read()
     response = client.put_file('/shaked/History.txt', h,overwrite=True)
 
-    print "Finished ..."
 
 except ConnectionError as e:
     print(e)
