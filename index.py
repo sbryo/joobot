@@ -155,7 +155,7 @@ def my_archive_page():
 
 @app.route("/results")
 def my_archive_page2():
-    #ebay()
+    ebay()
     proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     PATH=(out.split('\n'))[0]
@@ -179,11 +179,17 @@ def my_archive_page2():
 
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
 def favorite_delete(LINE):
-	proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+        proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
         (out, err) = proc.communicate()
         PATH=(out.split('\n'))[0]
         #if "Remove" in flask.request.form:
         #LINE = flask.request.form['name']
+        app_key='4e3oofj6zqcx5dh'
+        app_secret='vaoz96wg81222c9'
+        flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
+        authorize_url = flow.start()
+        client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
+        file, metadata = client.get_file_and_metadata('/Shaked/History.txt')
         F_FILE = open(PATH+"/users-folders/shaked/Favorites.txt",'r')
         lines = F_FILE.readlines()
         F_FILE.close()
@@ -192,8 +198,12 @@ def favorite_delete(LINE):
                 if LINE not in line:
                         F_FILE.write(line)
                 else:
-			continue
+                        continue
         F_FILE.close()
+        F_FILE = open(PATH+"/users-folders/shaked/Favorites.txt",'r')
+        F = F_FILE.read()
+        F_FILE.close()
+        response = client.put_file('/shaked/Favorites.txt', F,overwrite=True)
         return flask.redirect("/favorites")
 
 @app.route("/history/delete/<LINE>",methods=['GET','POST'])
