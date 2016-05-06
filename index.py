@@ -234,6 +234,7 @@ def public():
 	file.close()
 	return flask.render_template('public.html',lines=lines)
 
+
 @app.route("/public/appending")
 def public_append():
         if "add" in flask.request.form:

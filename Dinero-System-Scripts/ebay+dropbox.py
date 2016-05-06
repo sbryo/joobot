@@ -22,9 +22,8 @@ client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56W
 SEARCH_FILE, metadata = client.get_file_and_metadata('/Shaked/SearchFile.txt')
 KEYWORDS = SEARCH_FILE.read()
 SEARCH_FILE.close()
-print KEYWORDS
 RESULTS_FILE = open('../users-folders/shaked/Results.txt','w')
-HISTORY_FILE = open('../users-folders/shaked/History.txt','a')
+
 
 ### EBAY API
 try:
