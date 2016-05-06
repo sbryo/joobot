@@ -42,9 +42,9 @@ def my_space():
 
 @app.route("/search",methods=['GET', 'POST'])
 def append():
-        proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-        (out, err) = proc.communicate()
-        PATH=(out.split('\n'))[0]
+        #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+        #(out, err) = proc.communicate()
+        #PATH=(out.split('\n'))[0]
         app_key='4e3oofj6zqcx5dh'
         app_secret='vaoz96wg81222c9'
         flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
