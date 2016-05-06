@@ -54,14 +54,13 @@ def append():
         if "add" in flask.request.form:
                 try:
                     text = flask.request.form['add']
-                    processed_text = text.upper()
-                    response = client.put_file('/shaked/SearchFile.txt',processed_text,overwrite=True)
+                    #processed_text = text.upper()
+                    response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     return flask.redirect("/results")
                 except:
                     return flask.redirect("/results")
         else:
             return flask.redirect("/results")
-
 
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
@@ -153,26 +152,29 @@ def my_archive_page():
 
 
 @app.route("/results")
-def my_archive_page2():
-    ebay()
-    proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    PATH=(out.split('\n'))[0]
-    list = []
-    #F_FILE = open(PATH+"/users-folders/shaked/Results.txt",'r')
-    app_key='4e3oofj6zqcx5dh'
-    app_secret='vaoz96wg81222c9'
-    flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
-    authorize_url = flow.start()
-    client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
-    F_FILE, metadata = client.get_file_and_metadata('/Shaked/Results.txt')
-    lines = F_FILE.readlines()
-    F_FILE.close()
-    for line in lines:
-        if '=' in line:
-		x = line.split("=")
-                list.append(x)
-    return flask.render_template('results.html',list=list)
+def get_results():
+        try:
+                ebay()
+                proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+                (out, err) = proc.communicate()
+                PATH=(out.split('\n'))[0]
+                list = []
+                #F_FILE = open(PATH+"/users-folders/shaked/Results.txt",'r')
+                app_key='4e3oofj6zqcx5dh'
+                app_secret='vaoz96wg81222c9'
+                flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
+                authorize_url = flow.start()
+                client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
+                F_FILE, metadata = client.get_file_and_metadata('/Shaked/Results.txt')
+                lines = F_FILE.readlines()
+                F_FILE.close()
+                for line in lines:
+                        if '=' in line:
+                                x = line.split("=")
+                                list.append(x)
+                return flask.render_template('results.html',list=list)
+        except:
+                return flask.render_template('results.html',list=list)
 
 
 
