@@ -52,15 +52,14 @@ def append():
         client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
 
         if "add" in flask.request.form:
-                #data = str(flask.request.data)
-                text = flask.request.form['add']
-                processed_text = text.upper()
-
-        #file=open(PATH+"/users-folders/shaked/SearchFile.txt",'r')
-        try:
-            response = client.put_file('/shaked/SearchFile.txt',processed_text,overwrite=True)
-            return flask.redirect("/results")
-        except:
+                try:
+                    text = flask.request.form['add']
+                    processed_text = text.upper()
+                    response = client.put_file('/shaked/SearchFile.txt',processed_text,overwrite=True)
+                    return flask.redirect("/results")
+                except:
+                    return flask.redirect("/results")
+        else:
             return flask.redirect("/results")
 
 
