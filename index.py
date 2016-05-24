@@ -245,6 +245,7 @@ def public_append():
                 file.close()
                 return flask.redirect("/public")
 
+
 #@app.route("/parsing")
 #def pyscript()
 #    os.system("python Dinero-System-Scripts/ebay+dropbox.py")
