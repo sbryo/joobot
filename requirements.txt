@@ -5,5 +5,3 @@ ebaysdk
 python-amazon-simple-product-api
 pygoogle
 dropbox
-ebaysdk.exception
-ebaysdk.finding
