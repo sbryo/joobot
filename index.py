@@ -56,11 +56,11 @@ def append():
                     text = flask.request.form['add']
                     #processed_text = text.upper()
                     response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-                    return flask.redirect("/parsing")
+                    return flask.redirect("/results")
                 except:
-                    return flask.redirect("/parsing")
+                    return flask.redirect("/results")
         else:
-            return flask.redirect("/parsing")
+            return flask.redirect("/results")
 
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
@@ -245,10 +245,10 @@ def public_append():
                 file.close()
                 return flask.redirect("/public")
 
-@app.route("/parsing")
-def pyscript()
-    os.system("python Dinero-System-Scripts/ebay+dropbox.py")
-    return flask.redirect("/results")
+#@app.route("/parsing")
+#def pyscript()
+#    os.system("python Dinero-System-Scripts/ebay+dropbox.py")
+#    return flask.redirect("/results")
 
 
 #@app.route("/parsing")
