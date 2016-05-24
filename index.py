@@ -56,11 +56,11 @@ def append():
                     text = flask.request.form['add']
                     #processed_text = text.upper()
                     response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-                    return flask.redirect("/results")
+                    return flask.redirect("/parsing")
                 except:
-                    return flask.redirect("/results")
+                    return flask.redirect("/parsing")
         else:
-            return flask.redirect("/results")
+            return flask.redirect("/parsing")
 
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
@@ -245,6 +245,7 @@ def public_append():
                 file.close()
                 return flask.redirect("/public")
 
+@app.route("/parsing")
 def ebay():
 #Dropbox Connection
     app_key='4e3oofj6zqcx5dh'
@@ -321,6 +322,9 @@ def ebay():
     except ConnectionError as e:
         print(e)
         print(e.response.dict())
+
+    return flask.redirect("/results")
+
 
 if __name__ == "__main__":
     app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
