@@ -262,8 +262,8 @@ def ebay():
     KEYWORDS = SEARCH_FILE.read()
     SEARCH_FILE.close()
     print KEYWORDS
-    RESULTS_FILE = open(PATH+'/users-folders/shaked/Results.txt','w')
-    HISTORY_FILE = open(PATH+'/users-folders/shaked/History.txt','a')
+    RESULTS_FILE = open(PATH+'users-folders/shaked/Results.txt','w')
+    HISTORY_FILE = open(PATH+'users-folders/shaked/History.txt','a')
 
 ### EBAY API
     try:
