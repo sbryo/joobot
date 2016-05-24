@@ -153,7 +153,7 @@ def my_archive_page():
 @app.route("/results")
 def get_results():
         try:
-                #ebay()
+                ebay()
                 proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 (out, err) = proc.communicate()
                 PATH=(out.split('\n'))[0]
