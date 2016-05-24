@@ -150,7 +150,6 @@ def my_archive_page():
                 list.append(x)
     return flask.render_template('my-favorites.html',list=list)
 
-
 @app.route("/results")
 def get_results():
         try:
