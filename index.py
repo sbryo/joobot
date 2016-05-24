@@ -309,11 +309,11 @@ def ebay():
         RESULTS_FILE.close()
         HISTORY_FILE.close()
 
-        r_file=open("../users-folders/shaked/Results.txt",'r')
+        r_file=open(PATH+"users-folders/shaked/Results.txt",'r')
         r = r_file.read()
         response = client.put_file('/shaked/Results.txt', r,overwrite=True)
 
-        h_file=open("../users-folders/shaked/History.txt",'r')
+        h_file=open(PATH+"users-folders/shaked/History.txt",'r')
         h=h_file.read()
         response = client.put_file('/shaked/History.txt', h,overwrite=True)
 
