@@ -153,7 +153,7 @@ def my_archive_page():
 @app.route("/results")
 def get_results():
         try:
-                ebay()
+                #ebay()
                 proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 (out, err) = proc.communicate()
                 PATH=(out.split('\n'))[0]
@@ -244,6 +244,12 @@ def public_append():
                 file.write(processed_text+'\n')
                 file.close()
                 return flask.redirect("/public")
+
+#@app.route("/parsing")
+#def pyscript()
+#    os.system("python Dinero-System-Scripts/ebay+dropbox.py")
+#    return flask.redirect("/results")
+
 
 @app.route("/parsing")
 def ebay():
