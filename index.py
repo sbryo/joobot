@@ -151,24 +151,14 @@ def my_archive_page():
                 list.append(x)
     return flask.render_template('my-favorites.html',list=list)
 
-def execute(cmd, files):
-    os.system(cmd)
-    back =dict()
-    for file in files:
-        with open(file, 'r') as f:
-            info = f.read()
-            back[file] = info
-    return back
-
 @app.route("/results")
 def get_results():
         try:
-                #os.system("python Dinero-System-Scripts/ebaydropbox.py")
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
-                execute(['py', 'Dinero-System-Scripts/ebaydropbox.py'], ['Dinero-System-Scripts/file1.txt', 'Dinero-System-Scripts/file2.txt'])
                 proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 (out, err) = proc.communicate()
                 PATH=(out.split('\n'))[0]
+                os.system("python "+PATH+"Dinero-System-Scripts/ebaydropbox.py")
                 list = []
                 #F_FILE = open(PATH+"/users-folders/shaked/Results.txt",'r')
                 app_key='4e3oofj6zqcx5dh'
