@@ -3,6 +3,7 @@
 ####### APP NAME: Dinero #######
 
 import os
+import cmd
 import flask
 import subprocess
 import datetime
