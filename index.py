@@ -175,7 +175,7 @@ def get_results():
                                 list.append(x)
                 return flask.render_template('results.html',list=list)
         except:
-                return flask.render_template('results.html',list=list)
+                return flask.render_template('results.html')
 
 
 
