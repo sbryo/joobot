@@ -24,8 +24,15 @@ client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56W
 SEARCH_FILE, metadata = client.get_file_and_metadata('/Shaked/SearchFile.txt')
 KEYWORDS = SEARCH_FILE.read()
 SEARCH_FILE.close()
-RESULTS_FILE = open('../users-folders/shaked/Results.txt','w')
-HISTORY_FILE = open('../users-folders/shaked/History.txt','a')
+
+HISTORY_FILE, metadata = client.get_file_and_metadata('/Shaked/History.txt')
+R = HISTORY_FILE.read()
+HISTORY_FILE = open('/tmp/shaked/History.txt','w')
+HISTORY_FILE.write(R)
+HISTORY_FILE.close()
+
+RESULTS_FILE = open('/tmp/shaked/Results.txt','w')
+HISTORY_FILE = open('/tmp/shaked/History.txt','a')
 
 ### EBAY API
 try:
@@ -71,11 +78,11 @@ try:
     RESULTS_FILE.close()
     HISTORY_FILE.close()
 
-    r_file=open("../users-folders/shaked/Results.txt",'r')
+    r_file=open("/tmp/shaked/Results.txt",'r')
     r = r_file.read()
     response = client.put_file('/shaked/Results.txt', r,overwrite=True)
 
-    h_file=open("../users-folders/shaked/History.txt",'r')
+    h_file=open("/tmp/shaked/History.txt",'r')
     h=h_file.read()
     response = client.put_file('/shaked/History.txt', h,overwrite=True)
 
