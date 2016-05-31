@@ -334,6 +334,9 @@ def public_append():
 
  #   return flask.redirect("/results")
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return flask.render_template('404.html'), 404
 
 if __name__ == "__main__":
     app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
