@@ -2,7 +2,6 @@ Flask
 gunicorn
 flask-script
 ebaysdk
-ebaysdk-python
 python-amazon-simple-product-api
 pygoogle
 dropbox
