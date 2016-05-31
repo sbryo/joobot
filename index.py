@@ -129,7 +129,7 @@ def append():
                     text = flask.request.form['add']
                     #processed_text = text.upper()
                     response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-                    return flask.redirect("/results")
+                    return flask.render_template("404.html")
         else:
             return flask.render_template("404.html")
 
