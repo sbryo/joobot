@@ -55,11 +55,15 @@ def append():
                     text = flask.request.form['add']
                     #processed_text = text.upper()
                     response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
+                    os.system("Dinero-System-Scripts/ebaydropbox.py")
                     return flask.redirect("/results")
                 except:
+                    text = flask.request.form['add']
+                    #processed_text = text.upper()
+                    response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     return flask.redirect("/results")
         else:
-            return flask.redirect("/results")
+            return flask.render_template("404.html")
 
 
 @app.route("/history/remove/<LINE>",methods=['GET','POST'])
@@ -156,7 +160,6 @@ def get_results():
                 proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 (out, err) = proc.communicate()
                 PATH=(out.split('\n'))[0]
-                os.system("Dinero-System-Scripts/ebaydropbox.py")
                 list = []
                 #F_FILE = open(PATH+"/users-folders/shaked/Results.txt",'r')
                 app_key='4e3oofj6zqcx5dh'
