@@ -158,7 +158,7 @@ def get_results():
                 proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 (out, err) = proc.communicate()
                 PATH=(out.split('\n'))[0]
-                os.system("python Dinero-System-Scripts/ebaydropbox.py")
+                os.system("Dinero-System-Scripts/ebaydropbox.py")
                 list = []
                 #F_FILE = open(PATH+"/users-folders/shaked/Results.txt",'r')
                 app_key='4e3oofj6zqcx5dh'
