@@ -49,13 +49,15 @@ def append():
         flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
         authorize_url = flow.start()
         client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
-
+        proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+        (out, err) = proc.communicate()
+        PATH=(out.split('\n'))[0]
         if "add" in flask.request.form:
                 try:
                     text = flask.request.form['add']
                     #processed_text = text.upper()
                     response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-                    os.system("Dinero-System-Scripts/ebaydropbox.py")
+                    os.system("python "+PATH+"/Dinero-System-Scripts/ebaydropbox.py")
                     return flask.redirect("/results")
                 except:
                     text = flask.request.form['add']
