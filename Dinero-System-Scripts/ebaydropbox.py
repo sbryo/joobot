@@ -71,7 +71,9 @@ try:
 
             if SHIPPING_PRICE == 'Free':
                 S = 0
-            TOTAL = float(PRICE)+float(S)
+                TOTAL = float(PRICE)+float(S)
+            else:
+                TOTAL = float(PRICE)+float(SHIPPING_PRICE)
 
 
             RESULTS_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+" = "+str(TOTAL)+'\n')
