@@ -69,8 +69,13 @@ try:
             LIST = (str(ITEM).split("'currentPrice':"))[1].split("'value':")
             PRICE = (LIST[1].split("'"))[1]
 
-            RESULTS_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
-            HISTORY_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
+            if SHIPPING_PRICE == 'Free':
+                S = 0
+            TOTAL = float(PRICE)+float(S)
+
+
+            RESULTS_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+" = "+str(TOTAL)+'\n')
+            HISTORY_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+" = "+str(TOTAL)+'\n')
 
         except:
             continue
