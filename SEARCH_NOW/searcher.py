@@ -17,7 +17,7 @@ def run(**params):
     links = soup.findAll("a")
     #print (response.status_code)
     #print (response.content)
-    os.system("python2.6 get_links.py "+response.url)
+    os.system("python get_links.py "+response.url)
     
 
 file = open("../users-folders/shaked/SearchFile.txt",'r')
