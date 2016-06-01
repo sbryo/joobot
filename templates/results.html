@@ -240,14 +240,6 @@
 <script type="text/javascript">document.onreadystatechange = function () {
   var state = document.readyState
   if (state == 'interactive') {
-      $.ajax({
-  type: "POST",
-  url: "../Dinero-System-Scripts/ebaydropbox.py",
-  data: { param: text}
-}).done(function( o ) {
-   document.getElementById('load').style.visibility="visible";
-       document.getElementById('contents').style.visibility="hidden";
-});
        document.getElementById('load').style.visibility="visible";
        document.getElementById('contents').style.visibility="hidden";
   } else if (state == 'complete') {
