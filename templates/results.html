@@ -109,10 +109,8 @@
        <tbody>
 
        <tr>
-            <td>Minimum Price:</td>
-            <td><input type="text" id="min" name="min"></td>
-            <td>Maximum Price:</td>
-            <td><input type="text" id="max" name="max"></td>
+            <td>Filter:</td>
+            <td><input type="text" id="myInput" name="myInput"></td>
         </tr>
 
         {% for x in list %}
@@ -262,11 +260,8 @@ $.fn.dataTable.ext.search.push(
 $(document).ready(function() {
     var table = $('#results').DataTable();
 
-    // Event listener to the two range filtering inputs to redraw on input
-    $('#min, #max').keyup( function() {
-        table.draw();
-    }
-    });
+ $('#myInput').on( 'keyup', function () {
+    table.search( this.value ).draw();
 } );
                         </script>
 
