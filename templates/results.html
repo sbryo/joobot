@@ -238,36 +238,42 @@
 
 
 
-
-                        <script>
-$.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-        var min = parseInt( $('#min').val(), 10 );
-        var max = parseInt( $('#max').val(), 10 );
-        var age = parseFloat( data[1] ) || 0; // use data for the age column
-
-        if ( ( isNaN( min ) && isNaN( max ) ) ||
-             ( isNaN( min ) && age <= max ) ||
-             ( min <= age   && isNaN( max ) ) ||
-             ( min <= age   && age <= max ) )
-        {
-            return true;
-        }
-        return false;
-    }
-);
-
+<script>
 $(document).ready(function() {
+
+    // Setup - add a text input to each footer cell
+    $('#results tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    // DataTable
     var table = $('#results').DataTable();
 
- $('#myInput').on( 'keyup', function () {
-    table.search( this.value ).draw();
-} );
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+}
                         </script>
 
 
 
-
+<script type="text/css">
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+</script>
 
 
 <script type="text/javascript">document.onreadystatechange = function () {
