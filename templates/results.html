@@ -106,14 +106,13 @@
 
 
   <table id="results" cellspacing="0" width="100%" class="ui celled table">
-       <tbody>
 
-       <tr>
-            <td>Filter:</td>
-            <td><input type="text" id="myInput" name="myInput"></td>
-        </tr>
 
-        {% for x in list %}
+ <button type="button" class="btn btn-success" data-toggle="popover" title="Dinero Filters: "  data-placement="bottom" data-content="Ebay , AliExpress , Amazon , DealExtreme" >Filtering</button>
+
+
+      <tbody>
+      {% for x in list %}
 
             <tr>
                 <td><big><b> <font color="#18bc9c">{{x[0]}}</font></big></td></b>
@@ -235,10 +234,8 @@
 	 <script type="../static/text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
 <script type="../static/text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
         <script type="../static/text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"
-
-
-
 <script>
+
 $(document).ready(function() {
 
     // Setup - add a text input to each footer cell
@@ -297,6 +294,13 @@ function goBack() {
     window.history.back();
 }
 </script>
+
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+
 
 
     <div class="scroll-top page-scroll visible-xs visible-sm">
