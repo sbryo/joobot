@@ -152,6 +152,32 @@ for i in products_list:
     except:
         continue
 
+########################################################### AliExpress ###################################33
+url = 'http://aliexpress.com/wholesale?catId=0&initiative_id=AS_20160721045815&SearchText='+KEYWORDS
+values = {'name': 'Dinero',
+          'location': 'Northampton',
+          'language': 'Python' }
+user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+headers = {'User-Agent': user_agent}
+
+data = urllib.urlencode(values)
+req = urllib2.Request(url,data,headers)
+response = urllib2.urlopen(req)
+the_page = response.read()
+products_list=the_page.split('<a class="history-item product "')
+
+for i in products_list:
+    try:
+        item_url = ((i.split('href="')[1]).split('"'))[0]
+        title = ((i.split('title="')[1]).split('"'))[0]
+        img = ((i.split('image-src="')[1]).split('"'))[0]
+        price = (((i.split('<span class="value" itemprop="price">')[1]).split('<'))[0])[3:-1]
+        shipping = "-"
+        RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
+        HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
+    except:
+        continue
+
 ############################################################ Close files & Sync #################################################################
 
 RESULTS_FILE.close()
