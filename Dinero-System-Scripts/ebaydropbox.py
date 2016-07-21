@@ -125,6 +125,33 @@ for product in products_list:
     except:
         continue
 
+########################################################### Amazon ##############################3
+url = 'http://www.amazon.com/s/field-keywords='+KEYWORDS
+values = {'name': 'Dinero',
+          'location': 'Northampton',
+          'language': 'Python' }
+user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+headers = {'User-Agent': user_agent}
+
+data = urllib.urlencode(values)
+req = urllib2.Request(url,data,headers)
+response = urllib2.urlopen(req)
+the_page = response.read()
+#products_list=the_page.split('id="atfResults')[1]
+products_list = the_page.split('result_')
+
+for i in products_list:
+    try:
+        item_url = ((i.split('normal" href="')[1]).split('"'))[0]
+        title = ((i.split('title="')[1]).split('"')[0])
+        img = ((i.split('img src="')[1]).split('"')[0])
+        price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
+        shipping = "-"
+        RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
+        HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
+    except:
+        continue
+
 ############################################################ Close files & Sync #################################################################
 
 RESULTS_FILE.close()
