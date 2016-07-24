@@ -105,7 +105,7 @@ def my_history_page():
     file.close()
     for line in lines:
 	if '=' in line:
-		x = line.split("=")
+		x = line.split(" = ")
                 list.append(x)
 		#title = x[0]
 		#link = x[1]
@@ -151,7 +151,7 @@ def my_archive_page():
     F_FILE.close()
     for line in lines:
         if '=' in line:
-		x = line.split("=")
+		x = line.split(" = ")
                 list.append(x)
     return flask.render_template('my-favorites.html',list=list)
 
@@ -175,7 +175,7 @@ def get_results():
                 F_FILE.close()
                 for line in lines:
                         if '=' in line:
-                                x = line.split("=")
+                                x = line.split(" = ")
                                 list.append(x)
                 return flask.render_template('results.html',list=list)
         except:
