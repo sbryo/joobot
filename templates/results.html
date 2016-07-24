@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.semanticui.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
@@ -131,13 +131,14 @@
                 <td><b>Shipping:</b> {{x[2]}}$</td>
                 <!--
                 <td><img src={{x[4]}} height="50" width="50" ></td>
+                <td><img src={{x[4]}} height="50" width="50" ></td>
                 -->
                 <td>  <div id="pageone" data-role="main" class="ui-content">
     <a href="#myPopup" data-rel="popup" data-position-to="window">
     <img src="{{x[4]}}" alt="Skaret View" style="height: 50px; width: 50px;"></a>
     <div data-role="popup" id="myPopup">
       <p>{{ x[0] }}</p>
-      <a href="#pageone" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img src="{{ x[4] }}" style="width:150px;height:150px;" alt="Skaret View">
+      <a href="#pageone" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img src="{{x[4]}}" style="width:150px;height:150px;" alt="Skaret View">
     </div>
   </div></td>
                 <td><form action={{x[3]}}><input type="submit" value="Buy" class="btn btn-primary"></form></td>
@@ -159,7 +160,7 @@
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
-                    <div class="rl">
+                    <div class="rl">/
                     </div>
                 </div>
             </div>
