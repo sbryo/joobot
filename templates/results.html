@@ -183,7 +183,7 @@
                     <h2>Results</h2>
          <!--           <hr class="star-primary"> -->
 					
-<h5>Dinero Found these items for you : </h5>
+<h5>Dinero found these items for you : </h5>
 
                <center><div id="load"></div></center>
 <div id="contents">
@@ -223,7 +223,7 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <span class="close">×</span>
-  <img class="modal-content" id="img01">
+  <img class="modal-content" id="{{x[4]}}">
   <div id="caption"></div>
 </div>
                 </td>
@@ -419,7 +419,7 @@ var modal = document.getElementById('myModal');
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
 var img = document.getElementById('myImg');
-var modalImg = document.getElementById("img01");
+var modalImg = document.getElementById({{x[4]}});
 var captionText = document.getElementById("caption");
 img.onclick = function(){
     modal.style.display = "block";
