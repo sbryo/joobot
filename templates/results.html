@@ -126,10 +126,8 @@
                 <td><big><b> <font color="#18bc9c">{{x[0]}}</font></big></td></b>
                 <td><b>Price:</b> {{x[1]}}$</td>
                 <td><b>Shipping:</b> {{x[2]}}$</td>
+                <td><img src={{x[4]}} height="50" width="50" onclick="window.open(this.src)"></td>
                 <!--
-                <td><img src={{x[4]}} height="50" width="50" ></td>
-                <td><img src={{x[4]}} height="50" width="50" ></td>
-                -->
                 <td>  <div id="pageone" data-role="main" class="ui-content">
     <a href="#myPopup" data-rel="popup" data-position-to="window">
     <img src="{{x[4]}}" alt="Skaret View" style="height: 50px; width: 50px;"></a>
@@ -138,6 +136,7 @@
       <a href="#pageone" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img src="{{x[4]}}" style="width:150px;height:150px;" alt="Skaret View">
     </div>
   </div></td>
+  -->
                 <td><form action={{x[3]}}><input type="submit" value="Buy" class="btn btn-primary"></form></td>
                 <td><form action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[0]}}"><input type="submit" value="Like" class="btn btn-success"></form></td>
             </tr>
@@ -233,7 +232,6 @@
 
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> --> 
     <script src="../static/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -323,6 +321,10 @@ $(document).ready(function(){
 </script>
 
 
+<script>
+ function imgWindow() {
+  window.open("image") }
+</script>
 
 
     <div class="scroll-top page-scroll visible-xs visible-sm">
