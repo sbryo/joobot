@@ -112,12 +112,14 @@
 -->
 
       <tbody>
-      <td><form action="http://dinero-web.heroku.com/results/filtering">
+      <td>
+          <center><form action="http://dinero-web.heroku.com/results/filtering">
   <input type="image" src="../static/img/ebay.png" alt="Submit" id="ebay">
           <input type="image" src="../static/img/alii.png" alt="Submit" id="ali">
           <input type="image" src="../static/img/dealextreame.png" alt="Submit" id="dx">
           <input type="image" src="../static/img/amazon.jpg" alt="Submit" id="amazon">
-</form></td>
+</form>
+      </center></td>
       {% for x in list %}
 
             <tr>
@@ -306,6 +308,7 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
 });
 </script>
+
 
 
 
