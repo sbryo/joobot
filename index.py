@@ -164,7 +164,7 @@ def my_archive_page():
 @app.route("/results")
 def get_results():
         try:
-                subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
+                #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
                 proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 (out, err) = proc.communicate()
                 PATH=(out.split('\n'))[0]
@@ -185,8 +185,7 @@ def get_results():
                 db = client.results
                 cursor = db.results.shaked.find()
 
-################## Need to change the list of the HTML table ############ :
-                i=0
+################## Need to change the list of the HTML table ###############
                 for document in cursor:
                     x = []
                     x.append(document['title'])
