@@ -1,4 +1,3 @@
-#DropBox Login
 
 import json
 from pymongo import MongoClient
@@ -188,7 +187,7 @@ results_array = '{"ebay":"'+str(ebay_list)+'","dx":"'+str(dx_list)+'","amazon":"
 print "ARRAY: "+results_array
 
 result = db_results.results.shaked.delete_many({})
+db_results.results.shaked.insert(ebay_list)
 db_results.results.shaked.insert(dx_list)
 db_results.results.shaked.insert(ali_list)
-db_results.results.shaked.insert(ebay_list)
 db_results.results.shaked.insert(amazon_list)
