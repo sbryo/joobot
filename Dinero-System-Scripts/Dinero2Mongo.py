@@ -1,3 +1,4 @@
+#DropBox Login
 
 import json
 from pymongo import MongoClient
@@ -138,7 +139,7 @@ for i in products_list:
     try:
         item_url = ((i.split('normal" href="')[1]).split('"'))[0]
         title = ((i.split('title="')[1]).split('"')[0])
-        if keywords in title:
+        if KEYWORDS in title:
             img = ((i.split('img src="')[1]).split('"')[0])
             price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
             shipping = "-"
