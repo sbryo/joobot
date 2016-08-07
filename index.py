@@ -4,6 +4,7 @@
 
 import os
 import cmd
+from pymongo import MongoClient
 import flask
 import subprocess
 import datetime
@@ -11,7 +12,6 @@ from ebaysdk.exception import ConnectionError
 from ebaysdk.finding import Connection
 import json
 import dropbox
-from pymongo import MongoClient
 
 app = flask.Flask(__name__)
 
@@ -59,6 +59,7 @@ def append():
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     j = json.loads('{"search":"'+text+'"}')
+                    db.search.shaked.delete_many({})
                     db.search.shaked.insert(j)
                     return flask.redirect("/results")
 
@@ -179,11 +180,15 @@ def get_results():
                 #lines = F_FILE.readlines()
                 #F_FILE.close()
                 x = []  ### This is the list for html
+                client = MongoClient('ds019254.mlab.com',19254)
+                client.results.authenticate('shakedinero','a57821688')
+                db = client.results
                 cursor = db.results.shaked.find()
 
 ################## Need to change the list of the HTML table ############ :
-
+                i=0
                 for document in cursor:
+                    x = []
                     x.append(document['title'])
                     x.append(document['price'])
                     x.append(document['shipping'])
@@ -193,8 +198,6 @@ def get_results():
                 return flask.render_template('results.html',list=list)
         except:
                 return flask.render_template('404.html')
-
-
 
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
 def favorite_delete(LINE):
