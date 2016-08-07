@@ -1,3 +1,5 @@
+#DropBox Login
+
 import json
 from pymongo import MongoClient
 import dropbox
@@ -137,12 +139,13 @@ for i in products_list:
     try:
         item_url = ((i.split('normal" href="')[1]).split('"'))[0]
         title = ((i.split('title="')[1]).split('"')[0])
-        img = ((i.split('img src="')[1]).split('"')[0])
-        price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
-        shipping = "-"
-        x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
-        j=json.loads(x)
-        amazon_list.append(j)
+        if keywords in title:
+            img = ((i.split('img src="')[1]).split('"')[0])
+            price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
+            shipping = "-"
+            x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
+            j=json.loads(x)
+            amazon_list.append(j)
         #RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
         #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
     except:
