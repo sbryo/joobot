@@ -127,13 +127,12 @@ def addtofavorites(LINE):
     db_results = client.results
     cursor = db.results.shaked.find()
     for doc in cursor:
-        if LINE in doc['title']:
+        STR=LINE.replace("%20"," ")
+        if STR in doc['title']:
             db_favorites.favorites.shaked.insert(doc)
         else:
             continue
     return flask.redirect("/results")
-
-
 
 @app.route("/favorites")
 def my_archive_page():
