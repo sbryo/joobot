@@ -137,6 +137,7 @@ def addtofavorites(LINE):
 @app.route("/favorites")
 def my_archive_page():
     try:
+        list=[]
         client4 = MongoClient('ds019254.mlab.com',19254)
         client4.favorites.authenticate('shakedinero','a57821688')
         db_favorites = client4.favorites
