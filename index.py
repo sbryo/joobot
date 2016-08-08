@@ -125,7 +125,7 @@ def addtofavorites(LINE):
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db_results = client.results
-    cursor = db.results.shaked.find()
+    cursor = db_results.results.shaked.find()
     for doc in cursor:
         STR=LINE.replace("%20"," ")
         if STR in doc['title']:
