@@ -99,7 +99,7 @@ def my_history_page():
     try:
         list = []
         client3 = MongoClient('ds019254.mlab.com',19254)
-        client3.search.authenticate('shakedinero','a57821688')
+        client3.history.authenticate('shakedinero','a57821688')
         db_history = client3.history
         cursor = db_history.history.shaked.find()
     # Make list for html page
@@ -132,14 +132,14 @@ def addtofavorites(LINE):
         else:
             continue
     return flask.redirect("/results")
-            
-    
-    
+
+
+
 @app.route("/favorites")
 def my_archive_page():
     try:
         client4 = MongoClient('ds019254.mlab.com',19254)
-        client4.search.authenticate('shakedinero','a57821688')
+        client4.favorites.authenticate('shakedinero','a57821688')
         db_favorites = client4.favorites
         cursor = db_favorites.favorites.shaked.find()
         # Make list for html page
@@ -154,7 +154,7 @@ def my_archive_page():
         return flask.render_template('my-favorites.html',list=list)
     except:
         return flask.render_template('404.html')
-    
+
 
 @app.route("/results")
 def get_results():
