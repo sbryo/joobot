@@ -73,27 +73,6 @@ def append():
         else:
             return flask.render_template("404.html")
 
-
-@app.route("/history/remove/<LINE>",methods=['GET','POST'])
-def remove(LINE):
-	proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-        (out, err) = proc.communicate()
-        PATH=(out.split('\n'))[0]
-	#if "Remove" in flask.request.form:
-	#LINE = flask.request.form['name']
-        H_FILE = open(PATH+"/users-folders/shaked/History.txt",'r')
-        lines = H_FILE.readlines()
-	H_FILE.close()
-	H_FILE = open(PATH+"/users-folders/shaked/History.txt",'w')
-        for line in lines:
-        	if LINE not in line:
-			H_FILE.write(line)
-		else:
-			continue
-	H_FILE.close()
-        return flask.redirect("/history")
-
-
 @app.route("/history")
 def my_history_page():
     try:
@@ -119,13 +98,13 @@ def my_history_page():
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
 def addtofavorites(LINE):
     client4 = MongoClient('ds019254.mlab.com',19254)
-    client4.favorites.authenticate('shakedinero','a57821688')
+    client4.search.authenticate('shakedinero','a57821688')
     db_favorites = client4.favorites
 
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db_results = client.results
-    cursor = db_results.results.shaked.find()
+    cursor = db.results.shaked.find()
     for doc in cursor:
         STR=LINE.replace("%20"," ")
         if STR in doc['title']:
@@ -137,7 +116,6 @@ def addtofavorites(LINE):
 @app.route("/favorites")
 def my_archive_page():
     try:
-        list=[]
         client4 = MongoClient('ds019254.mlab.com',19254)
         client4.favorites.authenticate('shakedinero','a57821688')
         db_favorites = client4.favorites
@@ -187,51 +165,42 @@ def get_results():
 
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
 def favorite_delete(LINE):
-        proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-        (out, err) = proc.communicate()
-        PATH=(out.split('\n'))[0]
-        #if "Remove" in flask.request.form:
-        #LINE = flask.request.form['name']
-        app_key='4e3oofj6zqcx5dh'
-        app_secret='vaoz96wg81222c9'
-        flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
-        authorize_url = flow.start()
-        client = dropbox.client.DropboxClient('BH4cEdpiGmAAAAAAAAAAB5P3NEPXB2HO07UZJD56WRC5VfomuHI_Jz6Aa06YUUxl')
-        file, metadata = client.get_file_and_metadata('/Shaked/History.txt')
-        F_FILE = open(PATH+"/users-folders/shaked/Favorites.txt",'r')
-        lines = F_FILE.readlines()
-        F_FILE.close()
-        F_FILE = open(PATH+"/users-folders/shaked/Favorites.txt",'w')
-        for line in lines:
-                if LINE not in line:
-                        F_FILE.write(line)
-                else:
-                        continue
-        F_FILE.close()
-        F_FILE = open(PATH+"/users-folders/shaked/Favorites.txt",'r')
-        F = F_FILE.read()
-        F_FILE.close()
-        response = client.put_file('/shaked/Favorites.txt', F,overwrite=True)
-        return flask.redirect("/favorites")
+    list=[]
+    STR = LINE.replace('%20',' ')
+    client4 = MongoClient('ds019254.mlab.com',19254)
+    client4.favorites.authenticate('shakedinero','a57821688')
+    db_favorites = client4.favorites
+    cursor = db_favorites.favorites.shaked.find()
+    for doc in cursor:
+        if STR not in doc['title']:
+            list.append(doc)
+        else:
+            continue
+    favorite = db_favorites.favorites.shaked.delete_many({})
+    #for doc in list:
+    #    db_favorites.favorites.shaked.insert(doc)
+    db_favorites.favorites.shaked.insert(list)
+    return flask.redirect("/favorites")
+
 
 @app.route("/history/delete/<LINE>",methods=['GET','POST'])
 def history_delete(LINE):
-	proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-        (out, err) = proc.communicate()
-        PATH=(out.split('\n'))[0]
-        #if "Remove" in flask.request.form:
-        #LINE = flask.request.form['name']
-        H_FILE = open(PATH+"/users-folders/shaked/History.txt",'r')
-        lines = H_FILE.readlines()
-        H_FILE.close()
-        H_FILE = open(PATH+"/users-folders/shaked/History.txt",'w')
-        for line in lines:
-                if LINE not in line:
-                        H_FILE.write(line)
-                else:
-                        continue
-        H_FILE.close()
-        return flask.redirect("/history")
+    list=[]
+    STR = LINE.replace('%20',' ')
+    client4 = MongoClient('ds019254.mlab.com',19254)
+    client4.history.authenticate('shakedinero','a57821688')
+    db_history = client4.history
+    cursor = db_history.history.shaked.find()
+    for doc in cursor:
+        if STR not in doc['title']:
+            list.append(doc)
+        else:
+            continue
+    history = db_history.history.shaked.delete_many({})
+    #for doc in list:
+    #    db_history.history.shaked.insert(doc)
+    db_history.history.shaked.insert(list)
+    return flask.redirect("/history")
 
 
 @app.route("/public")
