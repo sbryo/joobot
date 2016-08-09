@@ -23,9 +23,9 @@ client2.search.authenticate('shakedinero','a57821688')
 db_search = client2.search
 
 ########################## Connect History DB ########################
-#client3 = MongoClient('ds019254.mlab.com',19254)
-#client3.search.authenticate('shakedinero','a57821688')
-#db_history = client3.history
+client3 = MongoClient('ds019254.mlab.com',19254)
+client3.history.authenticate('shakedinero','a57821688')
+db_history = client3.history
 
 ############## get KEYWORDS from Search DB #################################
 cursor = db_search.search.shaked.find()
@@ -198,3 +198,7 @@ db_results.results.shaked.insert(dx_list)
 db_results.results.shaked.insert(ali_list)
 db_results.results.shaked.insert(amazon_list)
 
+db_history.history.shaked.insert(ebay_list)
+db_history.history.shaked.insert(dx_list)
+db_history.history.shaked.insert(ali_list)
+db_history.history.shaked.insert(amazon_list)
