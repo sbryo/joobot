@@ -177,9 +177,9 @@ def favorite_delete(LINE):
         else:
             continue
     favorite = db_favorites.favorites.shaked.delete_many({})
-    #for doc in list:
-    #    db_favorites.favorites.shaked.insert(doc)
-    db_favorites.favorites.shaked.insert(list)
+    for doc in list:
+    	db_favorites.favorites.shaked.insert(doc)
+    #db_favorites.favorites.shaked.insert(list)
     return flask.redirect("/favorites")
 
 
@@ -197,9 +197,9 @@ def history_delete(LINE):
         else:
             continue
     history = db_history.history.shaked.delete_many({})
-    #for doc in list:
-    #    db_history.history.shaked.insert(doc)
-    db_history.history.shaked.insert(list)
+    for doc in list:
+    	db_history.history.shaked.insert(doc)
+    #db_history.history.shaked.insert(list)
     return flask.redirect("/history")
 
 
