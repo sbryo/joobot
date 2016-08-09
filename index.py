@@ -98,7 +98,7 @@ def my_history_page():
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
 def addtofavorites(LINE):
     client4 = MongoClient('ds019254.mlab.com',19254)
-    client4.search.authenticate('shakedinero','a57821688')
+    client4.favorites.authenticate('shakedinero','a57821688')
     db_favorites = client4.favorites
 
     client = MongoClient('ds019254.mlab.com',19254)
