@@ -94,10 +94,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Results</h2>
+                    <h2>Coming Soon...</h2>
          <!--           <hr class="star-primary"> -->
 					
-<h5>Dinero found these items for you : </h5>
+<h5>Dinero Market Place</h5>
 
                <center><div id="load"></div></center>
 <div id="contents">
@@ -105,39 +105,6 @@
 
 
 
-
-  <table id="results" cellspacing="0" width="100%" class="ui celled table">
-
-<!--
- <button type="button" class="btn btn-success" data-toggle="popover" title="Dinero Filters: "  data-placement="bottom" data-content="Ebay , AliExpress , Amazon , DealExtreme" >Filtering</button>
--->
-
-      <tbody>
-      <td>
-          <center><form action="http://dinero-web.heroku.com/results/filtering">
-  <input class="img-thumbnail" type="image" src="../static/img/ebay.png" alt="Submit" id="ebay">
-          <input class="img-thumbnail" type="image" src="../static/img/alii.png" alt="Submit" id="ali">
-          <input class="img-thumbnail" type="image" src="../static/img/dealextreame.png" alt="Submit" id="dx">
-          <input class="img-thumbnail" type="image" src="../static/img/amazon.jpg" alt="Submit" id="amazon">
-              <input style="height: 58px; width: 58px;" class="img-thumbnail" type="image" src="../static/img/low_cost.png" alt="Submit" id="low">
-</form>
-      </center></td>
-      {% for x in list %}
-
-            <tr>
-                <td><big><b> <font color="#18bc9c">{{x[0]}}</font></big></td></b>
-                <td><b>Price:</b> {{x[1]}}$</td>
-                <td><b>Shipping:</b> {{x[2]}}$</td>
-  <!--  <td><div class="img-thumbnail"><img src={{x[4]}} id="myImg" height="120" width="120"></div></td> -->
-		<td><div class="img-thumbnail"><img src={{x[4]}} height="120" width="120"></div></td>
-    
-
-                <td><form action={{x[3]}} target="_blank"><input type="submit" value="Buy" target="_blank" class="btn btn-primary btn-block"></form></td>
-                <td><form action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[0]}}"><input type="submit" value="Like" class="btn btn-success btn-block"></form></td>
-            </tr>
-        {% endfor %}
-       </tbody>
-    </table>
 
 		
 					
@@ -147,83 +114,7 @@
            
     </section>
 
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">/
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+
 
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
