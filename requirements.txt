@@ -6,4 +6,4 @@ python-amazon-simple-product-api
 pygoogle
 dropbox
 pymongo
-Flask-OAuth
+
