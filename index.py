@@ -39,6 +39,10 @@ def test():
 @app.route("/my-space")
 def my_space():
 	return flask.render_template('my-space.html')
+	
+@app.route("/marketplace")
+def market():
+	return flask.render_template('market.html')
 
 @app.route("/search",methods=['GET', 'POST'])
 def append():
