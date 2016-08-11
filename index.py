@@ -40,6 +40,45 @@ def loginPage():
 	else:
 		return flask.render_template('dinero-login.html')
 
+
+@app.route("/signup")
+def signup():
+	return flask.render_template("signup.html")
+
+@app.route("/signing", methods=['GET','POST'])
+def signing():
+	if "email" in flask.request.form:
+		try:
+			x=0
+        		client = MongoClient('ds019254.mlab.com', 19254)
+        		client.users.authenticate('shakedinero','a57821688')
+        		db = client.users
+        		collection = db.users
+        		cursor = db.users.find()
+        		email = flask.request.form['email']
+        		password = flask.request.form['password']
+        		for doc in cursor:
+        			### if user already exists
+            			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
+            				x=x+1
+            				return flask.redirect("/")
+            			### Create user
+            		if x=0:
+            			db.users.insert('{"email":'+email+',"password":'+password+'}')
+            			flask.session['username'] = email
+            			return flask.redirect("/dinero")
+            			
+        	except:
+        		return flask.redirect("/")
+        else:
+        	return flask.redirect("/")
+        	
+        	
+        
+
+
+
+
 @app.route("/login", methods=['GET','POST'])
 def login():
 	if "email" in flask.request.form:
