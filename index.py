@@ -14,10 +14,50 @@ import json
 import dropbox
 
 app = flask.Flask(__name__)
+app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 
+def check_login(func):
+    def wrapper(*args, **kwargs):
+        if "username" in flask.session:
+            return func(*args, **kwargs)
+        else:
+            return flask.redirect("/")
+    return functools.update_wrapper(wrapper, func)
+    
 @app.route("/")
-def start():
-	return flask.render_template('dinero-login.html')
+def loginPage():
+	if "username" in flask.session:
+        	username = flask.session['username']
+        	client = MongoClient('localhost', 27017)
+        	db = client.services
+        	collection = db.users
+        	cursor = db.users.find()
+        	for doc in cursor:
+            		if username == doc['name']:
+            			return flask.redirect("/dinero")
+	else:
+		return flask.render_template('dinero-login.html')
+
+@app.route("/login", methods=['GET','POST'])
+def login():
+	if "username" in flask.request.form:
+		try:
+        		client = MongoClient('localhost', 27017)
+        		db = client.services
+        		collection = db.users
+        		cursor = db.users.find()
+        		email = flask.request.form['email']
+        		password = flask.request.form['password']
+        		for doc in cursor:
+            			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
+            				flask.session['username'] = doc['name']
+            				return flask.redirect("/dinero")
+        	except:
+        		return flask.redirect("/")
+        else:
+        	return flask.redirect("/")
+        	
+
 
 @app.route("/dinero")
 def dinero():
@@ -227,6 +267,13 @@ def public_append():
                 file.close()
                 return flask.redirect("/public")
 
+@app.route("/logout")
+def logout():
+	if "username" in flask.session:
+        	del flask.session["username"]
+    		return flask.redirect("/")
+    	else:
+    		return flask.redirect("/") 
 
 @app.errorhandler(404)
 def page_not_found(e):
