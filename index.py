@@ -26,14 +26,14 @@ def check_login(func):
     
 @app.route("/")
 def loginPage():
-	if "username" in flask.session:
-        	username = flask.session['username']
-        	client = MongoClient('localhost', 27017)
-        	db = client.services
+	if "email" in flask.session:
+        	email = flask.session['email']
+        	client = MongoClient('ds019254.mlab.com', 19254)
+        	db = client.users
         	collection = db.users
         	cursor = db.users.find()
         	for doc in cursor:
-            		if username == doc['name']:
+            		if email == doc['email']:
             			return flask.redirect("/dinero")
 	else:
 		return flask.render_template('dinero-login.html')
@@ -42,15 +42,15 @@ def loginPage():
 def login():
 	if "username" in flask.request.form:
 		try:
-        		client = MongoClient('localhost', 27017)
-        		db = client.services
+        		client = MongoClient('ds019254.mlab.com', 19254)
+        		db = client.users
         		collection = db.users
         		cursor = db.users.find()
         		email = flask.request.form['email']
         		password = flask.request.form['password']
         		for doc in cursor:
             			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
-            				flask.session['username'] = doc['name']
+            				flask.session['email'] = doc['email']
             				return flask.redirect("/dinero")
         	except:
         		return flask.redirect("/")
