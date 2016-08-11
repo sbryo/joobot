@@ -12,19 +12,104 @@ from ebaysdk.exception import ConnectionError
 from ebaysdk.finding import Connection
 import json
 import dropbox
+import functools
 
 app = flask.Flask(__name__)
+app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 
+def check_login(func):
+	def wrapper(*args, **kwargs):
+        	if "username" in flask.session:
+            		return func(*args, **kwargs)
+        	else:
+            		return flask.redirect("/")
+	return functools.update_wrapper(wrapper, func)
+    
 @app.route("/")
-def start():
-	return flask.render_template('dinero-login.html')
+def loginPage():
+	if "username" in flask.session:
+        	email = flask.session['username']
+        	client = MongoClient('ds019254.mlab.com', 19254)
+        	client.users.authenticate('shakedinero','a57821688')
+        	db = client.users
+        	collection = db.users
+        	cursor = db.users.find()
+        	for doc in cursor:
+            		if email == doc['email']:
+            			return flask.redirect("/dinero")
+	else:
+		return flask.render_template('dinero-login.html')
+
+
+@app.route("/signup")
+def signup():
+	return flask.render_template("signup.html")
+
+@app.route("/signing", methods=['GET','POST'])
+def signing():
+	if "email" in flask.request.form:
+		try:
+			x=0
+        		client = MongoClient('ds019254.mlab.com', 19254)
+        		client.users.authenticate('shakedinero','a57821688')
+        		db = client.users
+        		collection = db.users
+        		cursor = db.users.find()
+        		email = flask.request.form['email']
+        		password = flask.request.form['password']
+        		for doc in cursor:
+        			### if user already exists
+            			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
+            				x=x+1
+            				return flask.redirect("/")
+            			### Create user
+            		if x==0:
+            			j=json.loads('{"email":"'+email+'","password":"'+password+'"}')
+            			db.users.insert(j)
+            			flask.session['username'] = email
+            			return flask.redirect("/dinero")
+            			
+        	except:
+        		return flask.redirect("/")
+        else:
+        	return flask.redirect("/")
+        	
+        	
+        
+
+
+
+
+@app.route("/login", methods=['GET','POST'])
+def login():
+	if "email" in flask.request.form:
+		try:
+        		client = MongoClient('ds019254.mlab.com', 19254)
+        		client.users.authenticate('shakedinero','a57821688')
+        		db = client.users
+        		collection = db.users
+        		cursor = db.users.find()
+        		email = flask.request.form['email']
+        		password = flask.request.form['password']
+        		for doc in cursor:
+            			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
+            				flask.session['username'] = doc['email']
+            				return flask.redirect("/dinero")
+        	except:
+        		return flask.redirect("/")
+        else:
+        	return flask.redirect("/")
+        	
+
 
 @app.route("/dinero")
+@check_login
 def dinero():
 	return flask.render_template('index.html')
 
 
 @app.route("/loading")
+@check_login
 def test():
     #while results file is null
 	return flask.render_template('loading.html')
@@ -37,14 +122,17 @@ def test():
    # return flask.render_template('results.html',lines=lines)
 
 @app.route("/my-space")
+@check_login
 def my_space():
 	return flask.render_template('my-space.html')
 	
 @app.route("/marketplace")
+@check_login
 def market():
 	return flask.render_template('market.html')
 
 @app.route("/search",methods=['GET', 'POST'])
+@check_login
 def append():
         #app_key='4e3oofj6zqcx5dh'
         #app_secret='vaoz96wg81222c9'
@@ -78,6 +166,7 @@ def append():
             return flask.render_template("404.html")
 
 @app.route("/history")
+@check_login
 def my_history_page():
     try:
         list = []
@@ -100,6 +189,7 @@ def my_history_page():
 
 
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
+@check_login
 def addtofavorites(LINE):
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.favorites.authenticate('shakedinero','a57821688')
@@ -118,6 +208,7 @@ def addtofavorites(LINE):
     return flask.redirect("/results")
 
 @app.route("/favorites")
+@check_login
 def my_archive_page():
     try:
     	list=[]
@@ -140,6 +231,7 @@ def my_archive_page():
 
 
 @app.route("/results")
+@check_login
 def get_results():
         try:
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
@@ -169,6 +261,7 @@ def get_results():
                 return flask.render_template('404.html')
 
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
+@check_login
 def favorite_delete(LINE):
     list=[]
     STR = LINE.replace('%20',' ')
@@ -189,6 +282,7 @@ def favorite_delete(LINE):
 
 
 @app.route("/history/delete/<LINE>",methods=['GET','POST'])
+@check_login
 def history_delete(LINE):
     list=[]
     STR = LINE.replace('%20',' ')
@@ -209,6 +303,7 @@ def history_delete(LINE):
 
 
 @app.route("/public")
+@check_login
 def public():
 	file = open("PUBLIC/publish-file",'r')
 	lines = file.readlines()
@@ -217,6 +312,7 @@ def public():
 
 
 @app.route("/public/appending")
+@check_login
 def public_append():
         if "add" in flask.request.form:
                 #data = str(flask.request.data)
@@ -227,6 +323,13 @@ def public_append():
                 file.close()
                 return flask.redirect("/public")
 
+@app.route("/logout")
+def logout():
+	if "username" in flask.session:
+        	del flask.session["username"]
+    		return flask.redirect("/")
+    	else:
+    		return flask.redirect("/") 
 
 @app.errorhandler(404)
 def page_not_found(e):
