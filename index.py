@@ -30,6 +30,7 @@ def loginPage():
 	if "username" in flask.session:
         	email = flask.session['username']
         	client = MongoClient('ds019254.mlab.com', 19254)
+        	client.users.authenticate('shakedinero','a57821688')
         	db = client.users
         	collection = db.users
         	cursor = db.users.find()
@@ -44,6 +45,7 @@ def login():
 	if "email" in flask.request.form:
 		try:
         		client = MongoClient('ds019254.mlab.com', 19254)
+        		client.users.authenticate('shakedinero','a57821688')
         		db = client.users
         		collection = db.users
         		cursor = db.users.find()
