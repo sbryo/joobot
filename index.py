@@ -18,7 +18,7 @@ app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 
 def check_login(func):
 	def wrapper(*args, **kwargs):
-        	if "username" in flask.session:
+        	if "email" in flask.session:
             		return func(*args, **kwargs)
         	else:
             		return flask.redirect("/")
