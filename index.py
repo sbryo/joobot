@@ -18,7 +18,7 @@ app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 
 def check_login(func):
 	def wrapper(*args, **kwargs):
-        	if "email" in flask.session:
+        	if "username" in flask.session:
             		return func(*args, **kwargs)
         	else:
             		return flask.redirect("/")
@@ -26,8 +26,8 @@ def check_login(func):
     
 @app.route("/")
 def loginPage():
-	if "email" in flask.session:
-        	email = flask.session['email']
+	if "username" in flask.session:
+        	email = flask.session['username']
         	client = MongoClient('ds019254.mlab.com', 19254)
         	db = client.users
         	collection = db.users
@@ -40,7 +40,7 @@ def loginPage():
 
 @app.route("/login", methods=['GET','POST'])
 def login():
-	if "username" in flask.request.form:
+	if "email" in flask.request.form:
 		try:
         		client = MongoClient('ds019254.mlab.com', 19254)
         		db = client.users
@@ -50,7 +50,7 @@ def login():
         		password = flask.request.form['password']
         		for doc in cursor:
             			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
-            				flask.session['email'] = doc['email']
+            				flask.session['username'] = doc['email']
             				return flask.redirect("/dinero")
         	except:
         		return flask.redirect("/")
