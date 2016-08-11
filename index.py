@@ -60,11 +60,13 @@ def login():
 
 
 @app.route("/dinero")
+@check_login
 def dinero():
 	return flask.render_template('index.html')
 
 
 @app.route("/loading")
+@check_login
 def test():
     #while results file is null
 	return flask.render_template('loading.html')
@@ -77,14 +79,17 @@ def test():
    # return flask.render_template('results.html',lines=lines)
 
 @app.route("/my-space")
+@check_login
 def my_space():
 	return flask.render_template('my-space.html')
 	
 @app.route("/marketplace")
+@check_login
 def market():
 	return flask.render_template('market.html')
 
 @app.route("/search",methods=['GET', 'POST'])
+@check_login
 def append():
         #app_key='4e3oofj6zqcx5dh'
         #app_secret='vaoz96wg81222c9'
@@ -118,6 +123,7 @@ def append():
             return flask.render_template("404.html")
 
 @app.route("/history")
+@check_login
 def my_history_page():
     try:
         list = []
@@ -140,6 +146,7 @@ def my_history_page():
 
 
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
+@check_login
 def addtofavorites(LINE):
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.favorites.authenticate('shakedinero','a57821688')
@@ -158,6 +165,7 @@ def addtofavorites(LINE):
     return flask.redirect("/results")
 
 @app.route("/favorites")
+@check_login
 def my_archive_page():
     try:
     	list=[]
@@ -180,6 +188,7 @@ def my_archive_page():
 
 
 @app.route("/results")
+@check_login
 def get_results():
         try:
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
@@ -209,6 +218,7 @@ def get_results():
                 return flask.render_template('404.html')
 
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
+@check_login
 def favorite_delete(LINE):
     list=[]
     STR = LINE.replace('%20',' ')
@@ -229,6 +239,7 @@ def favorite_delete(LINE):
 
 
 @app.route("/history/delete/<LINE>",methods=['GET','POST'])
+@check_login
 def history_delete(LINE):
     list=[]
     STR = LINE.replace('%20',' ')
@@ -249,6 +260,7 @@ def history_delete(LINE):
 
 
 @app.route("/public")
+@check_login
 def public():
 	file = open("PUBLIC/publish-file",'r')
 	lines = file.readlines()
@@ -257,6 +269,7 @@ def public():
 
 
 @app.route("/public/appending")
+@check_login
 def public_append():
         if "add" in flask.request.form:
                 #data = str(flask.request.data)
