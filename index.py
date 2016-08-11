@@ -64,7 +64,7 @@ def signing():
             				return flask.redirect("/")
             			### Create user
             		if x==0:
-            			j=json.loads('{"email":'+email+',"password":'+password+'}')
+            			j=json.loads('{"email":"'+email+'","password":"'+password+'"}')
             			db.users.insert(j)
             			flask.session['username'] = email
             			return flask.redirect("/dinero")
