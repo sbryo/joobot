@@ -17,12 +17,12 @@ app = flask.Flask(__name__)
 app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 
 def check_login(func):
-    def wrapper(*args, **kwargs):
-        if "username" in flask.session:
-            return func(*args, **kwargs)
-        else:
-            return flask.redirect("/")
-    return functools.update_wrapper(wrapper, func)
+	def wrapper(*args, **kwargs):
+        	if "username" in flask.session:
+            		return func(*args, **kwargs)
+        	else:
+            		return flask.redirect("/")
+	return functools.update_wrapper(wrapper, func)
     
 @app.route("/")
 def loginPage():
