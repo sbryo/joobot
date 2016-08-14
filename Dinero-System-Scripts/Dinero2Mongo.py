@@ -13,7 +13,7 @@ import urllib2
 import requests
 import sys
 
-file=open("/tmp/user.txt",'w')
+file=open("/tmp/user.txt",'r')
 username=file.read()
 file.close()
 ######################### Connect Results DB ####################################
