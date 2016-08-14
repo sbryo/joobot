@@ -167,6 +167,7 @@ def append():
                     exec command
                     command="db_history.history."+username+".insert(j)"
                     exec command
+                    Dinero2Mongo(username)
                     return flask.redirect("/results")
 
                 except:
@@ -280,7 +281,7 @@ def get_results():
                 #PATH=(out.split('\n'))[0]
                 list = []
                 #os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
-                Dinero2Mongo(username)
+                #Dinero2Mongo(username)
                 x = []  ### This is the list for html
                 client = MongoClient('ds019254.mlab.com',19254)
                 client.results.authenticate('shakedinero','a57821688')
