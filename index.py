@@ -176,6 +176,8 @@ def append():
                     j = json.loads('{"search":"'+text+'"}')
                     command="db.search."+username+".insert(j)"
                     exec command
+                    command="db_history.history."+username+".insert(j)"
+                    exec command
                     return flask.render_template("404.html")
         else:
             return flask.render_template("404.html")
