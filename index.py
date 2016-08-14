@@ -302,6 +302,7 @@ def my_archive_page():
             x.append(document['shipping'])
             x.append(document['url'])
             x.append(document['image'])
+            x.append(document['web'])
             list.append(x)
         return flask.render_template('my-favorites.html',list=list)
     except:
@@ -340,6 +341,7 @@ def get_results():
         x.append(document['shipping'])
         x.append(document['url'])
         x.append(document['image'])
+        x.append(document['web'])
         list.append(x)
     return flask.render_template('results.html',list=list)
     #except:
