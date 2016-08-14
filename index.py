@@ -138,6 +138,9 @@ def market():
 @check_login
 def append():
         email = flask.session['username']
+        user = email.split("@")[0]
+        domain = ((email.split("@")[1]).split("."))[0]
+        username=user+domain
         #app_key='4e3oofj6zqcx5dh'
         #app_secret='vaoz96wg81222c9'
         #flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
@@ -158,11 +161,11 @@ def append():
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     j = json.loads('{"search":"'+text+'"}')
-                    command="db.search."+email+".delete_many({})"
+                    command="db.search."+username+".delete_many({})"
                     exec command
-                    command="db.search."+email+".insert(j)"
+                    command="db.search."+username+".insert(j)"
                     exec command
-                    command="db_history.history."+email+".insert(j)"
+                    command="db_history.history."+username+".insert(j)"
                     exec command
                     return flask.redirect("/results")
 
@@ -171,7 +174,7 @@ def append():
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     j = json.loads('{"search":"'+text+'"}')
-                    command="db.search."+email+".insert(j)"
+                    command="db.search."+username+".insert(j)"
                     exec command
                     return flask.render_template("404.html")
         else:
@@ -182,12 +185,15 @@ def append():
 def my_history_page():
     try:
         email = flask.session['username']
+        user = email.split("@")[0]
+        domain = ((email.split("@")[1]).split("."))[0]
+        username=user+domain
         list = []
         client3 = MongoClient('ds019254.mlab.com',19254)
         client3.history.authenticate('shakedinero','a57821688')
         db_history = client3.history
         #cursor = db_history.history.shaked.find()
-        command="cursor = db_history.history."+email+".find()"
+        command="cursor = db_history.history."+username+".find()"
         exec command
     # Make list for html page
         for document in cursor:
@@ -207,6 +213,9 @@ def my_history_page():
 @check_login
 def addtofavorites(LINE):
     email = flask.session['username']
+    user = email.split("@")[0]
+    domain = ((email.split("@")[1]).split("."))[0]
+    username=user+domain
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.favorites.authenticate('shakedinero','a57821688')
     db_favorites = client4.favorites
@@ -214,14 +223,14 @@ def addtofavorites(LINE):
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db_results = client.results
-    command="cursor = db_results.results."+email+".find()"
+    command="cursor = db_results.results."+username+".find()"
     exec command
     #cursor = db_results.results.shaked.find()
     for doc in cursor:
         STR=LINE.replace("%20"," ")
         if STR in doc['title']:
             #db_favorites.favorites.shaked.insert(doc)
-            command="db_favorites.favorites."+email+".insert(doc)"
+            command="db_favorites.favorites."+username+".insert(doc)"
             exec command
         else:
             continue
@@ -232,11 +241,14 @@ def addtofavorites(LINE):
 def my_archive_page():
     try:
         email = flask.session['username']
+        user = email.split("@")[0]
+        domain = ((email.split("@")[1]).split("."))[0]
+        username=user+domain
     	list=[]
         client4 = MongoClient('ds019254.mlab.com',19254)
         client4.favorites.authenticate('shakedinero','a57821688')
         db_favorites = client4.favorites
-        command="cursor = db_favorites.favorites."+email+".find()"
+        command="cursor = db_favorites.favorites."+username+".find()"
         exec command
         # Make list for html page
         for document in cursor:
@@ -257,18 +269,21 @@ def my_archive_page():
 def get_results():
         try:
                 email = flask.session['username']
+                user = email.split("@")[0]
+                domain = ((email.split("@")[1]).split("."))[0]
+                username=user+domain
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
                 #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 #(out, err) = proc.communicate()
                 #PATH=(out.split('\n'))[0]
                 list = []
                 #os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
-                Dinero2Mongo(email)
+                Dinero2Mongo(username)
                 x = []  ### This is the list for html
                 client = MongoClient('ds019254.mlab.com',19254)
                 client.results.authenticate('shakedinero','a57821688')
                 db = client.results
-                command="cursor = db.results."+email+".find()"
+                command="cursor = db.results."+username+".find()"
                 exec command
 #Make list for html page
                 for document in cursor:
@@ -287,22 +302,25 @@ def get_results():
 @check_login
 def favorite_delete(LINE):
     email = flask.session['username']
+    user = email.split("@")[0]
+    domain = ((email.split("@")[1]).split("."))[0]
+    username=user+domain
     list=[]
     STR = LINE.replace('%20',' ')
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.favorites.authenticate('shakedinero','a57821688')
     db_favorites = client4.favorites
-    command="cursor = db_favorites.favorites."+email+".find()"
+    command="cursor = db_favorites.favorites."+username+".find()"
     exec command
     for doc in cursor:
         if STR not in doc['title']:
             list.append(doc)
         else:
             continue
-    command="favorite = db_favorites.favorites."+email+".delete_many({})"
+    command="favorite = db_favorites.favorites."+username+".delete_many({})"
     exec command
     for doc in list:
-    	command="db_favorites.favorites."+email+".insert(doc)"
+    	command="db_favorites.favorites."+username+".insert(doc)"
         exec command
     #db_favorites.favorites.shaked.insert(list)
     return flask.redirect("/favorites")
@@ -312,22 +330,25 @@ def favorite_delete(LINE):
 @check_login
 def history_delete(LINE):
     email = flask.session['username']
+    user = email.split("@")[0]
+    domain = ((email.split("@")[1]).split("."))[0]
+    username=user+domain
     list=[]
     STR = LINE.replace('%20',' ')
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.history.authenticate('shakedinero','a57821688')
     db_history = client4.history
-    command="cursor = db_history.history."+email+".find()"
+    command="cursor = db_history.history."+username+".find()"
     exec command
     for doc in cursor:
         if STR not in doc['title']:
             list.append(doc)
         else:
             continue
-    command="history = db_history.history."+email+".delete_many({})"
+    command="history = db_history.history."+username+".delete_many({})"
     exec command
     for doc in list:
-    	command="db_history.history."+email+".insert(doc)"
+    	command="db_history.history."+username+".insert(doc)"
         exec command
     #db_history.history.shaked.insert(list)
     return flask.redirect("/history")
@@ -371,7 +392,7 @@ def page_not_found(e):
 ################################################################################################################################
 ######################################################### SEARCH FUNCTION ######################################################
 ################################################################################################################################
-def Dinero2Mongo(email):
+def Dinero2Mongo(username):
         ######################### Connect Results DB ####################################
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
@@ -388,7 +409,7 @@ def Dinero2Mongo(email):
     db_history = client3.history
 
     ############## get KEYWORDS from Search DB #################################
-    command="cursor = db_search.search."+email+".find()"
+    command="cursor = db_search.search."+username+".find()"
     exec command
     for document in cursor:
         KEYWORDS=document['search']
@@ -553,11 +574,11 @@ def Dinero2Mongo(email):
     results_array = '{"ebay":"'+str(ebay_list)+'","dx":"'+str(dx_list)+'","amazon":"'+str(amazon_list)+'","ali":"'+str(ali_list)+'"}'
     print "ARRAY: "+results_array
 
-    command1="result = db_results.results."+email+".delete_many({})"
-    command2="db_results.results."+email+".insert(ebay_list)"
-    command3="db_results.results."+email+".insert(dx_list)"
-    command4="db_results.results."+email+".insert(ali_list)"
-    command5="db_results.results."+email+".insert(amazon_list)"
+    command1="result = db_results.results."+username+".delete_many({})"
+    command2="db_results.results."+username+".insert(ebay_list)"
+    command3="db_results.results."+username+".insert(dx_list)"
+    command4="db_results.results."+username+".insert(ali_list)"
+    command5="db_results.results."+username+".insert(amazon_list)"
     exec command1
     exec command2
     exec command3
