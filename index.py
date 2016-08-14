@@ -84,9 +84,10 @@ def loginPage():
         	for doc in cursor:
             		if email == doc['email']:
             			return flask.redirect("/dinero")
+	elif session['logged_in'] == True:
+		return flask.redirect("/dinero")
 	else:
-		return flask.render_template('dinero-login.html')
-
+		return flask.render_template("dinero-login.html")
 
 @app.route("/signup")
 def signup():
@@ -151,7 +152,6 @@ def login():
 
 @app.route("/dinero")
 @check_login
-@facebook.authorized_handler
 def dinero():
 	return flask.render_template('index.html')
 
