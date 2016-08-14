@@ -181,7 +181,7 @@ def append():
                     exec command
                     return flask.render_template("404.html")
         else:
-            return flask.render_template("404.html")
+            return flask.render_template("index.html")
 
 @app.route("/history")
 @check_login
