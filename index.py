@@ -278,9 +278,9 @@ def get_results():
     file.write(username)
     file.close()
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
-                #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-                #(out, err) = proc.communicate()
-                #PATH=(out.split('\n'))[0]
+    proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    PATH=(out.split('\n'))[0]
     list = []
     os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
     #Dinero2Mongo(username)
