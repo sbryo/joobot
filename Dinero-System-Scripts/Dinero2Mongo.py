@@ -11,7 +11,11 @@ import os
 import urllib
 import urllib2
 import requests
+import sys
 
+file=open("/tmp/user.txt",'r')
+username=file.read()
+file.close()
 ######################### Connect Results DB ####################################
 client = MongoClient('ds019254.mlab.com',19254)
 client.results.authenticate('shakedinero','a57821688')
@@ -28,7 +32,8 @@ client3.history.authenticate('shakedinero','a57821688')
 db_history = client3.history
 
 ############## get KEYWORDS from Search DB #################################
-cursor = db_search.search.shaked.find()
+command="cursor = db_search.search."+username+".find()"
+exec command
 for document in cursor:
     KEYWORDS=document['search']
 
@@ -192,13 +197,15 @@ for i in products_list:
 results_array = '{"ebay":"'+str(ebay_list)+'","dx":"'+str(dx_list)+'","amazon":"'+str(amazon_list)+'","ali":"'+str(ali_list)+'"}'
 print "ARRAY: "+results_array
 
-result = db_results.results.shaked.delete_many({})
-db_results.results.shaked.insert(ebay_list)
-db_results.results.shaked.insert(dx_list)
-db_results.results.shaked.insert(ali_list)
-db_results.results.shaked.insert(amazon_list)
+command1="result = db_results.results."+username+".delete_many({})"
+command2="db_results.results."+username+".insert(ebay_list)"
+command3="db_results.results."+username+".insert(dx_list)"
+command4="db_results.results."+username+".insert(ali_list)"
+command5="db_results.results."+username+".insert(amazon_list)"
+exec command1
+exec command2
+exec command3
+exec command4
+exec command5
 
-db_history.history.shaked.insert(ebay_list)
-db_history.history.shaked.insert(dx_list)
-db_history.history.shaked.insert(ali_list)
-db_history.history.shaked.insert(amazon_list)
+
