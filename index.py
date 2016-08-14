@@ -127,7 +127,8 @@ def test():
 @app.route("/my-space")
 @check_login
 def my_space():
-	return flask.render_template('my-space.html')
+	email = flask.session['username']
+	return flask.render_template('my-space.html',email=email)
 
 @app.route("/marketplace")
 @check_login
