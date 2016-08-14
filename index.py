@@ -16,9 +16,52 @@ import functools
 import urllib
 import urllib2
 import requests
+from flask_oauth import OAuth
 
 app = flask.Flask(__name__)
 app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
+
+
+FACEBOOK_APP_ID = '275750752809365'
+FACEBOOK_APP_SECRET = 'a6a10a5b3843f53f28f59a1e5a413588'
+
+oauth = OAuth()
+
+facebook = oauth.remote_app('facebook',
+    base_url='https://graph.facebook.com/',
+    request_token_url=None,
+    access_token_url='/oauth/access_token',
+    authorize_url='https://www.facebook.com/dialog/oauth',
+    consumer_key=FACEBOOK_APP_ID,
+    consumer_secret=FACEBOOK_APP_SECRET,
+    request_token_params={'scope': ('email, ')}
+)
+
+@facebook.tokengetter
+def get_facebook_token():
+    return session.get('facebook_token')
+
+def pop_login_session():
+    session.pop('logged_in', None)
+    session.pop('facebook_token', None)
+
+@app.route("/facebook_login")
+def facebook_login():
+    return facebook.authorize(callback=url_for('facebook_authorized',
+        next=request.args.get('next'), _external=True))
+
+@app.route("/facebook_authorized")
+@facebook.authorized_handler
+def facebook_authorized(resp):
+    #next_url = request.args.get('next') or url_for('index')
+    if resp is None or 'access_token' not in resp:
+        return redirect('/')
+
+    session['logged_in'] = True
+    session['facebook_token'] = (resp['access_token'], '')
+
+    return redirect('/dinero')
+
 
 def check_login(func):
 	def wrapper(*args, **kwargs):
