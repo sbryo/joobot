@@ -151,6 +151,7 @@ def login():
 
 @app.route("/dinero")
 @check_login
+@facebook.authorized_handler
 def dinero():
 	return flask.render_template('index.html')
 
