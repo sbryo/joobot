@@ -200,11 +200,7 @@ def my_history_page():
     # Make list for html page
         for document in cursor:
             x = []
-            x.append(document['title'])
-            x.append(document['price'])
-            x.append(document['shipping'])
-            x.append(document['url'])
-            x.append(document['image'])
+            x.append(document['search'])
             list.append(x)
         return flask.render_template('my-history.html',list=list)
     except:
