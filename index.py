@@ -181,7 +181,7 @@ def append():
                     exec command
                     return flask.render_template("404.html")
         else:
-            return flask.render_template("index.html")
+            return flask.render_template("404.html")
 
 @app.route("/history")
 @check_login
@@ -275,12 +275,15 @@ def get_results():
     user = email.split("@")[0]
     domain = ((email.split("@")[1]).split("."))[0]
     username=user+domain
+    file=open("/tmp/user.txt",'w')
+    file.write(username)
+    file.close()
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
-                #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-                #(out, err) = proc.communicate()
-                #PATH=(out.split('\n'))[0]
+    proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    PATH=(out.split('\n'))[0]
     list = []
-    os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py "+username)
+    os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
     #Dinero2Mongo(username)
     x = []  ### This is the list for html
     client = MongoClient('ds019254.mlab.com',19254)
@@ -389,7 +392,6 @@ def logout():
 @app.errorhandler(404)
 def page_not_found(e):
     return flask.render_template('404.html'), 404
-
 
 
 if __name__ == "__main__":
