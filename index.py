@@ -342,7 +342,7 @@ def history_delete(LINE):
     command="cursor = db_history.history."+username+".find()"
     exec command
     for doc in cursor:
-        if STR not in doc['title']:
+        if STR not in doc['search']:
             list.append(doc)
         else:
             continue
