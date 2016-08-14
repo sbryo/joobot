@@ -24,7 +24,7 @@ def check_login(func):
         	else:
             		return flask.redirect("/")
 	return functools.update_wrapper(wrapper, func)
-    
+
 @app.route("/")
 def loginPage():
 	if "username" in flask.session:
@@ -68,14 +68,14 @@ def signing():
             			db.users.insert(j)
             			flask.session['username'] = email
             			return flask.redirect("/dinero")
-            			
+
         	except:
         		return flask.redirect("/")
         else:
         	return flask.redirect("/")
-        	
-        	
-        
+
+
+
 
 
 
@@ -99,7 +99,7 @@ def login():
         		return flask.redirect("/")
         else:
         	return flask.redirect("/")
-        	
+
 
 
 @app.route("/dinero")
@@ -125,7 +125,7 @@ def test():
 @check_login
 def my_space():
 	return flask.render_template('my-space.html')
-	
+
 @app.route("/marketplace")
 @check_login
 def market():
@@ -134,6 +134,7 @@ def market():
 @app.route("/search",methods=['GET', 'POST'])
 @check_login
 def append():
+        email = flask.session['username']
         #app_key='4e3oofj6zqcx5dh'
         #app_secret='vaoz96wg81222c9'
         #flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
@@ -151,8 +152,10 @@ def append():
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     j = json.loads('{"search":"'+text+'"}')
-                    db.search.shaked.delete_many({})
-                    db.search.shaked.insert(j)
+                    command="db.search."+email+".delete_many({})"
+                    exec command
+                    command="db.search."+email+".insert(j)"
+                    exec command
                     return flask.redirect("/results")
 
                 except:
@@ -160,7 +163,8 @@ def append():
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     j = json.loads('{"search":"'+text+'"}')
-                    db.search.shaked.insert(j)
+                    command="db.search."+email+".insert(j)"
+                    exec command
                     return flask.render_template("404.html")
         else:
             return flask.render_template("404.html")
@@ -169,11 +173,14 @@ def append():
 @check_login
 def my_history_page():
     try:
+        email = flask.session['username']
         list = []
         client3 = MongoClient('ds019254.mlab.com',19254)
         client3.history.authenticate('shakedinero','a57821688')
         db_history = client3.history
-        cursor = db_history.history.shaked.find()
+        #cursor = db_history.history.shaked.find()
+        command="cursor = db_history.history."+email+".find()"
+        exec command
     # Make list for html page
         for document in cursor:
             x = []
@@ -191,6 +198,7 @@ def my_history_page():
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
 @check_login
 def addtofavorites(LINE):
+    email = flask.session['username']
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.favorites.authenticate('shakedinero','a57821688')
     db_favorites = client4.favorites
@@ -198,11 +206,15 @@ def addtofavorites(LINE):
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db_results = client.results
-    cursor = db_results.results.shaked.find()
+    command="cursor = db_results.results."+email+".find()"
+    exec command
+    #cursor = db_results.results.shaked.find()
     for doc in cursor:
         STR=LINE.replace("%20"," ")
         if STR in doc['title']:
-            db_favorites.favorites.shaked.insert(doc)
+            #db_favorites.favorites.shaked.insert(doc)
+            command="db_favorites.favorites."+email+".insert(doc)"
+            exec command
         else:
             continue
     return flask.redirect("/results")
@@ -211,11 +223,13 @@ def addtofavorites(LINE):
 @check_login
 def my_archive_page():
     try:
+        email = flask.session['username']
     	list=[]
         client4 = MongoClient('ds019254.mlab.com',19254)
         client4.favorites.authenticate('shakedinero','a57821688')
         db_favorites = client4.favorites
-        cursor = db_favorites.favorites.shaked.find()
+        command="cursor = db_favorites.favorites."+email+".find()"
+        exec command
         # Make list for html page
         for document in cursor:
             x = []
@@ -233,7 +247,8 @@ def my_archive_page():
 @app.route("/results")
 @check_login
 def get_results():
-        try:
+        try:    
+                email = flask.session['username']
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
                 proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
                 (out, err) = proc.communicate()
@@ -245,8 +260,8 @@ def get_results():
                 client = MongoClient('ds019254.mlab.com',19254)
                 client.results.authenticate('shakedinero','a57821688')
                 db = client.results
-                cursor = db.results.shaked.find()
-
+                command="cursor = db.results."+email+".find()"
+                exec command
 #Make list for html page
                 for document in cursor:
                     x = []
@@ -263,20 +278,24 @@ def get_results():
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
 @check_login
 def favorite_delete(LINE):
+    email = flask.session['username']
     list=[]
     STR = LINE.replace('%20',' ')
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.favorites.authenticate('shakedinero','a57821688')
     db_favorites = client4.favorites
-    cursor = db_favorites.favorites.shaked.find()
+    command="cursor = db_favorites.favorites."+email+".find()"
+    exec command
     for doc in cursor:
         if STR not in doc['title']:
             list.append(doc)
         else:
             continue
-    favorite = db_favorites.favorites.shaked.delete_many({})
+    command="favorite = db_favorites.favorites."+email+".delete_many({})"
+    exec command
     for doc in list:
-    	db_favorites.favorites.shaked.insert(doc)
+    	command="db_favorites.favorites."+email+".insert(doc)"
+        exec command
     #db_favorites.favorites.shaked.insert(list)
     return flask.redirect("/favorites")
 
@@ -284,20 +303,24 @@ def favorite_delete(LINE):
 @app.route("/history/delete/<LINE>",methods=['GET','POST'])
 @check_login
 def history_delete(LINE):
+    email = flask.session['username']
     list=[]
     STR = LINE.replace('%20',' ')
     client4 = MongoClient('ds019254.mlab.com',19254)
     client4.history.authenticate('shakedinero','a57821688')
     db_history = client4.history
-    cursor = db_history.history.shaked.find()
+    command="cursor = db_history.history."+email+".find()"
+    exec command
     for doc in cursor:
         if STR not in doc['title']:
             list.append(doc)
         else:
             continue
-    history = db_history.history.shaked.delete_many({})
+    command="history = db_history.history."+email+".delete_many({})"
+    exec command
     for doc in list:
-    	db_history.history.shaked.insert(doc)
+    	command="db_history.history."+email+".insert(doc)"
+        exec command
     #db_history.history.shaked.insert(list)
     return flask.redirect("/history")
 
@@ -329,7 +352,7 @@ def logout():
         	del flask.session["username"]
     		return flask.redirect("/")
     	else:
-    		return flask.redirect("/") 
+    		return flask.redirect("/")
 
 @app.errorhandler(404)
 def page_not_found(e):
