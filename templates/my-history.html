@@ -34,6 +34,34 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
          <link rel="stylesheet" type="text/css" href="../static/DataTables/datatables.css">
+  <style>
+body {margin:0;}
+.icon_bar {
+	position: fixed;
+   
+	bottom: 0;
+	width: 100%;
+    text-align: center;
+    background-color: #233140;
+    overflow: auto;
+    z-index: 99999;
+}
+.icon_bar a {
+    width: 20%;
+    padding: 12px 0;
+    float: left;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+.icon_bar a:hover {
+    background-color: #000;
+}
+.active {
+    background-color: #18BC9C !important;
+}
+</style>
+  
         <style>#results { color:black;  }
 
         #load{
@@ -204,14 +232,14 @@ function goBack() {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-
+<!--
     <div class="scroll-top page-scroll visible-xs visible-sm">
         <a class="btn btn-primary" onclick="goBack()">
             <i class="fa fa-chevron-left"></i>
         </a>
     </div>
 </div>
-
+-->
 
 </body>
 
