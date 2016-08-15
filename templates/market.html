@@ -35,6 +35,35 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
          <link rel="stylesheet" type="text/css" href="../static/DataTables/dataTables.bootstrap.css">
+      
+      <style>
+body {margin:0;}
+.icon_bar {
+	position: fixed;
+   
+	bottom: 0;
+	width: 100%;
+    text-align: center;
+    background-color: #233140;
+    overflow: auto;
+    z-index: 99999;
+}
+.icon_bar a {
+    width: 20%;
+    padding: 12px 0;
+    float: left;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+.icon_bar a:hover {
+    background-color: #000;
+}
+.active {
+    background-color: #18BC9C !important;
+}
+</style>
+      
         <style>#results { color:black;  }
 #load{
     width:100%;
@@ -50,7 +79,13 @@
 </head>
 
 <body id="page-top" class="index">
-
+<div class="icon_bar">
+  <a  href="http://dinero-web.herokuapp.com/dinero"><i class="fa fa-search"></i></a>
+  <a href="http://dinero-web.herokuapp.com/my-space"><i class="fa fa-home"></i></a>
+  <a href="http://dinero-web.herokuapp.com/favorites"><i class="fa fa-heart"></i></a>
+  <a href="http://dinero-web.herokuapp.com/history"><i class="fa fa-history"></i></a>
+  <a class="active" href="http://dinero-web.herokuapp.com/marketplace"><i class="fa fa-users"></i></a>
+</div>
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -96,10 +131,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Coming Soon...</h2>
+                    <h2>Dinero Market Place</h2>
          <!--           <hr class="star-primary"> -->
 					
-<h5>Dinero Market Place</h5>
+<h5>Coming Soon...</h5>
+
+
+
+
 
                <center><div id="load"></div></center>
 <div id="contents">
@@ -249,14 +288,14 @@ span.onclick = function() {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-
+<!--
     <div class="scroll-top page-scroll visible-xs visible-sm">
         <a class="btn btn-primary" onclick="goBack()">
             <i class="fa fa-chevron-left"></i>
         </a>
     </div>
 </div>
-
+-->
 
 
 </body>
