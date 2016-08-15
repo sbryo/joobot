@@ -33,6 +33,37 @@
 }
 </style>
 
+<style>
+body {margin:0;}
+
+.icon-bar {
+	position: relative;
+   
+	bottom: 0;
+	width: 100%;
+    text-align: center;
+    background-color: #233140;
+    overflow: auto;
+}
+
+.icon-bar a {
+    width: 20%;
+    padding: 12px 0;
+    float: left;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+.icon-bar a:hover {
+    background-color: #000;
+}
+
+.active {
+    background-color: #18BC9C !important;
+}
+</style>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,6 +98,14 @@
 </head>
 
 <body id="page-top" class="index">
+
+<div class="icon-bar">
+  <a class="active" href="http://dinero-web.herokuapp.com/dinero"><i class="fa fa-search"></i></a>
+  <a href="http://dinero-web.herokuapp.com/my-space"><i class="fa fa-home"></i></a>
+  <a href="http://dinero-web.herokuapp.com/favorites"><i class="fa fa-heart"></i></a>
+  <a href="http://dinero-web.herokuapp.com/history"><i class="fa fa-history"></i></a>
+  <a href="http://dinero-web.herokuapp.com/marketplace"><i class="fa fa-users"></i></a>
+</div>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
