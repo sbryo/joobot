@@ -401,6 +401,32 @@ def history_delete(LINE):
         exec command
     #db_history.history.shaked.insert(list)
     return flask.redirect("/history")
+    
+@app.route("/history_results/<LINE>",methods=['GET','POST'])
+@check_login
+def history_results(LINE):
+	email = flask.session['username']
+    	user = email.split("@")[0]
+    	domain = ((email.split("@")[1]).split("."))[0]
+    	username=user+domain
+    	list=[]
+    	STR = LINE.replace('%20',' ')
+    #client4 = MongoClient('ds019254.mlab.com',19254)
+    #client4.history.authenticate('shakedinero','a57821688')
+    #db_history = client4.history
+    	client = MongoClient('ds139425.mlab.com',39425)
+    	client.search.authenticate('shakedinero','a57821688')
+    	db = client.search
+        #text = STR
+                    #processed_text = text.upper()
+                    #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
+        j = json.loads('{"search":"'+STR+'"}')
+	command ="db.search."+username+".delete_many({})"
+    	exec command
+    	command="db.search."+username+".insert(j)"
+    	exec command
+    	return flask.redirect("/results")
+
 
 
 @app.route("/public")
