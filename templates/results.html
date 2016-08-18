@@ -166,7 +166,12 @@ body {margin:0;}
                 <td><b>Price:</b> {{x[1]}}$</td>
                 <td><b>Shipping:</b> {{x[2]}}$</td>
   <!--  <td><div class="img-thumbnail"><img src={{x[4]}} id="myImg" height="120" width="120"></div></td> -->
-		<td><div class="img-thumbnail"><img src={{x[4]}} height="120" width="120"></div></td>
+		<!-- <td><div class="img-thumbnail"><img src={{x[4]}} height="120" width="120"></div></td> -->
+                <td><p>
+		<a href={{x[3]}}>
+		<img border="0" alt="ItemPic" src={{x[4]}} width="120" height="120">
+		</a>
+		</p></td>
     
 
                 <td><form action={{x[3]}} target="_blank"><input type="submit" value="Open in {{x[5]}}" target="_blank" class="btn btn-primary btn-block"></form></td>
