@@ -417,29 +417,16 @@ def history_results(LINE):
     	client = MongoClient('ds139425.mlab.com',39425)
     	client.search.authenticate('shakedinero','a57821688')
     	db = client.search
-    	if "results" in flask.request.form:
-    		try:
-        		text = flask.request.form['results']
+        #text = STR
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-            		j = json.loads('{"search":"'+text+'"}')
-            		command="db.search."+username+".delete_many({})"
-            		exec command
-            		command="db.search."+username+".insert(j)"
-            		exec command
-            		return flask.redirect("/results")
-        	except:
-    			text = flask.request.form['results']
-                    #processed_text = text.upper()
-                    #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-            		j = json.loads('{"search":"'+text+'"}')
-            		command="db.search."+username+".insert(j)"
-            		exec command
-            		command="db_history.history."+username+".insert(j)"
-            		exec command
-            		return flask.render_template("404.html")
-        else:
-        	return flask.render_template("404.html")
+        j = json.loads('{"search":"'+STR+'"}')
+	command ="db.search."+username+".delete_many({})"
+    	exec command
+    	command="db.search."+username+".insert(j)"
+    	exec command
+    	return flask.redirect("/results")
+
 
 
 @app.route("/public")
