@@ -149,7 +149,7 @@ body {margin:0;}
       {% for x in list %}
                 <tr>
                 <td><big><b> <font color="#18bc9c">{{x[0]}}</font></big></td></b>
-                <td><form method="post" action="http://dinero-web.heroku.com/history_results"><p class="submit"><input type="submit" value="Results" class="btn btn-primary" id="results-{{x[0]}}" ></p></form></td>
+                <td><form method="post" action="http://dinero-web.heroku.com/history_results/{{x[0]}}"><p class="submit"><input type="submit" value="Results" class="btn btn-primary" id="results-{{x[0]}}" ></p></form></td>
                 <td><form method="post" action="http://dinero-web.heroku.com/history/delete/{{x[0]}}"><p class="submit"><input type="submit" value="Delete" class="btn btn-danger" id={{x[0]}} ></p></form></td>
              
                 </tr>
