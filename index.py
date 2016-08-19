@@ -207,11 +207,13 @@ def append():
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
                     j = json.loads('{"search":"'+text+'"}')
+                    time=str(datetime.datetime.now()).split('.')[0]
+                    hj = json.loads('{"search":"'+text+'","time":"'+time+'"}')
                     command="db.search."+username+".delete_many({})"
                     exec command
                     command="db.search."+username+".insert(j)"
                     exec command
-                    command="db_history.history."+username+".insert(j)"
+                    command="db_history.history."+username+".insert(hj)"
                     exec command
                     return flask.redirect("/results")
 
@@ -247,6 +249,7 @@ def my_history_page():
         for document in cursor:
             x = []
             x.append(document['search'])
+            x.append(document['time'])
             list.append(x)
         return flask.render_template('my-history.html',list=list)
     except:
@@ -390,7 +393,7 @@ def history_delete(LINE):
     command="cursor = db_history.history."+username+".find()"
     exec command
     for doc in cursor:
-        if STR not in doc['search']:
+        if STR not in doc['time']:
             list.append(doc)
         else:
             continue
