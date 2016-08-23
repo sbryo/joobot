@@ -395,23 +395,23 @@ def cheap():
     client.results.authenticate('shakedinero','a57821688')
     db = client.results
 
-    list=[]
+    LIST=[]
     new_list=[]
     cheap_list=[]
+    list=[]
 
     command="cursor = db.results."+username+".find()"
     exec command
     for document in cursor:
-        list.append(float(document['price'].replace('$','')))
-    print "CURRENT LIST: "+str(list)
+        LIST.append(float(document['price'].replace('$','')))
 
-    while list:
-        minimum = list[0]  # arbitrary number in list
-        for x in list:
+    while LIST:
+        minimum = LIST[0]  # arbitrary number in list
+        for x in LIST:
             if x < minimum:
                 minimum = x
         new_list.append(minimum)
-        list.remove(minimum)
+        LIST.remove(minimum)
     command="cursor = db.results."+username+".find()"
     exec command
 
@@ -420,7 +420,6 @@ def cheap():
         docs_list.append(doc)
 
     for i in new_list:
-        print i
         for doc in docs_list:
             if float(doc['price'].replace('$','')) == float(i):
                 cheap_list.append(doc)
