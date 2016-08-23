@@ -150,6 +150,7 @@ body {margin:0;}
 -->
 
       <tbody>
+      	<!--
       <td>
           <center><form action="http://dinero-web.heroku.com/results/filtering">
   <input class="img-thumbnail" type="image" src="../static/img/ebay.png" alt="Submit" id="ebay">
@@ -158,7 +159,13 @@ body {margin:0;}
           <input class="img-thumbnail" type="image" src="../static/img/amazon.jpg" alt="Submit" id="amazon">
               <input style="height: 58px; width: 58px;" class="img-thumbnail" type="image" src="../static/img/low_cost.png" alt="Submit" id="low">
 </form>
-      </center></td>
+      </center>
+      </td> -->
+      
+      <td>
+      	<form action=http://dinero-web.heroku.com/results/freeshipping ><input type="submit" value="Free Shipping Only" target="_blank" class="btn btn-primary btn-block">
+      	<form action=http://dinero-web.heroku.com/results/cheap ><input type="submit" value="Sort By Low-Cost" target="_blank" class="btn btn-primary btn-block">
+      </td>
       {% for x in list %}
 
             <tr>
