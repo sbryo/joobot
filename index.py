@@ -350,6 +350,97 @@ def get_results():
     #except:
      #   return flask.render_template('404.html')
 
+@app.route("/results/freeshipping")
+@check_login
+def freeShipping():
+    #try:
+    email = flask.session['username']
+    user = email.split("@")[0]
+    domain = ((email.split("@")[1]).split("."))[0]
+    username=user+domain
+    client = MongoClient('ds019254.mlab.com',19254)
+    client.results.authenticate('shakedinero','a57821688')
+    db = client.results
+
+    list=[]
+    docs=[]
+    command="cursor = db.results."+username+".find()"
+    exec command
+    for document in cursor:
+        if ("Free" in document['shipping']) or ("free" in document['shipping']):
+            docs.append(document)
+
+#Make list for html page
+    for document in docs:
+        x = []
+        x.append(document['title'])
+        x.append(document['price'])
+        x.append(document['shipping'])
+        x.append(document['url'])
+        x.append(document['image'])
+        x.append(document['web'])
+        list.append(x)
+    return flask.render_template('results.html',list=list)
+
+
+@app.route("/results/cheap")
+@check_login
+def cheap():
+    #try:
+    email = flask.session['username']
+    user = email.split("@")[0]
+    domain = ((email.split("@")[1]).split("."))[0]
+    username=user+domain
+    client = MongoClient('ds019254.mlab.com',19254)
+    client.results.authenticate('shakedinero','a57821688')
+    db = client.results
+
+    list=[]
+    new_list=[]
+    cheap_list=[]
+
+    command="cursor = db.results."+username+".find()"
+    exec command
+    for document in cursor:
+        list.append(float(document['price'].replace('$','')))
+    print "CURRENT LIST: "+str(list)
+
+    while list:
+        minimum = list[0]  # arbitrary number in list
+        for x in list:
+            if x < minimum:
+                minimum = x
+        new_list.append(minimum)
+        list.remove(minimum)
+    command="cursor = db.results."+username+".find()"
+    exec command
+
+    docs_list=[]
+    for doc in cursor:
+        docs_list.append(doc)
+
+    for i in new_list:
+        print i
+        for doc in docs_list:
+            if float(doc['price'].replace('$','')) == float(i):
+                cheap_list.append(doc)
+            else:
+                 continue
+
+#Make list for html page
+    for document in cheap_list:
+        x = []
+        x.append(document['title'])
+        x.append(document['price'])
+        x.append(document['shipping'])
+        x.append(document['url'])
+        x.append(document['image'])
+        x.append(document['web'])
+        list.append(x)
+    return flask.render_template('results.html',list=list)
+
+
+
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
 @check_login
 def favorite_delete(LINE):
@@ -404,7 +495,7 @@ def history_delete(LINE):
         exec command
     #db_history.history.shaked.insert(list)
     return flask.redirect("/history")
-    
+
 @app.route("/history_results/<LINE>",methods=['GET','POST'])
 @check_login
 def history_results(LINE):
