@@ -162,11 +162,32 @@ body {margin:0;}
       </center>
       </td> -->
       
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Dinero Filters
+        </a>
+      </h4>
+    </div>
 
+       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+            <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
+          <p></p>
+      <form action=http://dinero-web.heroku.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
+          <p></p>
+      <form action=http://dinero-web.heroku.com/results ><input type="submit" value="All Listings" class="btn btn-outline-success btn-block"></form>
+
+        </div>
+    </div>
+  </div>   
+      
+<!--
   <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
       <form action=http://dinero-web.heroku.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
       <form action=http://dinero-web.heroku.com/results ><input type="submit" value="All Listings" class="btn btn-outline-success btn-block"></form>
-
+-->
 
       {% for x in list %}
 
