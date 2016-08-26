@@ -270,12 +270,14 @@ def addtofavorites(LINE):
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db_results = client.results
+    
+    STR=LINE
     command="cursor = db_results.results."+username+".find()"
     exec command
     #cursor = db_results.results.shaked.find()
     for doc in cursor:
-        STR=LINE.replace("%20"," ")
-        if STR in doc['title']:
+#        STR=LINE.replace("%20"," ")
+        if STR in str(doc['_id']):
             #db_favorites.favorites.shaked.insert(doc)
             command="db_favorites.favorites."+username+".insert(doc)"
             exec command
@@ -306,6 +308,7 @@ def my_archive_page():
             x.append(document['url'])
             x.append(document['image'])
             x.append(document['web'])
+            x.append(str(document['_id']))
             list.append(x)
         return flask.render_template('my-favorites.html',list=list)
     except:
@@ -345,6 +348,8 @@ def get_results():
         x.append(document['url'])
         x.append(document['image'])
         x.append(document['web'])
+        x.append(str(document['_id']))
+        x.append(str(datetime.datetime.now()).split('.')[0])
         list.append(x)
     return flask.render_template('results.html',list=list)
     #except:
@@ -455,7 +460,7 @@ def favorite_delete(LINE):
     command="cursor = db_favorites.favorites."+username+".find()"
     exec command
     for doc in cursor:
-        if STR not in doc['title']:
+        if STR not in str(doc['_id']):
             list.append(doc)
         else:
             continue
