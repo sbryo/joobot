@@ -189,7 +189,7 @@ def append():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','-')+"_facebook"
+    			username = (data['name']).replace(' ','')+user_id
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
