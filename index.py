@@ -185,20 +185,16 @@ def market():
 @app.route("/search",methods=['GET', 'POST'])
 @check_login
 def append():
-	try:
+	if (session['logged_in']==True):
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
     			username = (data['name']).replace(' ','-')+"_facebook"
-    	except:
-    		print "data facebook exception"
-        try:
+        if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
-        except:
-        	print "flask username session exception"
         #app_key='4e3oofj6zqcx5dh'
         #app_secret='vaoz96wg81222c9'
         #flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
