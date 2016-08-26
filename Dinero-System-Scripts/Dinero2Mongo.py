@@ -27,9 +27,9 @@ client2.search.authenticate('shakedinero','a57821688')
 db_search = client2.search
 
 ########################## Connect History DB ########################
-client3 = MongoClient('ds019254.mlab.com',19254)
-client3.history.authenticate('shakedinero','a57821688')
-db_history = client3.history
+#client3 = MongoClient('ds019254.mlab.com',19254)
+#client3.history.authenticate('shakedinero','a57821688')
+#db_history = client3.history
 
 ############## get KEYWORDS from Search DB #################################
 command="cursor = db_search.search."+username+".find()"
