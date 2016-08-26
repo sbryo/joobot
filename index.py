@@ -74,7 +74,7 @@ def check_login(func):
 
 @app.route("/")
 def loginPage():
-	if ("username" in flask.session) or (session['logged_in']==True):
+	if ("username" in flask.session):
         	email = flask.session['username']
         	client = MongoClient('ds019254.mlab.com', 19254)
         	client.users.authenticate('shakedinero','a57821688')
@@ -84,6 +84,8 @@ def loginPage():
         	for doc in cursor:
             		if email == doc['email']:
             			return flask.redirect("/dinero")
+        if (session['logged_in']==True):
+        	return flask.redirect("/dinero")
 	#elif flask.session['logged_in'] == True:
 	#	return flask.redirect("/dinero")
 	else:
