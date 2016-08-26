@@ -125,8 +125,18 @@
  <p style="padding-top: 40px" class="submit" style="width: 200px; height: 65px; display: inline-block;" href="http://dinero-web.heroku.com/login"><input type="submit" value="Login" class="btn btn-success btn-block"></p>
 </form>
 
+<form action="http://dinero-web.herokuapp.com/signup">
+<p href="http://dinero-web.herokuapp.com/signup"><input type="submit" value="Don't have an account? Sign-Up" class="btn btn-link"></p>
+</form>
 
 <p></p>
+
+<span class="line-thru" ng-bind="::'FORMS.OR'|translate">
+::before
+"or"
+::after
+</span>
+ 
  <a class="btn btn-block btn-facebook btn-primary" href="http://dinero-web.heroku.com/facebook_login" >
   <span class="fa fa-facebook-square" style="padding-right:15px;"></span>
         Facebook Login
@@ -134,9 +144,7 @@
 
 </a>
 
-<form action="http://dinero-web.herokuapp.com/signup">
-<p href="http://dinero-web.herokuapp.com/signup"><input type="submit" value="Sign-Up" class="btn btn-link"></p>
-</form>
+
 <!--
 <button type="button" class="btn btn-link" formaction="http://dinero-web.herokuapp.com/signup">Sign-Up</button>
     
