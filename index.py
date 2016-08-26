@@ -275,7 +275,7 @@ def addtofavorites(LINE):
     #cursor = db_results.results.shaked.find()
     for doc in cursor:
         STR=LINE.replace("%20"," ")
-        if STR in doc['title']:
+        if STR in doc['_id']:
             #db_favorites.favorites.shaked.insert(doc)
             command="db_favorites.favorites."+username+".insert(doc)"
             exec command
