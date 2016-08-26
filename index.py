@@ -189,7 +189,7 @@ def append():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = data['name']
+    			username = (data['name']).replace(' ','-')+"_facebook"
     	except:
     		print "data facebook exception"
         try:
