@@ -193,7 +193,7 @@ def append():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -253,7 +253,7 @@ def my_history_page():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -284,7 +284,7 @@ def addtofavorites(LINE):
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -319,7 +319,7 @@ def my_archive_page():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -355,7 +355,7 @@ def get_results():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -401,7 +401,7 @@ def freeShipping():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -440,7 +440,7 @@ def cheap():
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -502,7 +502,7 @@ def favorite_delete(LINE):
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -536,7 +536,7 @@ def history_delete(LINE):
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -569,7 +569,7 @@ def history_results(LINE):
 		data = facebook.get('/me').data
 		if 'id' in data and 'name' in data:
     			user_id = data['id']
-    			username = (data['name']).replace(' ','')+user_id
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
