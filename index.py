@@ -306,6 +306,7 @@ def my_archive_page():
             x.append(document['url'])
             x.append(document['image'])
             x.append(document['web'])
+            x.append(document['_id'])
             list.append(x)
         return flask.render_template('my-favorites.html',list=list)
     except:
@@ -345,6 +346,8 @@ def get_results():
         x.append(document['url'])
         x.append(document['image'])
         x.append(document['web'])
+        x.append(document['_id'])
+        x.append(str(datetime.datetime.now()).split('.')[0])
         list.append(x)
     return flask.render_template('results.html',list=list)
     #except:
@@ -455,7 +458,7 @@ def favorite_delete(LINE):
     command="cursor = db_favorites.favorites."+username+".find()"
     exec command
     for doc in cursor:
-        if STR not in doc['title']:
+        if STR not in doc['_id']:
             list.append(doc)
         else:
             continue
