@@ -555,6 +555,9 @@ def logout():
 	if "username" in flask.session:
         	del flask.session["username"]
     		return flask.redirect("/")
+    	if (session['logged_in']==True):
+    		session['logged_in']=False
+        	return flask.redirect("/")
     	else:
     		return flask.redirect("/")
 
