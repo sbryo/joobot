@@ -195,6 +195,7 @@ def append():
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
+        print "############################  "+username+"  #########################"
         #app_key='4e3oofj6zqcx5dh'
         #app_secret='vaoz96wg81222c9'
         #flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
@@ -206,6 +207,7 @@ def append():
         client3 = MongoClient('ds019254.mlab.com',19254)
         client3.history.authenticate('shakedinero','a57821688')
         db_history = client3.history
+        print "######################## Connected to DB ####################"
         #proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
         #(out, err) = proc.communicate()
         #PATH=(out.split('\n'))[0]
@@ -223,6 +225,7 @@ def append():
                     exec command
                     command="db_history.history."+username+".insert(hj)"
                     exec command
+                    print "######################## added to dbs ##########################"
                     return flask.redirect("/results")
 
                 except:
