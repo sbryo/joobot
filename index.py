@@ -216,34 +216,34 @@ def append():
         #(out, err) = proc.communicate()
         #PATH=(out.split('\n'))[0]
         if "add" in flask.request.form:
-                try:
-                    text = flask.request.form['add']
+        	try:
+                	text = flask.request.form['add']
                     #processed_text = text.upper()
                     #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-                    j = json.loads('{"search":"'+text+'"}')
-                    time=str(datetime.datetime.now()).split('.')[0]
-                    hj = json.loads('{"search":"'+text+'","time":"'+time+'"}')
-                    command="db.search."+username+".delete_many({})"
-                    exec command
-                    command="db.search."+username+".insert(j)"
-                    exec command
-                    command="db_history.history."+username+".insert(hj)"
-                    exec command
-                    print "######################## added to dbs ##########################"
-                    return flask.redirect("/results")
+                    	j = json.loads('{"search":"'+text+'"}')
+                    	time=str(datetime.datetime.now()).split('.')[0]
+                    	hj = json.loads('{"search":"'+text+'","time":"'+time+'"}')
+                    	command="db.search."+username+".delete_many({})"
+                    	exec command
+                    	command="db.search."+username+".insert(j)"
+                    	exec command
+                    	command="db_history.history."+username+".insert(hj)"
+                    	exec command
+                    	print "######################## added to dbs ##########################"
+                    	return flask.redirect("/results")
 
                 except:
-                    text = flask.request.form['add']
-                    #processed_text = text.upper()
-                    #response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-                    j = json.loads('{"search":"'+text+'"}')
-                    command="db.search."+username+".insert(j)"
-                    exec command
-                    command="db_history.history."+username+".insert(j)"
-                    exec command
-                    return flask.render_template("404.html")
+                    	text = flask.request.form['add']
+                    	#processed_text = text.upper()
+                    	#response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
+                    	j = json.loads('{"search":"'+text+'"}')
+                    	command="db.search."+username+".insert(j)"
+                    	exec command
+                    	command="db_history.history."+username+".insert(j)"
+                    	exec command
+                    	return flask.render_template("404.html")
         else:
-            return flask.render_template("404.html")
+        	return flask.render_template("404.html")
 
 @app.route("/history")
 @check_login
