@@ -117,26 +117,30 @@
 
 <h5>Easy To Shop !</h5>
 
- <form method="post" action="/login" style="display: inline;">
-         <p style="padding-top: 20px"><input class="form-control" type="text" name="email" placeholder="Email"></p>
-<p><input class="form-control" type="password" name="password" placeholder="Password"></p>
+ <form method="post" action="/login" style="display: inline;" autocomplete="off">
+         <p style="padding-top: 20px"><input class="form-control" type="text" name="email" placeholder="Email" autocomplete="off"></p>
+<p><input class="form-control" type="password" name="password" placeholder="Password" autocomplete="off"></p>
  <!--
  <button id="loginButton" data-loading-text="Loading..." class="btn btn-success btn-block">Login</button> -->
- <p style="padding-top: 40px" class="submit" style="width: 200px; height: 65px; display: inline-block;" href="http://dinero-web.heroku.com/login"><input type="submit" value="Login" class="btn btn-success btn-block"></p>
+ <p style="padding-top: 40px" class="submit" style="width: 200px; height: 65px; display: inline-block;" href="http://dinero-web.heroku.com/login"><input type="submit" value="Sign-In" class="btn btn-success btn-block btn-lg"></p>
 </form>
 
+<form action="http://dinero-web.herokuapp.com/signup">
+<p href="http://dinero-web.herokuapp.com/signup"><input type="submit" value="Don't have an account? Sign-Up" class="btn btn-link"></p>
+</form>
 
-<p></p>
- <a class="btn btn-block btn-facebook btn-primary" href="http://dinero-web.heroku.com/facebook_login" >
+<p style="padding-top: 15px"></p>
+
+<img src="../static/img/or.jpg">
+ <p></p>
+ <a style="background-color:#3B5998; border-color:#3B5998;" class="btn btn-block btn-facebook btn-primary btn-lg" href="http://dinero-web.heroku.com/facebook_login" >
   <span class="fa fa-facebook-square" style="padding-right:15px;"></span>
-        Facebook Login
+        Sign-In with Facebook
 
 
 </a>
 
-<form action="http://dinero-web.herokuapp.com/signup">
-<p href="http://dinero-web.herokuapp.com/signup"><input type="submit" value="Sign-Up" class="btn btn-link"></p>
-</form>
+
 <!--
 <button type="button" class="btn btn-link" formaction="http://dinero-web.herokuapp.com/signup">Sign-Up</button>
     
@@ -167,14 +171,14 @@ function goBack() {
 }
 </script>
 
-
+<!--
     <div class="scroll-top page-scroll visible-xs visible-sm">
         <a class="btn btn-primary" onclick="goBack()">
             <i class="fa fa-chevron-left"></i>
         </a>
     </div>
 </div>
-
+-->
     <!-- jQuery -->
     <script src="../static/js/jquery.js"></script>
 
