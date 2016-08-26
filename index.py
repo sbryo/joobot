@@ -74,7 +74,7 @@ def check_login(func):
 
 @app.route("/")
 def loginPage():
-	if "username" in flask.session:
+	if ("username" in flask.session) or (session['logged_in']==True):
         	email = flask.session['username']
         	client = MongoClient('ds019254.mlab.com', 19254)
         	client.users.authenticate('shakedinero','a57821688')
