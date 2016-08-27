@@ -84,12 +84,15 @@ def loginPage():
         	for doc in cursor:
             		if email == doc['email']:
             			return flask.redirect("/dinero")
-        if (session['logged_in']==True):
-        	return flask.redirect("/dinero")
+        try:
+                if (session['logged_in']==True):
+        	        return flask.redirect("/dinero")
+        except:
+                print "y"
 	#elif flask.session['logged_in'] == True:
 	#	return flask.redirect("/dinero")
-	else:
-		return flask.render_template("dinero-login.html")
+	#else:
+        return flask.render_template("dinero-login.html")
 
 @app.route("/signup")
 def signup():
