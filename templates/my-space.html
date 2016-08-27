@@ -152,8 +152,10 @@ body {margin:0;}
      
 	
 <div></div>
-<h3>Here you will build you virtual store for free ! </h3>
-<h4>Coming Soon !</h4>
+
+<button type="button" class="btn btn-lg btn-success" data-toggle="popover" title="Coming Soon!" data-content="Here you will build & design your virtual shop for free ! Earn money in your free time !">Design My Shop</button>
+
+
             </div>
           
 		  
@@ -256,7 +258,11 @@ function goBack() {
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
 
 </body>
 
