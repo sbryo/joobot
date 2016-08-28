@@ -66,26 +66,26 @@ def facebook_authorized(resp):
 
 def check_login(func):
 	def wrapper(*args, **kwargs):
-        	if ("username" in flask.session) or (session['logged_in']==True):
-            		return func(*args, **kwargs)
-        	else:
-            		return flask.redirect("/")
+		if ("username" in flask.session) or (session['logged_in']==True):
+			return func(*args, **kwargs)
+		else:
+			return flask.redirect("/")
 	return functools.update_wrapper(wrapper, func)
 
 @app.route("/")
 def loginPage():
 	if ("username" in flask.session):
-        	email = flask.session['username']
-        	client = MongoClient('ds019254.mlab.com', 19254)
-        	client.users.authenticate('shakedinero','a57821688')
-        	db = client.users
-        	collection = db.users
-        	cursor = db.users.find()
-        	for doc in cursor:
-            		if email == doc['email']:
-            			return flask.redirect("/dinero")
-        if (session['logged_in']==True):
-        	return flask.redirect("/dinero")
+		email = flask.session['username']
+		client = MongoClient('ds019254.mlab.com', 19254)
+		client.users.authenticate('shakedinero','a57821688')
+		db = client.users
+		collection = db.users
+		cursor = db.users.find()
+		for doc in cursor:
+			if email == doc['email']:
+				return flask.redirect("/dinero")
+			if (session['logged_in']==True):
+				return flask.redirect("/dinero")
 	#elif flask.session['logged_in'] == True:
 	#	return flask.redirect("/dinero")
 	else:
@@ -134,19 +134,20 @@ def signing():
 def login():
 	if "email" in flask.request.form:
 		try:
-        		client = MongoClient('ds019254.mlab.com', 19254)
-        		client.users.authenticate('shakedinero','a57821688')
+			client = MongoClient('ds019254.mlab.com', 19254)
+			client.users.authenticate('shakedinero','a57821688')
         		db = client.users
         		collection = db.users
         		cursor = db.users.find()
         		email = flask.request.form['email']
         		password = flask.request.form['password']
         		for doc in cursor:
-            			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
-            				flask.session['username'] = doc['email']
-            				return flask.redirect("/dinero")
-        	except:
-        		return flask.redirect("/")
+					if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
+						flask.session['username'] = doc['email']
+						session['logged_in']=False
+						return flask.redirect("/dinero")
+		except:
+			return flask.redirect("/")
         else:
         	return flask.redirect("/")
 
