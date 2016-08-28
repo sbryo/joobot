@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,6 +33,7 @@
 body {margin:0;}
 .icon_bar {
 	position: fixed;
+   
 	bottom: 0;
 	width: 100%;
     text-align: center;
@@ -54,7 +56,9 @@ body {margin:0;}
     background-color: #18BC9C !important;
 }
 </style>
-    <style>#results { color:black;  }
+
+           <style> #results { color:black;  }
+
         #load{
     width:100%;
     height:100%;
@@ -64,6 +68,8 @@ body {margin:0;}
     z-index:9999;
     background:url("http://2.bp.blogspot.com/-JbBntT9YAY4/ViO_tqgWarI/AAAAAAAAAJk/9Q5Yyg4Hf8g/s1600-r/loading_cart.gif") 50% 50% no-repeat rgb(255,255,255);
 }
+
+
         </style>
 
 
@@ -103,15 +109,15 @@ body {margin:0;}
                     <li class="page-scroll">
                         <a href="http://dinero-web.heroku.com/my-space">My-Space</a>
                     </li>
-
+                    
                                         <li class="page-scroll">
                         <a href="http://dinero-web.heroku.com/marketplace">Dinero Market Place</a>
                     </li>
-
+                    
                                                         <li class="page-scroll">
                         <a href="http://dinero-web.heroku.com/logout">Logout</a>
                     </li>
-
+                  
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -119,23 +125,24 @@ body {margin:0;}
         <!-- /.container-fluid -->
     </nav>
 
-    <!-- Header --> <!--
+    <!-- Header --> <!-- 
     <header>
         <div class="container">
             <div class="row">
-
+         
 		  <div class="col-lg-12">
-
+          
                     <div class="intro-text">
                         <span class="name">Shopping Is Easy!</span>
                         <hr class="star-light">
                         <span class="skills">with Dinero</span>
                     </div>
 					</div>
+
  </div>
         </div>
     </header>
--->
+--> 
 
                <center><div id="load"></div></center>
 <div id="contents">
@@ -150,18 +157,18 @@ body {margin:0;}
                   <!--           <hr class="star-primary"> -->
                   <p style="padding-top: 5px"></p>
                   <p><b>Hello, </b>{{username}}</p>
-
-
+     
+	
 <div></div>
 <p style="padding-top: 50px"></p>
 <button type="button" class="btn btn-block btn-lg btn-success" data-toggle="popover" title="Coming Soon!" data-content="Here you will build & design your virtual shop for free ! Earn money in your free time !" data-placement="bottom"> Design My Shop</button>
 
 
             </div>
-
-
+          
+		  
 		  </div>
-
+		  
                 </div>
             </div>
         </div>
@@ -203,7 +210,7 @@ function goBack() {
 
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/freelancer.js"></script>
-
+	
 	 <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
                         <script>
                         $(document).ready(function() {
@@ -221,7 +228,7 @@ function goBack() {
     ]
 } );
                                 $("#results").DataTable();
-
+                              
                         } );
                         </script>
 
@@ -249,6 +256,7 @@ function goBack() {
       version    : 'v2.7'
     });
   };
+
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
