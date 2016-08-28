@@ -622,15 +622,13 @@ def public_append():
 @app.route("/logout")
 def logout():
 	if "username" in flask.session:
-                del flask.session["username"]
+        	del flask.session["username"]
     		return flask.redirect("/")
-        try:
-    	        if (session['logged_in']==True):
-    		        session['logged_in']=False
-        	        return flask.redirect("/")
-        except:
-                print "x"
-        return flask.redirect("/")
+    	if (session['logged_in']==True):
+    		session['logged_in']=False
+        	return flask.redirect("/")
+    	else:
+    		return flask.redirect("/")
 
 @app.errorhandler(404)
 def page_not_found(e):
