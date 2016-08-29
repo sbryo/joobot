@@ -7,3 +7,4 @@ pygoogle
 dropbox
 pymongo
 Flask-OAuth
+Flask-Compress
