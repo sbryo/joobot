@@ -88,12 +88,17 @@ def loginPage():
 		for doc in cursor:
 			if email == doc['email']:
 				return flask.redirect("/dinero")
-			if (session['logged_in']==True):
-				return flask.redirect("/dinero")
+	try:
+		if (session['logged_in']==True):
+			return flask.redirect("/dinero")
+		else:
+			return flask.render_template("dinero-login.html")
+	except:
+		return flask.render_template("dinero-login.html")
 	#elif flask.session['logged_in'] == True:
 	#	return flask.redirect("/dinero")
-	else:
-		return flask.render_template("dinero-login.html")
+	#else:
+	#	return flask.render_template("dinero-login.html")
 
 @app.route("/signup")
 def signup():
@@ -463,7 +468,10 @@ def cheap():
     	command="cursor = db.results."+username+".find()"
     	exec command
     	for document in cursor:
-        	LIST.append(float(document['price'].replace('$','')))
+    		try:
+        		LIST.append(float(document['price'].replace('$','')))
+        	except:
+        		continue
 
     	while LIST:
         	minimum = LIST[0]  # arbitrary number in list
