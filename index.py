@@ -18,12 +18,12 @@ import urllib
 import urllib2
 import requests
 from flask_oauth import OAuth
-from flask.ext.compress import Compress
+#from flask.ext.compress import Compress
 
 app = flask.Flask(__name__)
-compress = Compress()
+#compress = Compress()
 #Compress(app)
-compress.init_app(app)
+#compress.init_app(app)
 app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 
 
