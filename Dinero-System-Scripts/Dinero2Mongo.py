@@ -199,10 +199,10 @@ results_array = '{"ebay":"'+str(ebay_list)+'","dx":"'+str(dx_list)+'","amazon":"
 print "ARRAY: "+results_array
 
 command1="result = db_results.results."+username+".delete_many({})"
-command2="db_results.results."+username+".insert(ebay_list)"
-command3="db_results.results."+username+".insert(dx_list)"
-command4="db_results.results."+username+".insert(ali_list)"
-command5="db_results.results."+username+".insert(amazon_list)"
+command2="db_results.results."+username+".insert_many(ebay_list)"
+command3="db_results.results."+username+".insert_many(dx_list)"
+command4="db_results.results."+username+".insert_many(ali_list)"
+command5="db_results.results."+username+".insert_many(amazon_list)"
 exec command1
 exec command2
 exec command3
