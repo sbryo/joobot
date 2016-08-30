@@ -466,7 +466,7 @@ def cheap():
     	exec command
     	for document in cursor:
 			try:
-        		LIST.append(float(document['price'].replace('$','')))
+        			LIST.append(float(document['price'].replace('$','')))
 			except:
 				continue
     	while LIST:
