@@ -303,7 +303,7 @@ def addtofavorites(LINE):
 	client = MongoClient('ds019254.mlab.com',19254)
     	client.results.authenticate('shakedinero','a57821688')
     	db_results = client.results
-    
+
     	STR=LINE
     	command="cursor = db_results.results."+username+".find()"
     	exec command
@@ -443,64 +443,56 @@ def freeShipping():
 @check_login
 def cheap():
     #try:
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
-        if ("username" in flask.session):
-        	email = flask.session['username']
-        	user = email.split("@")[0]
-        	domain = ((email.split("@")[1]).split("."))[0]
-        	username=user+domain
-    	client = MongoClient('ds019254.mlab.com',19254)
-    	client.results.authenticate('shakedinero','a57821688')
-    	db = client.results
+    email = flask.session['username']
+    user = email.split("@")[0]
+    domain = ((email.split("@")[1]).split("."))[0]
+    username=user+domain
+    client = MongoClient('ds019254.mlab.com',19254)
+    client.results.authenticate('shakedinero','a57821688')
+    db = client.results
 
-    	LIST=[]
-    	new_list=[]
-    	cheap_list=[]
-    	list=[]
+    LIST=[]
+    new_list=[]
+    cheap_list=[]
+    list=[]
 
-    	command="cursor = db.results."+username+".find()"
-    	exec command
-    	for document in cursor:
-			try:
-        			LIST.append(float(document['price'].replace('$','')))
-			except:
-				continue
-    	while LIST:
-        	minimum = LIST[0]  # arbitrary number in list
-        	for x in LIST:
-            		if x < minimum:
-                		minimum = x
-        			new_list.append(minimum)
-        			LIST.remove(minimum)
-    	command="cursor = db.results."+username+".find()"
-    	exec command
+    command="cursor = db.results."+username+".find()"
+    exec command
+    for document in cursor:
+        LIST.append(float(document['price'].replace('$','')))
 
-    	docs_list=[]
-    	for doc in cursor:
-        	docs_list.append(doc)
+    while LIST:
+        minimum = LIST[0]  # arbitrary number in list
+        for x in LIST:
+            if x < minimum:
+                minimum = x
+        new_list.append(minimum)
+        LIST.remove(minimum)
+    command="cursor = db.results."+username+".find()"
+    exec command
 
-    	for i in new_list:
-        	for doc in docs_list:
-            		if float(doc['price'].replace('$','')) == float(i):
-                		cheap_list.append(doc)
-            		else:
-                 		continue
+    docs_list=[]
+    for doc in cursor:
+        docs_list.append(doc)
+
+    for i in new_list:
+        for doc in docs_list:
+            if float(doc['price'].replace('$','')) == float(i):
+                cheap_list.append(doc)
+            else:
+                 continue
 
 #Make list for html page
-    	for document in cheap_list:
-        	x = []
-        	x.append(document['title'])
-        	x.append(document['price'])
-        	x.append(document['shipping'])
-        	x.append(document['url'])
-        	x.append(document['image'])
-        	x.append(document['web'])
-        	list.append(x)
-    	return flask.render_template('results.html',list=list)
+    for document in cheap_list:
+        x = []
+        x.append(document['title'])
+        x.append(document['price'])
+        x.append(document['shipping'])
+        x.append(document['url'])
+        x.append(document['image'])
+        x.append(document['web'])
+        list.append(x)
+    return flask.render_template('results.html',list=list)
 
 
 
