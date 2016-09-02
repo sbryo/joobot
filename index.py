@@ -442,11 +442,23 @@ def freeShipping():
 @app.route("/results/cheap")
 @check_login
 def cheap():
-    #try:
-    email = flask.session['username']
-    user = email.split("@")[0]
-    domain = ((email.split("@")[1]).split("."))[0]
-    username=user+domain
+    try:
+        if (session['logged_in']==True):
+            data = facebook.get('/me').data
+            if 'id' in data and 'name' in data:
+                user_id = data['id']
+                username = (data['name']).replace(' ','')+str(user_id)
+    except:
+        if ("username" in flask.session):
+            email = flask.session['username']
+            user = email.split("@")[0]
+            domain = ((email.split("@")[1]).split("."))[0]
+            username=user+domain
+    if ("username" in flask.session):
+            email = flask.session['username']
+            user = email.split("@")[0]
+            domain = ((email.split("@")[1]).split("."))[0]
+            username=user+domain
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db = client.results
