@@ -217,8 +217,8 @@ command4="db_results.results."+username+".insert_many(ali_list)"
 command5="db_results.results."+username+".insert_many(amazon_list)"
 exec command1
 exec command2
-exec command4
 exec command3
+exec command4
 exec command5
 
 
