@@ -150,13 +150,13 @@ for i in products_list:
     try:
         item_url = ((i.split('normal" href="')[1]).split('"'))[0]
         title = ((i.split('title="')[1]).split('"')[0])
-        #if KEYWORDS in title:
-        img = ((i.split('img src="')[1]).split('"')[0])
-        price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
-        shipping = "-"
-        x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
-        j=json.loads(x)
-        amazon_list.append(j)
+        if KEYWORDS in title:
+            img = ((i.split('img src="')[1]).split('"')[0])
+            price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
+            shipping = "-"
+            x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
+            j=json.loads(x)
+            amazon_list.append(j)
         #RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
         #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
     except:
@@ -174,7 +174,7 @@ data = urllib.urlencode(values)
 req = urllib2.Request(url,data,headers)
 response = urllib2.urlopen(req)
 the_page = response.read()
-products_list=the_page.split('<a class="history-item product "')
+products_list=the_page.split('history-item')
 ali_results = []
 ali_history = []
 ali_list = []
@@ -183,8 +183,18 @@ for i in products_list:
     try:
         item_url = ((i.split('href="')[1]).split('"'))[0]
         title = ((i.split('title="')[1]).split('"'))[0]
-        img = ((i.split('image-src="')[1]).split('"'))[0]
-        price = (((i.split('<span class="value" itemprop="price">')[1]).split('<'))[0])[3:-1]
+        """ <a class="ui-image-viewer-thumb-frame" data-role="thumbFrame" href=" """
+        response2 = urllib2.urlopen('http:'+item_url)
+        page_ali = response2.read()
+        #Check about close requests
+        #img = ((i.split('image-src="')[1]).split('"'))[0]
+        img=((page_ali.split('<a class="ui-image-viewer-thumb-frame" data-role="thumbFrame" href="')[1]).split('src="')[1]).split('"')[0]
+        try:
+            price = ((((i.split('<span class="value" itemprop="price">')[1]).split('<'))[0])[3:1]).replace('$','')
+            if '-' in price:
+                continue
+        except:
+            continue
         shipping = "-"
         #ali_results.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
         #ali-history.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
