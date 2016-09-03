@@ -396,7 +396,7 @@ def get_results():
         	x.append(str(document['_id']))
         	x.append(str(datetime.datetime.now()).split('.')[0])
         	list.append(x)
-            random.shuffle(list)
+        random.shuffle(list)
     	return flask.render_template('results.html',list=list)
     #except:
      #   return flask.render_template('404.html')
