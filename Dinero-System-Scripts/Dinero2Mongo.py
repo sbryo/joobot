@@ -13,6 +13,8 @@ import urllib2
 import requests
 import sys
 
+items_list = []
+
 file=open("/tmp/user.txt",'r')
 username=file.read()
 file.close()
