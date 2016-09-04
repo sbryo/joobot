@@ -38,6 +38,52 @@ command="cursor = db_search.search."+username+".find()"
 exec command
 for document in cursor:
     KEYWORDS=document['search']
+    
+    
+
+########################################################### AliExpress ###################################33
+url = 'http://aliexpress.com/wholesale?catId=0&initiative_id=AS_20160721045815&SearchText='+KEYWORDS
+values = {'name': 'Dinero',
+          'location': 'Northampton',
+          'language': 'Python' }
+user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+headers = {'User-Agent': user_agent}
+
+data = urllib.urlencode(values)
+req = urllib2.Request(url,data,headers)
+response = urllib2.urlopen(req)
+the_page = response.read()
+products_list=the_page.split('<div class="pic">')
+ali_results = []
+ali_history = []
+ali_list = []
+
+for i in products_list:
+    try:
+        print "##################################"
+        item_url = ((i.split('href="')[1]).split('"'))[0]
+        title = ((i.split('alt="')[1]).split('"'))[0]
+        img = ((i.split('src="')[1]).split('"'))[0]
+        #response2 = urllib2.urlopen('http:'+item_url)
+        #page_ali = response2.read()
+        #Check about close requests
+        #img = ((i.split('image-src="')[1]).split('"'))[0]
+        #img=((page_ali.split('<a class="ui-image-viewer-thumb-frame" data-role="thumbFrame" href="')[1]).split('src="')[1]).split('"')[0]
+
+        try:
+            price = ((((i.split('<span class="value" itemprop="price">')[1]).split('<'))[0])[3:-1]).replace('$','')
+            if '-' in price:
+                continue
+        except:
+            continue
+        shipping='-'
+    except:
+        continue
+        #ali_results.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
+        #ali-history.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
+        x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
+        j=json.loads(x)
+        items_list.append(j)
 
 ########################################################### EBAY ########################################################
 ebay_list = []
@@ -164,49 +210,6 @@ for i in products_list:
     except:
         continue
 
-########################################################### AliExpress ###################################33
-url = 'http://aliexpress.com/wholesale?catId=0&initiative_id=AS_20160721045815&SearchText='+KEYWORDS
-values = {'name': 'Dinero',
-          'location': 'Northampton',
-          'language': 'Python' }
-user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
-headers = {'User-Agent': user_agent}
-
-data = urllib.urlencode(values)
-req = urllib2.Request(url,data,headers)
-response = urllib2.urlopen(req)
-the_page = response.read()
-products_list=the_page.split('<div class="pic">')
-ali_results = []
-ali_history = []
-ali_list = []
-
-for i in products_list:
-    try:
-        print "##################################"
-        item_url = ((i.split('href="')[1]).split('"'))[0]
-        title = ((i.split('alt="')[1]).split('"'))[0]
-        img = ((i.split('src="')[1]).split('"'))[0]
-        #response2 = urllib2.urlopen('http:'+item_url)
-        #page_ali = response2.read()
-        #Check about close requests
-        #img = ((i.split('image-src="')[1]).split('"'))[0]
-        #img=((page_ali.split('<a class="ui-image-viewer-thumb-frame" data-role="thumbFrame" href="')[1]).split('src="')[1]).split('"')[0]
-
-        try:
-            price = ((((i.split('<span class="value" itemprop="price">')[1]).split('<'))[0])[3:-1]).replace('$','')
-            if '-' in price:
-                continue
-        except:
-            continue
-        shipping='-'
-    except:
-        continue
-        #ali_results.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
-        #ali-history.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
-        x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
-        j=json.loads(x)
-        items_list.append(j)
 
 ############################################################ Close files & Sync #################################################################
 #results_array = '{"ebay":"'+str(ebay_list)+'","dx":"'+str(dx_list)+'","amazon":"'+str(amazon_list)+'","ali":"'+str(ali_list)+'"}'
