@@ -116,8 +116,8 @@ def signing():
         		password = flask.request.form['password']
         		for doc in cursor:
         			### if user already exists
-            			if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
-            				x=x+1
+            			if "password" in flask.request.form and str(email.lower()) == doc['email'] and password == doc['password']:
+					x=x+1
             				return flask.redirect("/")
             			### Create user
             		if x==0:
@@ -149,7 +149,7 @@ def login():
         		email = flask.request.form['email']
         		password = flask.request.form['password']
         		for doc in cursor:
-					if "password" in flask.request.form and email == doc['email'] and password == doc['password']:
+					if "password" in flask.request.form and str(email.lower()) == doc['email'] and password == doc['password']:
 						flask.session['username'] = doc['email']
 						session['logged_in']=False
 						return flask.redirect("/dinero")
