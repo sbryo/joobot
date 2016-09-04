@@ -87,7 +87,7 @@ def loginPage():
 		collection = db.users
 		cursor = db.users.find()
 		for doc in cursor:
-			if email == doc['email']:
+			if str(str(email).lower()) == doc['email']:
 				return flask.redirect("/dinero")
 	try:
 		if (session['logged_in']==True):
