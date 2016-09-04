@@ -79,7 +79,7 @@ try:
 
             x='{"title":"'+TITLE+'","url":"'+URL+'","image":"'+IMG+'","price":"'+PRICE+'","shipping":"'+SHIPPING_PRICE+'","web":"Ebay"}'
             j=json.loads(x)
-            ebay_list.append(j)
+            items_list.append(j)
             #RESULTS_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
             #HISTORY_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
 
@@ -126,7 +126,7 @@ for product in products_list:
         #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
         x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"DealExtreme"}'
         j=json.loads(x)
-        dx_list.append(j)
+        items_list.append(j)
     except:
         continue
 
@@ -156,7 +156,7 @@ for i in products_list:
             shipping = "-"
             x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
             j=json.loads(x)
-            amazon_list.append(j)
+            items_list.append(j)
         #RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
         #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
     except:
@@ -204,21 +204,16 @@ for i in products_list:
         #ali-history.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
         x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
         j=json.loads(x)
-        ali_list.append(j)
+        items_list.append(j)
 
 ############################################################ Close files & Sync #################################################################
-results_array = '{"ebay":"'+str(ebay_list)+'","dx":"'+str(dx_list)+'","amazon":"'+str(amazon_list)+'","ali":"'+str(ali_list)+'"}'
-print "ARRAY: "+results_array
+#results_array = '{"ebay":"'+str(ebay_list)+'","dx":"'+str(dx_list)+'","amazon":"'+str(amazon_list)+'","ali":"'+str(ali_list)+'"}'
+#print "ARRAY: "+results_array
 
 command1="result = db_results.results."+username+".delete_many({})"
-command2="db_results.results."+username+".insert_many(ebay_list)"
-command3="db_results.results."+username+".insert_many(dx_list)"
-command4="db_results.results."+username+".insert_many(ali_list)"
-command5="db_results.results."+username+".insert_many(amazon_list)"
+command2="db_results.results."+username+".insert_many(items_list)"
 exec command1
-exec command5
-exec command4
-exec command3
 exec command2
+
 
 
