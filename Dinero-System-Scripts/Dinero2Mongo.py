@@ -60,10 +60,10 @@ ali_list = []
 
 for i in products_list:
     try:
-        print "##################################"
         item_url = ((i.split('href="')[1]).split('"'))[0]
         title = ((i.split('alt="')[1]).split('"'))[0]
         img = ((i.split('src="')[1]).split('"'))[0]
+        shipping = "-"
         #response2 = urllib2.urlopen('http:'+item_url)
         #page_ali = response2.read()
         #Check about close requests
@@ -76,14 +76,13 @@ for i in products_list:
                 continue
         except:
             continue
-        shipping='-'
-    except:
-        continue
         #ali_results.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
         #ali-history.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
         x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
         j=json.loads(x)
         items_list.append(j)
+    except:
+        continue
 
 ########################################################### EBAY ########################################################
 ebay_list = []
