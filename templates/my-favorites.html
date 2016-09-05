@@ -158,8 +158,8 @@ body {margin:0;}
 		</a>
 		</div>
 		</p></td>
-                <td><form method="post" action={{x[3]}}><p class="submit"><input type="submit" value="Open in {{x[5]}}" class="btn btn-primary btn-block" id={{x[0]}}></p></form></td>
-                <td><form method="post" action="http://dinero-web.heroku.com/favorites/delete/{{x[6]}}"><p class="submit"><input type="submit" value="Delete" class="btn btn-danger btn-block" id={{x[0]}} ></p></form></td>
+                <td><form method="post" action={{x[3]}}><button type="submit" class="btn btn-primary btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button></form></td>
+                <td><form method="post" action="http://dinero-web.heroku.com/favorites/delete/{{x[6]}}"><button type="submit" class="btn btn-danger btn-block" id="{{ x[0] }}"  data-loading-text="<i class='fa fa-spinner fa-spin '></i> Deleting...">Delete</button></form></td>
 
                 </tr>
         {% endfor %}
@@ -266,6 +266,16 @@ function goBack() {
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+	$('.btn').on('click', function() {
+    var $this = $(this);
+  $this.button('loading');
+    setTimeout(function() {
+       $this.button('reset');
+   }, 100000);
+});
 </script>
 <!--
     <div class="scroll-top page-scroll visible-xs visible-sm">
