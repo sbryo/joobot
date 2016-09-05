@@ -183,7 +183,7 @@ body {margin:0;}
  </div>
            </div>
  </div>
-      	
+
       	<!-- THE OLD FILTERS BUTTONS
             <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
           <p></p>
@@ -193,9 +193,9 @@ body {margin:0;}
 
         </div>
     </div>
-  </div>   
+  </div>
   -->
-      
+
 <!--
   <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
       <form action=http://dinero-web.heroku.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
@@ -217,21 +217,23 @@ body {margin:0;}
 		</a>
 		</div>
 		</p></td>
-    
 
-                <td><form action={{x[3]}} target="_blank"><input type="submit" value="Open in {{x[5]}}" target="_blank" class="btn btn-primary btn-block"></form></td>
-                <td><form action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[6]}}"><input type="submit" value="Like" class="btn btn-success btn-block"></form></td>
+
+                <td><form action={{x[3]}} target="_blank"><button type="submit" class="btn btn-primary btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button>
+                </form></td>
+
+                <td><form action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[6]}}"><button type="submit" class="btn btn-success btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> ♥">Like</button></form></td>
             </tr>
         {% endfor %}
        </tbody>
     </table>
 
-		
-					
-					
+
+
+
                 </div>
             </div>
-           
+
     </section>
 
     <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
@@ -242,7 +244,7 @@ body {margin:0;}
                     </div>
                 </div>
             </div>
-         
+
     <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -300,7 +302,7 @@ body {margin:0;}
 
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/freelancer.js"></script>
-	
+
 
 	 <script type="../static/text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
 <script type="../static/text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
