@@ -1,6 +1,6 @@
 
 ### This Web-App Created BY SHAKED BRAIMOK ###
-####### APP NAME: Dinero #######
+####### APP NAME: Joobot #######
 
 import os
 import cmd
@@ -59,14 +59,14 @@ def facebook_login():
 @app.route("/facebook_authorized")
 @facebook.authorized_handler
 def facebook_authorized(resp):
-    next_url = request.args.get('next') or url_for('dinero')
+    next_url = request.args.get('next') or url_for('joobot')
     if resp is None or 'access_token' not in resp:
         return redirect('/')
 
     session['logged_in'] = True
     session['facebook_token'] = (resp['access_token'], '')
 
-    return redirect('/dinero')
+    return redirect('/joobot')
 
 
 def check_login(func):
@@ -88,14 +88,14 @@ def loginPage():
 		cursor = db.users.find()
 		for doc in cursor:
 			if str(str(email).lower()) == doc['email']:
-				return flask.redirect("/dinero")
+				return flask.redirect("/joobot")
 	try:
 		if (session['logged_in']==True):
-			return flask.redirect("/dinero")
+			return flask.redirect("/joobot")
 		else:
-			return flask.render_template("dinero-login.html")
+			return flask.render_template("joobot-login.html")
 	except:
-		return flask.render_template("dinero-login.html")
+		return flask.render_template("joobot-login.html")
 
 
 @app.route("/signup")
@@ -124,7 +124,7 @@ def signing():
             			j=json.loads('{"email":"'+email+'","password":"'+password+'"}')
             			db.users.insert(j)
             			flask.session['username'] = email
-            			return flask.redirect("/dinero")
+            			return flask.redirect("/joobot")
 
         	except:
         		return flask.redirect("/")
@@ -152,7 +152,7 @@ def login():
 					if "password" in flask.request.form and str(email.lower()) == doc['email'] and password == doc['password']:
 						flask.session['username'] = doc['email']
 						session['logged_in']=False
-						return flask.redirect("/dinero")
+						return flask.redirect("/joobot")
 		except:
 			return flask.redirect("/")
         else:
@@ -160,9 +160,9 @@ def login():
 
 
 
-@app.route("/dinero")
+@app.route("/joobot")
 @check_login
-def dinero():
+def joobot():
 	return flask.render_template('index.html')
 
 
