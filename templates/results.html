@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.semanticui.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
-    <title>Dinero</title>
+    <title>Joobot</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -81,11 +81,11 @@ body {margin:0;}
 
 <body id="page-top" class="index">
 	<div class="icon_bar">
-  <a href="http://dinero-web.herokuapp.com/dinero"><i class="fa fa-search"></i></a>
-  <a href="http://dinero-web.herokuapp.com/my-space"><i class="fa fa-home"></i></a>
-  <a href="http://dinero-web.herokuapp.com/favorites"><i class="fa fa-heart"></i></a>
-  <a href="http://dinero-web.herokuapp.com/history"><i class="fa fa-history"></i></a>
-  <a href="http://dinero-web.herokuapp.com/marketplace"><i class="fa fa-users"></i></a>
+  <a href="http://joobot-web.herokuapp.com/joobot"><i class="fa fa-search"></i></a>
+  <a href="http://joobot-web.herokuapp.com/my-space"><i class="fa fa-home"></i></a>
+  <a href="http://joobot-web.herokuapp.com/favorites"><i class="fa fa-heart"></i></a>
+  <a href="http://joobot-web.herokuapp.com/history"><i class="fa fa-history"></i></a>
+  <a href="http://joobot-web.herokuapp.com/marketplace"><i class="fa fa-users"></i></a>
 </div>
 
     <!-- Navigation -->
@@ -99,7 +99,7 @@ body {margin:0;}
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-             <a class="navbar-brand" href="#page-top"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>  Dinero  </a>
+             <a class="navbar-brand" href="#page-top"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>  Joobot  </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -109,16 +109,16 @@ body {margin:0;}
                         <a href="#page-top"></a>
                     </li>
                        <li class="page-scroll">
-                        <a href="http://dinero-web.heroku.com/dinero">Dinero-Search</a>
+                        <a href="http://joobot-web.heroku.com/joobot">Joo-Search</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="http://dinero-web.heroku.com/my-space">My-Space</a>
+                        <a href="http://joobot-web.heroku.com/my-space">My-Space</a>
                     </li>
                                         <li class="page-scroll">
-                        <a href="http://dinero-web.heroku.com/marketplace">Dinero Market Place</a>
+                        <a href="http://joobot-web.heroku.com/marketplace">Joo Market Place</a>
                     </li>
                                                             <li class="page-scroll">
-                        <a href="http://dinero-web.heroku.com/logout">Logout</a>
+                        <a href="http://joobot-web.heroku.com/logout">Logout</a>
                     </li>
 
                 </ul>
@@ -136,7 +136,7 @@ body {margin:0;}
                     <h2>Results</h2>
          <!--           <hr class="star-primary"> -->
 					
-<h5>Dinero found these items for you : </h5>
+<h5>Joobot found these items for you : </h5>
 
                <center><div id="load"></div></center>
 <div id="contents">
@@ -168,7 +168,7 @@ body {margin:0;}
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Dinero Filters
+          Joobot Filters
         </a>
       </h4>
     </div>
@@ -177,9 +177,9 @@ body {margin:0;}
       <div class="panel-body">
       	 <div class="container">
          <div class="btn-group">
-         <a style="width: 100px;" href="http://dinero-web.heroku.com/results/cheap" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>Low-Cost</a>
-     <a style="width: 130px;" href="http://dinero-web.heroku.com/results/freeshipping" class="btn btn-primary"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span>Free Shipping</a>
-     <a style="width: 90px;" href="http://dinero-web.heroku.com/results" class="btn btn-primary"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>All</a>
+         <a style="width: 100px;" href="http://joobot-web.heroku.com/results/cheap" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>Low-Cost</a>
+     <a style="width: 130px;" href="http://joobot-web.heroku.com/results/freeshipping" class="btn btn-primary"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span>Free Shipping</a>
+     <a style="width: 90px;" href="http://joobot-web.heroku.com/results" class="btn btn-primary"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>All</a>
  </div>
            </div>
  </div>
@@ -222,7 +222,7 @@ body {margin:0;}
                 <td><form action={{x[3]}} target="_blank"><button type="submit" class="btn btn-primary btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button>
                 </form></td>
 
-                <td><form action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[6]}}"><button type="submit" class="btn btn-success btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> ♥">Like</button></form></td>
+                <td><form action="http://joobot-web.heroku.com/results/add_to_favorites/{{x[6]}}"><button type="submit" class="btn btn-success btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> ♥">Like</button></form></td>
             </tr>
         {% endfor %}
        </tbody>
