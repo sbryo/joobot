@@ -28,8 +28,8 @@ Compress(app)
 app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 
 
-FACEBOOK_APP_ID = '275750752809365'
-FACEBOOK_APP_SECRET = 'a6a10a5b3843f53f28f59a1e5a413588'
+FACEBOOK_APP_ID = '1407152752632423'
+FACEBOOK_APP_SECRET = '3eae4ca9c231852bb9deb352c80059b5'
 
 oauth = OAuth()
 
