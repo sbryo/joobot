@@ -110,16 +110,16 @@ body {margin:0;}
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="http://joobot-web.heroku.com/joobot">Joobot-Search</a>
+                        <a href="http://joobot-web.herokuapp.com/joobot">Joobot-Search</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="http://joobot-web.heroku.com/my-space">My-Space</a>
+                        <a href="http://joobot-web.herokuapp.com/my-space">My-Space</a>
                     </li>
                                         <li class="page-scroll">
-                        <a href="http://joobot-web.heroku.com/marketplace">Joo Market Place</a>
+                        <a href="http://joobot-web.herokuapp.com/marketplace">Joo Market Place</a>
                     </li>
                                     <li class="page-scroll">
-                        <a href="http://joobot-web.heroku.com/logout">Logout</a>
+                        <a href="http://joobot-web.herokuapp.com/logout">Logout</a>
                     </li>
 
                 </ul>
@@ -159,7 +159,7 @@ body {margin:0;}
 		</div>
 		</p></td>
                 <td><form method="post" action={{x[3]}}><button type="submit" class="btn btn-primary btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button></form></td>
-                <td><form method="post" action="http://joobot-web.heroku.com/favorites/delete/{{x[6]}}"><button type="submit" class="btn btn-danger btn-block" id="{{ x[0] }}"  data-loading-text="<i class='fa fa-spinner fa-spin '></i> Deleting...">Delete</button></form></td>
+                <td><form method="post" action="http://joobot-web.herokuapp.com/favorites/delete/{{x[6]}}"><button type="submit" class="btn btn-danger btn-block" id="{{ x[0] }}"  data-loading-text="<i class='fa fa-spinner fa-spin '></i> Deleting...">Delete</button></form></td>
 
                 </tr>
         {% endfor %}
