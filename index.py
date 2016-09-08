@@ -592,8 +592,8 @@ def history_delete(LINE):
     	client4 = MongoClient('ds019254.mlab.com',19254)
     	client4.history.authenticate('shakedinero','a57821688')
     	db_history = client4.history
-    	#command="cursor = db_history.history."+username+".find()"
-    	command = "cursor=db_history.history."+username+".find({'time': ('"+STR+"') })"
+    	command="cursor = db_history.history."+username+".find()"
+    	#command = "cursor=db_history.history."+username+".find({'time': ('"+STR+"') })"
     	exec command
     	for doc in cursor:
         	if STR not in doc['time']:
