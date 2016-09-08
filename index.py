@@ -199,11 +199,14 @@ def market():
 @app.route("/search",methods=['GET', 'POST'])
 @check_login
 def append():
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "Exception in Search on session['logged-in']"
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
