@@ -668,8 +668,9 @@ def logout():
         	del flask.session["username"]
     		return flask.redirect("/")
     	if (session['logged_in']==True):
-    		session['logged_in']=False
-        	return flask.redirect("/")
+    		pop_login_session()
+    		return redirect(url_for('index'))
+        	#return flask.redirect("/")
     	else:
     		return flask.redirect("/")
 
