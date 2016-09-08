@@ -273,12 +273,12 @@ def my_history_page():
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
     	try:
-		if (session['logged_in']==True):
-			data = facebook.get('/me').data
-			if 'id' in data and 'name' in data:
-    				user_id = data['id']
-    				username = (data['name']).replace(' ','')+str(user_id)
-    	except:
+            if (session['logged_in']==True):
+                data = facebook.get('/me').data
+                if 'id' in data and 'name' in data:
+                    user_id = data['id']
+                    username = (data['name']).replace(' ','')+str(user_id)
+        except:
     		print "exception in /history , logged_in not exist"
 
         list = []
@@ -295,26 +295,25 @@ def my_history_page():
             x.append(document['time'])
             list.append(x)
         return flask.render_template('my-history.html',list=list)
-    except:
-        return flask.render_template('404.html')
+
 
 
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
 @check_login
 def addtofavorites(LINE):
-        if ("username" in flask.session):
-		email = flask.session['username']
-        	user = email.split("@")[0]
-        	domain = ((email.split("@")[1]).split("."))[0]
-        	username=user+domain
-	try:
-		if (session['logged_in']==True):
-			data = facebook.get('/me').data
-			if 'id' in data and 'name' in data:
-    				user_id = data['id']
-    				username = (data['name']).replace(' ','')+str(user_id)
-    	except:
-    		print "Exception in add_to_favorite"
+    if ("username" in flask.session):
+        email = flask.session['username']
+        user = email.split("@")[0]
+        domain = ((email.split("@")[1]).split("."))[0]
+        username=user+domain
+    try:
+        if (session['logged_in']==True):
+            data = facebook.get('/me').data
+            if 'id' in data and 'name' in data:
+                user_id = data['id']
+                username = (data['name']).replace(' ','')+str(user_id)
+    except:
+        print "Exception in add_to_favorite"
     	client4 = MongoClient('ds019254.mlab.com',19254)
     	client4.favorites.authenticate('shakedinero','a57821688')
     	db_favorites = client4.favorites
@@ -340,39 +339,38 @@ def addtofavorites(LINE):
 @app.route("/favorites")
 @check_login
 def my_archive_page():
-	if ("username" in flask.session):
+    if ("username" in flask.session):
 		email = flask.session['username']
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
-    	try:
-		if (session['logged_in']==True):
+    try:
+        if (session['logged_in']==True):
 			data = facebook.get('/me').data
 			if 'id' in data and 'name' in data:
     				user_id = data['id']
     				username = (data['name']).replace(' ','')+str(user_id)
-    	except:
-    		print "exception in favorites"
-    	list=[]
-        client4 = MongoClient('ds019254.mlab.com',19254)
-        client4.favorites.authenticate('shakedinero','a57821688')
-        db_favorites = client4.favorites
-        command="cursor = db_favorites.favorites."+username+".find()"
-        exec command
-        # Make list for html page
-        for document in cursor:
-            x = []
-            x.append(document['title'])
-            x.append(document['price'])
-            x.append(document['shipping'])
-            x.append(document['url'])
-            x.append(document['image'])
-            x.append(document['web'])
-            x.append(str(document['_id']))
-            list.append(x)
-        return flask.render_template('my-favorites.html',list=list)
     except:
-        return flask.render_template('404.html')
+        print "exception in favorites"
+    list=[]
+    client4 = MongoClient('ds019254.mlab.com',19254)
+    client4.favorites.authenticate('shakedinero','a57821688')
+    db_favorites = client4.favorites
+    command="cursor = db_favorites.favorites."+username+".find()"
+    exec command
+    # Make list for html page
+    for document in cursor:
+        x = []
+        x.append(document['title'])
+        x.append(document['price'])
+        x.append(document['shipping'])
+        x.append(document['url'])
+        x.append(document['image'])
+        x.append(document['web'])
+        x.append(str(document['_id']))
+        list.append(x)
+    return flask.render_template('my-favorites.html',list=list)
+
 
 
 @app.route("/results")
