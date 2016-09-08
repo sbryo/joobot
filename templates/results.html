@@ -164,7 +164,7 @@ body {margin:0;}
       <tbody>
       	<!--
       <td>
-          <center><form action="http://dinero-web.heroku.com/results/filtering">
+          <center><form action="http://dinero-web.herokuapp.com/results/filtering">
   <input class="img-thumbnail" type="image" src="../static/img/ebay.png" alt="Submit" id="ebay">
           <input class="img-thumbnail" type="image" src="../static/img/alii.png" alt="Submit" id="ali">
           <input class="img-thumbnail" type="image" src="../static/img/dealextreame.png" alt="Submit" id="dx">
@@ -195,11 +195,11 @@ body {margin:0;}
  </div>
 
       	<!-- THE OLD FILTERS BUTTONS
-            <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
+            <form action=http://dinero-web.herokuapp.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
           <p></p>
-      <form action=http://dinero-web.heroku.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
+      <form action=http://dinero-web.herokuapp.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
           <p></p>
-      <form action=http://dinero-web.heroku.com/results ><input type="submit" value="All Listings" class="btn btn-outline-success btn-block"></form>
+      <form action=http://dinero-web.herokuapp.com/results ><input type="submit" value="All Listings" class="btn btn-outline-success btn-block"></form>
 
         </div>
     </div>
@@ -207,9 +207,9 @@ body {margin:0;}
   -->
 
 <!--
-  <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
-      <form action=http://dinero-web.heroku.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
-      <form action=http://dinero-web.heroku.com/results ><input type="submit" value="All Listings" class="btn btn-outline-success btn-block"></form>
+  <form action=http://dinero-web.herokuapp.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
+      <form action=http://dinero-web.herokuapp.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
+      <form action=http://dinero-web.herokuapp.com/results ><input type="submit" value="All Listings" class="btn btn-outline-success btn-block"></form>
 -->
 
       {% for x in list %}
@@ -232,7 +232,7 @@ body {margin:0;}
                 <td><form action={{x[3]}} target="_blank"><button type="submit" class="btn btn-primary btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button>
                 </form></td>
 
-                <td><form action="http://joobot-web.heroku.com/results/add_to_favorites/{{x[6]}}"><button type="submit" class="btn btn-success btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> ♥">Like</button></form></td>
+                <td><form action="http://joobot-web.herokuapp.com/results/add_to_favorites/{{x[6]}}"><button type="submit" class="btn btn-success btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> ♥">Like</button></form></td>
             </tr>
         {% endfor %}
        </tbody>
