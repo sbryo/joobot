@@ -308,7 +308,7 @@ def addtofavorites(LINE):
 
     	STR=LINE
     	#command="cursor = db_results.results."+username+".find()"
-        command = "cursor=db_results.results."+username+".find({'_id': ObjectId("+STR+") })"
+        command = "cursor=db_results.results."+username+".find({'_id': ObjectId('"+STR+"') })"
     	exec command
     	#cursor = db_results.results.shaked.find()
     	for doc in cursor:
