@@ -306,17 +306,18 @@ def addtofavorites(LINE):
     	db_results = client.results
 
     	STR=LINE
-    	command="cursor = db_results.results."+username+".find()"
+    	#command="cursor = db_results.results."+username+".find()"
+        command = "cursor=db_results.results."+username+".find({'_id': "+STR+") })"
     	exec command
     	#cursor = db_results.results.shaked.find()
     	for doc in cursor:
 #        STR=LINE.replace("%20"," ")
-        	if STR in str(doc['_id']):
+        	#if STR in str(doc['_id']):
             #db_favorites.favorites.shaked.insert(doc)
-            		command="db_favorites.favorites."+username+".insert(doc)"
-            		exec command
-        	else:
-            		continue
+            command="db_favorites.favorites."+username+".insert(doc)"
+            exec command
+        	#else:
+            #continue
         return flask.redirect("/results")
 
 @app.route("/favorites")
