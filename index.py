@@ -156,12 +156,12 @@ def login():
         		for doc in cursor:
 					if "password" in flask.request.form and str(email.lower()) == doc['email'] and password == doc['password']:
 						flask.session['username'] = doc['email']
-						session['logged_in']=False
+						#session['logged_in']=False
 						return flask.redirect("/joobot")
 		except:
 			return flask.redirect("/")
-        else:
-        	return flask.redirect("/")
+        
+        return flask.redirect("/")
 
 
 
