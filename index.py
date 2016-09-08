@@ -189,9 +189,12 @@ def test():
 def my_space():
 	if ("username" in flask.session):
 		username = (str(flask.session['username'])).split('@')[0]
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		username = (data['name'])
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			username = (data['name'])
+	except:
+		print "Exception in my-space | logged_in == true not exists"
 	return flask.render_template('my-space.html',username=username)
 
 @app.route("/marketplace")
@@ -264,17 +267,20 @@ def append():
 @app.route("/history")
 @check_login
 def my_history_page():
-    try:
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
-        if ("username" in flask.session):
-        	email = flask.session['username']
+	if ("username" in flask.session):
+		email = flask.session['username']
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
+    	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "exception in /history , logged_in not exist"
+
         list = []
         client3 = MongoClient('ds019254.mlab.com',19254)
         client3.history.authenticate('shakedinero','a57821688')
@@ -296,16 +302,19 @@ def my_history_page():
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
 @check_login
 def addtofavorites(LINE):
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
-        	email = flask.session['username']
+		email = flask.session['username']
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "Exception in add_to_favorite"
     	client4 = MongoClient('ds019254.mlab.com',19254)
     	client4.favorites.authenticate('shakedinero','a57821688')
     	db_favorites = client4.favorites
@@ -331,17 +340,19 @@ def addtofavorites(LINE):
 @app.route("/favorites")
 @check_login
 def my_archive_page():
-    try:
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
-        if ("username" in flask.session):
-        	email = flask.session['username']
+	if ("username" in flask.session):
+		email = flask.session['username']
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
+    	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "exception in favorites"
     	list=[]
         client4 = MongoClient('ds019254.mlab.com',19254)
         client4.favorites.authenticate('shakedinero','a57821688')
