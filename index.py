@@ -156,9 +156,8 @@ def login():
 						return flask.redirect("/joobot")
 		except:
 			return flask.redirect("/")
-        else:
+	else:
         	return flask.redirect("/")
-        return flask.redirect("/")
 
 
 
