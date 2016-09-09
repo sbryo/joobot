@@ -102,6 +102,10 @@ def loginPage():
 @app.route("/signup")
 def signup():
 	return flask.render_template("signup.html")
+	
+@app.route("/login_failed")
+def login_failed():
+	return flask.render_template("reset_password.html")
 
 @app.route("/signing", methods=['GET','POST'])
 def signing():
