@@ -340,10 +340,10 @@ def my_archive_page():
 			if 'id' in data and 'name' in data:
     				user_id = data['id']
     				username = (data['name']).replace(' ','')+str(user_id)
-	except:
-		print "Exception in /favorites"
-	if ("username" in flask.session):
-		email = flask.session['username']
+        except:
+        	print "Exception in /favorites"
+        if ("username" in flask.session):
+        	email = flask.session['username']
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
@@ -355,17 +355,18 @@ def my_archive_page():
         exec command
         # Make list for html page
         for document in cursor:
-        	x = []
-            	x.append(document['title'])
-            	x.append(document['price'])
-            	x.append(document['shipping'])
-            	x.append(document['url'])
-            	x.append(document['image'])
-            	x.append(document['web'])
-            	x.append(str(document['_id']))
-            	list.append(x)
-        	return flask.render_template('my-favorites.html',list=list)
-
+            x = []
+            x.append(document['title'])
+            x.append(document['price'])
+            x.append(document['shipping'])
+            x.append(document['url'])
+            x.append(document['image'])
+            x.append(document['web'])
+            x.append(str(document['_id']))
+            list.append(x)
+        return flask.render_template('my-favorites.html',list=list)
+    except:
+        return flask.render_template('404.html')
 
 
 @app.route("/results")
