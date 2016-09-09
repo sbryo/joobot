@@ -158,7 +158,6 @@ def login():
 			return flask.redirect("/")
         else:
         	return flask.redirect("/")
-        return flask.redirect("/")
 
 
 
