@@ -158,6 +158,7 @@ def login():
 			return flask.render_template('joobot-login-failed.html')
 	else:
         	return flask.redirect("/")
+        return flask.render_template('joobot-login-failed.html')
 
 
 
