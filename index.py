@@ -669,7 +669,7 @@ def logout():
     		return flask.redirect("/")
     	if (session['logged_in']==True):
     		pop_login_session()
-    		return redirect(url_for('joobot'))
+    		return redirect(url_for('index'))
         	#return flask.redirect("/")
     	else:
     		return flask.redirect("/")
