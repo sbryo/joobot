@@ -96,7 +96,8 @@ def loginPage():
 		else:
 			return flask.render_template("joobot-login.html")
 	except:
-		return flask.render_template("joobot-login.html")
+		print "Exception in /"
+	return flask.render_template("joobot-login.html")
 
 
 @app.route("/signup")
@@ -117,7 +118,7 @@ def signing():
         		password = flask.request.form['password']
         		for doc in cursor:
         			### if user already exists
-            			if "password" in flask.request.form and str(email.lower()) == doc['email'] and password == doc['password']:
+            			if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()) and password == doc['password']:
 					x=x+1
             				return flask.redirect("/")
             			### Create user
