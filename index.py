@@ -88,7 +88,7 @@ def loginPage():
 		collection = db.users
 		cursor = db.users.find()
 		for doc in cursor:
-			if str(str(email).lower()) == doc['email']:
+			if str(str(email).lower()) == str(doc['email']).lower():
 				return flask.redirect("/joobot")
 	try:
 		if (session['logged_in']==True):
@@ -150,7 +150,7 @@ def login():
         		email = flask.request.form['email']
         		password = flask.request.form['password']
         		for doc in cursor:
-					if "password" in flask.request.form and str(email.lower()) == doc['email'] and password == doc['password']:
+					if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
 						flask.session['username'] = doc['email']
 						session['logged_in']=False
 						return flask.redirect("/joobot")
