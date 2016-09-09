@@ -186,9 +186,12 @@ def test():
 def my_space():
 	if ("username" in flask.session):
 		username = (str(flask.session['username'])).split('@')[0]
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		username = (data['name'])
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			username = (data['name'])
+	except:
+		return flask.render_template('my-space.html',username=username)
 	return flask.render_template('my-space.html',username=username)
 
 @app.route("/marketplace")
