@@ -72,12 +72,9 @@ def facebook_authorized(resp):
 
 def check_login(func):
 	def wrapper(*args, **kwargs):
-		try:
-			if ("username" in flask.session) or (session['logged_in']==True):
-				return func(*args, **kwargs)
-			else:
-				return flask.redirect("/")
-		except:
+		if ("username" in flask.session) or (session['logged_in']==True):
+			return func(*args, **kwargs)
+		else:
 			return flask.redirect("/")
 	return functools.update_wrapper(wrapper, func)
 
