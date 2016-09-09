@@ -537,14 +537,11 @@ def cheap():
 @app.route("/favorites/delete/<LINE>",methods=['GET','POST'])
 @check_login
 def favorite_delete(LINE):
-	try:
-		if (session['logged_in']==True):
-			data = facebook.get('/me').data
-			if 'id' in data and 'name' in data:
-    				user_id = data['id']
-    				username = (data['name']).replace(' ','')+str(user_id)
-    	except:
-    		print "Exception on /Favorites"
+	if (session['logged_in']==True):
+		data = facebook.get('/me').data
+		if 'id' in data and 'name' in data:
+    			user_id = data['id']
+    			username = (data['name']).replace(' ','')+str(user_id)
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
