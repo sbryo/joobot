@@ -74,7 +74,7 @@ def check_login(func):
 	def wrapper(*args, **kwargs):
 		if ("username" in flask.session):
 			return func(*args, **kwargs)
-		else:
+		elif:
 			try:
 				if (session['logged_in']==True):
 					return func(*args, **kwargs)
@@ -82,6 +82,8 @@ def check_login(func):
 					return flask.redirect("/")
 			except:
 				return flask.redirect("/")
+		else:
+			return flask.redirect("/")
 	return functools.update_wrapper(wrapper, func)
 
 @app.route("/")
