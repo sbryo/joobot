@@ -97,7 +97,6 @@ def loginPage():
 			return flask.render_template("joobot-login.html")
 	except:
 		return flask.render_template("joobot-login.html")
-	return flask.render_template("joobot-login.html")
 
 
 @app.route("/signup")
