@@ -106,6 +106,11 @@ def signup():
 @app.route("/login_failed")
 def login_failed():
 	return flask.render_template("reset_password.html")
+	
+@app.route("/send_new_pass")
+def send_pass():
+	return flask.render_template("reset_password.html")
+
 
 @app.route("/signing", methods=['GET','POST'])
 def signing():
