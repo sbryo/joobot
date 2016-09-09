@@ -154,10 +154,9 @@ def login():
 						flask.session['username'] = doc['email']
 						session['logged_in']=False
 						return flask.redirect("/joobot")
-					else:
-						return flask.render_template('joobot-login-failed.html')
+			return flask.render_template('joobot-login-failed.html')
 		except:
-			return flask.redirect("/")
+			return flask.render_template('joobot-login-failed.html')
 	else:
         	return flask.redirect("/")
 
