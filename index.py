@@ -208,13 +208,16 @@ def market():
 @app.route("/search",methods=['GET', 'POST'])
 @check_login
 def append():
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
-        if ("username" in flask.session):
-        	email = flask.session['username']
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "exception  in /search"
+	if ("username" in flask.session):
+		email = flask.session['username']
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
@@ -334,12 +337,14 @@ def addtofavorites(LINE):
 @app.route("/favorites")
 @check_login
 def my_archive_page():
-    try:
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "exception in /favorites"
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -353,18 +358,17 @@ def my_archive_page():
         exec command
         # Make list for html page
         for document in cursor:
-            x = []
-            x.append(document['title'])
-            x.append(document['price'])
-            x.append(document['shipping'])
-            x.append(document['url'])
-            x.append(document['image'])
-            x.append(document['web'])
-            x.append(str(document['_id']))
-            list.append(x)
+        	x = []
+            	x.append(document['title'])
+            	x.append(document['price'])
+            	x.append(document['shipping'])
+            	x.append(document['url'])
+            	x.append(document['image'])
+            	x.append(document['web'])
+            	x.append(str(document['_id']))
+            	list.append(x)
         return flask.render_template('my-favorites.html',list=list)
-    except:
-        return flask.render_template('404.html')
+
 
 
 @app.route("/results")
