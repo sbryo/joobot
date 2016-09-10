@@ -102,11 +102,11 @@ def loginPage():
 @app.route("/signup")
 def signup():
 	return flask.render_template("signup.html")
-	
+
 @app.route("/login_failed")
 def login_failed():
 	return flask.render_template("reset_password.html")
-	
+
 @app.route("/send_new_pass")
 def send_pass():
 	return flask.render_template("reset_password.html")
@@ -161,7 +161,7 @@ def login():
         		for doc in cursor:
 					if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
 						flask.session['username'] = doc['email']
-						session['logged_in']=False
+						#session['logged_in']=False
 						return flask.redirect("/joobot")
 		except:
 			return flask.render_template('joobot-login-failed.html')
@@ -193,11 +193,14 @@ def test():
 @app.route("/my-space")
 @check_login
 def my_space():
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			username = (data['name'])
+	except:
+		print "Exception in /my-space"
 	if ("username" in flask.session):
 		username = (str(flask.session['username'])).split('@')[0]
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		username = (data['name'])
 	return flask.render_template('my-space.html',username=username)
 
 @app.route("/marketplace")
@@ -255,14 +258,14 @@ def append():
                     	return flask.redirect("/results")
 
                 except:
-                    	text = flask.request.form['add']
+                    	#text = flask.request.form['add']
                     	#processed_text = text.upper()
                     	#response = client.put_file('/shaked/SearchFile.txt',text,overwrite=True)
-                    	j = json.loads('{"search":"'+text+'"}')
-                    	command="db.search."+username+".insert(j)"
-                    	exec command
-                    	command="db_history.history."+username+".insert(j)"
-                    	exec command
+                    	#j = json.loads('{"search":"'+text+'"}')
+                    	#command="db.search."+username+".insert(j)"
+                    	#exec command
+                    	#command="db_history.history."+username+".insert(j)"
+                    	#exec command
                     	return flask.render_template("404.html")
         else:
         	return flask.render_template("404.html")
@@ -271,42 +274,46 @@ def append():
 @check_login
 def my_history_page():
     try:
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
-        if ("username" in flask.session):
-        	email = flask.session['username']
-        	user = email.split("@")[0]
-        	domain = ((email.split("@")[1]).split("."))[0]
-        	username=user+domain
-        list = []
-        client3 = MongoClient('ds019254.mlab.com',19254)
-        client3.history.authenticate('shakedinero','a57821688')
-        db_history = client3.history
-        #cursor = db_history.history.shaked.find()
-        command="cursor = db_history.history."+username+".find()"
-        exec command
-    # Make list for html page
-        for document in cursor:
-            x = []
-            x.append(document['search'])
-            x.append(document['time'])
-            list.append(x)
-        return flask.render_template('my-history.html',list=list)
+        if (session['logged_in']==True):
+            data = facebook.get('/me').data
+            if 'id' in data and 'name' in data:
+                user_id = data['id']
+                username = (data['name']).replace(' ','')+str(user_id)
     except:
-        return flask.render_template('404.html')
+        print "exception in /history"
+    if ("username" in flask.session):
+        email = flask.session['username']
+        user = email.split("@")[0]
+        domain = ((email.split("@")[1]).split("."))[0]
+        username=user+domain
+    list = []
+    client3 = MongoClient('ds019254.mlab.com',19254)
+    client3.history.authenticate('shakedinero','a57821688')
+    db_history = client3.history
+    #cursor = db_history.history.shaked.find()
+    command="cursor = db_history.history."+username+".find()"
+    exec command
+    # Make list for html page
+    for document in cursor:
+        x = []
+        x.append(document['search'])
+        x.append(document['time'])
+        list.append(x)
+    return flask.render_template('my-history.html',list=list)
+
 
 
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
 @check_login
 def addtofavorites(LINE):
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "exception in /add_to_favorites"
         if ("username" in flask.session):
         	email = flask.session['username']
         	user = email.split("@")[0]
@@ -374,99 +381,93 @@ def my_archive_page():
 @app.route("/results")
 @check_login
 def get_results():
-    try:
-        if (session['logged_in']==True):
-            data = facebook.get('/me').data
-            if 'id' in data and 'name' in data:
-                user_id = data['id']
-                username = (data['name']).replace(' ','')+str(user_id)
-    except:
-        if ("username" in flask.session):
-            email = flask.session['username']
-            user = email.split("@")[0]
-            domain = ((email.split("@")[1]).split("."))[0]
-            username=user+domain
-    if ("username" in flask.session):
-            email = flask.session['username']
-            user = email.split("@")[0]
-            domain = ((email.split("@")[1]).split("."))[0]
-            username=user+domain
-    file=open("/tmp/user.txt",'w')
-    file.write(username)
-    file.close()
+	try:
+        	if (session['logged_in']==True):
+            		data = facebook.get('/me').data
+            		if 'id' in data and 'name' in data:
+                		user_id = data['id']
+                		username = (data['name']).replace(' ','')+str(user_id)
+      	except:
+      		print "Exception in /results"
+
+    	if ("username" in flask.session):
+    		email = flask.session['username']
+            	user = email.split("@")[0]
+            	domain = ((email.split("@")[1]).split("."))[0]
+            	username=user+domain
+    	file=open("/tmp/user.txt",'w')
+    	file.write(username)
+    	file.close()
             #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
-    proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    PATH=(out.split('\n'))[0]
-    list = []
-    os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
+    	proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+    	(out, err) = proc.communicate()
+    	PATH=(out.split('\n'))[0]
+    	list = []
+    	os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
 #Dinero2Mongo(username)
-    x = []  ### This is the list for html
-    client = MongoClient('ds019254.mlab.com',19254)
-    client.results.authenticate('shakedinero','a57821688')
-    db = client.results
-    command="cursor = db.results."+username+".find()"
-    exec command
+    	x = []  ### This is the list for html
+    	client = MongoClient('ds019254.mlab.com',19254)
+    	client.results.authenticate('shakedinero','a57821688')
+    	db = client.results
+    	command="cursor = db.results."+username+".find()"
+    	exec command
 #Make list for html page
-    for document in cursor:
-        x = []
-        x.append(document['title'])
-        x.append(document['price'])
-        x.append(document['shipping'])
-        x.append(document['url'])
-        x.append(document['image'])
-        x.append(document['web'])
-        x.append(str(document['_id']))
-        x.append(str(datetime.datetime.now()).split('.')[0])
-        list.append(x)
-    random.shuffle(list)
-    return flask.render_template('results.html',list=list)
+    	for document in cursor:
+        	x = []
+        	x.append(document['title'])
+        	x.append(document['price'])
+        	x.append(document['shipping'])
+        	x.append(document['url'])
+        	x.append(document['image'])
+        	x.append(document['web'])
+        	x.append(str(document['_id']))
+        	x.append(str(datetime.datetime.now()).split('.')[0])
+        	list.append(x)
+    	random.shuffle(list)
+    	return flask.render_template('results.html',list=list)
     #except:
      #   return flask.render_template('404.html')
 
 @app.route("/results/freeshipping")
 @check_login
 def freeShipping():
-    try:
-        if (session['logged_in']==True):
-            data = facebook.get('/me').data
-            if 'id' in data and 'name' in data:
-                user_id = data['id']
-                username = (data['name']).replace(' ','')+str(user_id)
-    except:
+	try:
+        	if (session['logged_in']==True):
+            		data = facebook.get('/me').data
+            		if 'id' in data and 'name' in data:
+                		user_id = data['id']
+                		username = (data['name']).replace(' ','')+str(user_id)
+	except:
+    		print "Exception in /freeshipping"
         if ("username" in flask.session):
-            email = flask.session['username']
-            user = email.split("@")[0]
-            domain = ((email.split("@")[1]).split("."))[0]
-            username=user+domain
-    if ("username" in flask.session):
-            email = flask.session['username']
-            user = email.split("@")[0]
-            domain = ((email.split("@")[1]).split("."))[0]
-            username=user+domain
-    client = MongoClient('ds019254.mlab.com',19254)
-    client.results.authenticate('shakedinero','a57821688')
-    db = client.results
+    		email = flask.session['username']
+		user = email.split("@")[0]
+    		domain = ((email.split("@")[1]).split("."))[0]
+    		username=user+domain
 
-    list=[]
-    docs=[]
-    command="cursor = db.results."+username+".find()"
-    exec command
-    for document in cursor:
-        if ("Free" in document['shipping']) or ("free" in document['shipping']):
-                docs.append(document)
+	client = MongoClient('ds019254.mlab.com',19254)
+    	client.results.authenticate('shakedinero','a57821688')
+    	db = client.results
+
+    	list=[]
+    	docs=[]
+    	command="cursor = db.results."+username+".find()"
+    	exec command
+    	for document in cursor:
+        	if ("Free" in document['shipping']) or ("free" in document['shipping']):
+                	docs.append(document)
 
 #Make list for html page
-    for document in docs:
-        x = []
-        x.append(document['title'])
-        x.append(document['price'])
-        x.append(document['shipping'])
-        x.append(document['url'])
-        x.append(document['image'])
-        x.append(document['web'])
-        list.append(x)
-    return flask.render_template('results.html',list=list)
+    	for document in docs:
+        	x = []
+        	x.append(document['title'])
+        	x.append(document['price'])
+        	x.append(document['shipping'])
+        	x.append(document['url'])
+        	x.append(document['image'])
+        	x.append(document['web'])
+        	list.append(x)
+    	return flask.render_template('results.html',list=list)
 
 
 @app.route("/results/cheap")
@@ -479,16 +480,13 @@ def cheap():
                 user_id = data['id']
                 username = (data['name']).replace(' ','')+str(user_id)
     except:
-        if ("username" in flask.session):
-            email = flask.session['username']
-            user = email.split("@")[0]
-            domain = ((email.split("@")[1]).split("."))[0]
-            username=user+domain
+        print "exception in /cheap"
     if ("username" in flask.session):
-            email = flask.session['username']
-            user = email.split("@")[0]
-            domain = ((email.split("@")[1]).split("."))[0]
-            username=user+domain
+        email = flask.session['username']
+        user = email.split("@")[0]
+        domain = ((email.split("@")[1]).split("."))[0]
+        username=user+domain
+
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db = client.results
