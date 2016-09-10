@@ -126,12 +126,12 @@ def signing():
         		password = flask.request.form['password']
         		for doc in cursor:
         			### if user already exists
-            			if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()) and password == doc['password']:
+            			if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()):
 					x=x+1
             				return flask.redirect("/")
             			### Create user
             		if x==0:
-            			j=json.loads('{"email":"'+email+'","password":"'+password+'"}')
+            			j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'"}')
             			db.users.insert(j)
             			flask.session['username'] = email
             			return flask.redirect("/joobot")
