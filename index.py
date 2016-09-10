@@ -466,6 +466,7 @@ def freeShipping():
         	x.append(document['url'])
         	x.append(document['image'])
         	x.append(document['web'])
+        	x.append(str(document['_id']))
         	list.append(x)
     	return flask.render_template('results.html',list=list)
 
@@ -531,6 +532,7 @@ def cheap():
         x.append(document['url'])
         x.append(document['image'])
         x.append(document['web'])
+        x.append(str(document['_id']))
         list.append(x)
     return flask.render_template('results.html',list=list)
 
