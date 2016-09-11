@@ -31,9 +31,6 @@ def joo_ali(username,KEYWORDS):
     response = urllib2.urlopen(req)
     the_page = response.read()
     products_list=the_page.split('<div class="pic">')
-    ali_results = []
-    ali_history = []
-    ali_list = []
 
     for i in products_list:
         try:
@@ -58,10 +55,17 @@ def joo_ali(username,KEYWORDS):
             x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
             j=json.loads(x)
             items_list1.append(j)
+
+        #for i in items_list1:
+        #    print i
+        #    command="db_results.results."+username+".insert_one(i)"
+        #    exec command
         except:
             continue
 
-        return items_list1
+    command="db_results.results."+username+".insert_many(items_list1)"
+    exec command
+    return items_list1
 
 ########################################################### EBAY ########################################################
 def joo_ebay(username,KEYWORDS):
@@ -112,7 +116,13 @@ def joo_ebay(username,KEYWORDS):
 
             except:
                 continue
-            return items_list2
+            #for i in items_list2:
+            #    print i
+            #    command="db_results.results."+username+".insert_one(i)"
+            #    exec command
+        command="db_results.results."+username+".insert_many(items_list2)"
+        exec command
+        return items_list2
 
 
     except ConnectionError as e:
@@ -159,11 +169,18 @@ def joo_dx(username,KEYWORDS):
             items_list3.append(j)
         except:
             continue
-        return items_list3
+        #for i in items_list3:
+        #    print i
+       #     command="db_results.results."+username+".insert_one(i)"
+       #     exec command
+    command="db_results.results."+username+".insert_many(items_list3)"
+    exec command
+    return items_list3
 
 ########################################################### Amazon ##############################3
 def joo_amazon(username,KEYWORDS):
-    items_list4=[]
+    items_list4 = []
+    #items_list4=[]
     url = 'http://www.amazon.com/s/field-keywords='+KEYWORDS
     values = {'name': 'Dinero',
               'location': 'Northampton',
@@ -194,7 +211,19 @@ def joo_amazon(username,KEYWORDS):
             #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
         except:
             continue
-        return items_list4
+        #try:
+        #    for i in items_list4:
+        #        print i
+        #        command="db_results.results."+username+".insert_one(i)"
+        #        exec command
+        #except:
+        #    print "test"
+    command="db_results.results."+username+".insert_many(items_list4)"
+    try:
+        exec command
+    except:
+        print "No Amazon Results"
+    return items_list4
 
 
 
@@ -206,21 +235,23 @@ def joo_amazon(username,KEYWORDS):
 ######################################
 #             MAIN                  #
 #####################################
-file=open("/tmp/user.txt",'r')
-username=file.read()
-file.close()
+#file=open("/tmp/user.txt",'r')
+#username=file.read()
+#file.close()
 
+username="shaked1817gmail"
+KEYWORDS="diesel watch"
 ######################## Connect Search DB ################################
-client2 = MongoClient('ds139425.mlab.com',39425)
-client2.search.authenticate('shakedinero','a57821688')
-db_search = client2.search
+#client2 = MongoClient('ds139425.mlab.com',39425)
+#client2.search.authenticate('shakedinero','a57821688')
+#db_search = client2.search
 
 
 ############## get KEYWORDS from Search DB #################################
-command="cursor = db_search.search."+username+".find()"
-exec command
-for document in cursor:
-    KEYWORDS=document['search']
+#command="cursor = db_search.search."+username+".find()"
+#exec command
+#for document in cursor:
+#    KEYWORDS=document['search']
 
 
 
@@ -232,33 +263,41 @@ db_results = client.results
 command="result = db_results.results."+username+".delete_many({})"
 exec command
 
-pool1 = ThreadPool(processes=1)
-pool2 = ThreadPool(processes=1)
-pool3 = ThreadPool(processes=1)
-pool4 = ThreadPool(processes=1)
+#pool1 = ThreadPool(processes=1)
+#pool2 = ThreadPool(processes=1)
+#pool3 = ThreadPool(processes=1)
+#pool4 = ThreadPool(processes=1)
 
-#t_ali=threading.Thread(target=joo_ali,args=(username,KEYWORDS))
-#t_ali.start()
-#t_ebay=threading.Thread(target=joo_ebay,args=(username,KEYWORDS))
-#t_ebay.start()
-#t_dx=threading.Thread(target=joo_dx,args=(username,KEYWORDS))
-#t_dx.start()
-#t_amazon=threading.Thread(target=joo_amazon,args=(username,KEYWORDS))
-#t_amazon.start()
+t_ali=threading.Thread(target=joo_ali,args=(username,KEYWORDS),name="ali")
+t_ebay=threading.Thread(target=joo_ebay,args=(username,KEYWORDS),name="ebay")
+t_dx=threading.Thread(target=joo_dx,args=(username,KEYWORDS),name="dx")
+t_amazon=threading.Thread(target=joo_amazon,args=(username,KEYWORDS),name="amazon")
 
-ali_result = pool1.apply_async(joo_ali, (username, KEYWORDS))
-ebay_result = pool2.apply_async(joo_ebay, (username, KEYWORDS))
-dx_result = pool3.apply_async(joo_dx, (username, KEYWORDS))
-amazon_result = pool4.apply_async(joo_amazon, (username, KEYWORDS))
+t_ali.start()
+t_ebay.start()
+t_dx.start()
+t_amazon.start()
 
-ali_list = ali_result.get()
-ebay_list = ebay_result.get()
-dx_list = dx_result.get()
-amazon_list = amazon_result.get()
+t_ali.join()
+t_ebay.join()
+t_dx.join()
+t_amazon.join()
+
+#ali_result = pool1.apply_async(joo_ali, (username, KEYWORDS))
+#ebay_result = pool2.apply_async(joo_ebay, (username, KEYWORDS))
+#dx_result = pool3.apply_async(joo_dx, (username, KEYWORDS))
+#amazon_result = pool4.apply_async(joo_amazon, (username, KEYWORDS))
+
+#ali_list = ali_result.get()
+#ebay_list = ebay_result.get()
+#dx_list = dx_result.get()
+#amazon_list = amazon_result.get()
 
 
-items=[]
-items=ali_list+ebay_list+dx_list+amazon_list
+#items=[]
+#items=ali_list+ebay_list+dx_list+amazon_list
 
-command="db_results.results."+username+".insert_many(items)"
-exec command
+#command="db_results.results."+username+".insert_many(items)"
+#exec command
+
+
