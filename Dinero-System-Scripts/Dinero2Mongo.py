@@ -235,25 +235,20 @@ def joo_amazon(username,KEYWORDS):
 ######################################
 #             MAIN                  #
 #####################################
-#file=open("/tmp/user.txt",'r')
-#username=file.read()
-#file.close()
+file=open("/tmp/user.txt",'r')
+username=file.read()
+file.close()
 
-username="shaked1817gmail"
-KEYWORDS="diesel watch"
 ######################## Connect Search DB ################################
-#client2 = MongoClient('ds139425.mlab.com',39425)
-#client2.search.authenticate('shakedinero','a57821688')
-#db_search = client2.search
-
+client2 = MongoClient('ds139425.mlab.com',39425)
+client2.search.authenticate('shakedinero','a57821688')
+db_search = client2.search
 
 ############## get KEYWORDS from Search DB #################################
-#command="cursor = db_search.search."+username+".find()"
-#exec command
-#for document in cursor:
-#    KEYWORDS=document['search']
-
-
+command="cursor = db_search.search."+username+".find()"
+exec command
+for document in cursor:
+    KEYWORDS=document['search']
 
 ######################### Connect Results DB ####################################
 client = MongoClient('ds019254.mlab.com',19254)
