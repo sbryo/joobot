@@ -427,7 +427,56 @@ def get_results():
     	return flask.render_template('results.html',list=list)
     #except:
      #   return flask.render_template('404.html')
+     
+@app.route("/results/all")
+@check_login
+def get_all_results():
+	try:
+        	if (session['logged_in']==True):
+            		data = facebook.get('/me').data
+            		if 'id' in data and 'name' in data:
+                		user_id = data['id']
+                		username = (data['name']).replace(' ','')+str(user_id)
+      	except:
+      		print "Exception in /results"
 
+    	if ("username" in flask.session):
+    		email = flask.session['username']
+            	user = email.split("@")[0]
+            	domain = ((email.split("@")[1]).split("."))[0]
+            	username=user+domain
+    	file=open("/tmp/user.txt",'w')
+    	file.write(username)
+    	file.close()
+            #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
+    	proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
+    	(out, err) = proc.communicate()
+    	PATH=(out.split('\n'))[0]
+    	list = []
+    	os.system("python "+PATH+"/Dinero-System-Scripts/all.py")
+#Dinero2Mongo(username)
+    	x = []  ### This is the list for html
+    	client = MongoClient('ds019254.mlab.com',19254)
+    	client.results.authenticate('shakedinero','a57821688')
+    	db = client.results
+    	command="cursor = db.results."+username+".find()"
+    	exec command
+#Make list for html page
+    	for document in cursor:
+        	x = []
+        	x.append(document['title'])
+        	x.append(document['price'])
+        	x.append(document['shipping'])
+        	x.append(document['url'])
+        	x.append(document['image'])
+        	x.append(document['web'])
+        	x.append(str(document['_id']))
+        	x.append(str(datetime.datetime.now()).split('.')[0])
+        	list.append(x)
+    	random.shuffle(list)
+    	return flask.render_template('results.html',list=list)
+    	
+    	
 @app.route("/results/freeshipping")
 @check_login
 def freeShipping():

@@ -18,7 +18,6 @@ from multiprocessing.pool import ThreadPool
 
 def joo_ali(username,KEYWORDS):
     items_list1=[]
-    C=0
     ########################################################### AliExpress ###################################33
     url = 'http://aliexpress.com/wholesale?catId=0&initiative_id=AS_20160721045815&SearchText='+KEYWORDS
     values = {'name': 'Dinero',
@@ -35,8 +34,6 @@ def joo_ali(username,KEYWORDS):
 
     for i in products_list:
         try:
-            if C==20:
-                break
             item_url = ((i.split('href="')[1]).split('"'))[0]
             title = ((i.split('alt="')[1]).split('"'))[0]
             img = ((i.split('src="')[1]).split('"'))[0]
@@ -58,7 +55,6 @@ def joo_ali(username,KEYWORDS):
             x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
             j=json.loads(x)
             items_list1.append(j)
-            C=C+1
 
         #for i in items_list1:
         #    print i
@@ -74,7 +70,6 @@ def joo_ali(username,KEYWORDS):
 ########################################################### EBAY ########################################################
 def joo_ebay(username,KEYWORDS):
     items_list2 = []
-    C=0
     try:
         api = Connection(appid='Shaked-B-976d-45bc-a23a-71ab251884fb',config_file=None)
     #response details:
@@ -90,8 +85,6 @@ def joo_ebay(username,KEYWORDS):
 
         for ITEM in response.reply.searchResult.item:
             try:
-                if C==20:
-                    break
                 #LIST = str(ITEM).split("'value':")
                 #SHIPPING_PRICE = (LIST[1].split("'"))[1]
                 SHIPPING_PRICE = str(str(ITEM).split("'shippingServiceCost':")[1]).split('value')[1].split("'")[2]
@@ -118,7 +111,6 @@ def joo_ebay(username,KEYWORDS):
                 x='{"title":"'+TITLE+'","url":"'+URL+'","image":"'+IMG+'","price":"'+PRICE+'","shipping":"'+SHIPPING_PRICE+'","web":"Ebay"}'
                 j=json.loads(x)
                 items_list2.append(j)
-                C=C+1
                 #RESULTS_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
                 #HISTORY_FILE.write(TITLE+" = "+PRICE+" = "+SHIPPING_PRICE+" = "+URL+" = "+IMG+'\n')
 
@@ -140,7 +132,6 @@ def joo_ebay(username,KEYWORDS):
 ################################################ DX ######################################################
 def joo_dx(username,KEYWORDS):
     items_list3=[]
-    C=0
     url = 'http://www.dx.com/s/'+KEYWORDS
     values = {'name': 'Dinero',
               'location': 'Northampton',
@@ -155,8 +146,6 @@ def joo_dx(username,KEYWORDS):
     products_list = the_page.split("id='c_list'")
     dx_list = []
     for product in products_list:
-        if C==20:
-            break
         if product == products_list[0]:
             continue
         after_split = product.split('href=')[1]
@@ -178,7 +167,6 @@ def joo_dx(username,KEYWORDS):
             x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"DealExtreme"}'
             j=json.loads(x)
             items_list3.append(j)
-            C=C+1
         except:
             continue
         #for i in items_list3:
@@ -192,7 +180,6 @@ def joo_dx(username,KEYWORDS):
 ########################################################### Amazon ##############################3
 def joo_amazon(username,KEYWORDS):
     items_list4 = []
-    C=0
     #items_list4=[]
     url = 'http://www.amazon.com/s/field-keywords='+KEYWORDS
     values = {'name': 'Dinero',
@@ -210,8 +197,6 @@ def joo_amazon(username,KEYWORDS):
     products_list = the_page.split('result_')
     amazon_list=[]
     for i in products_list:
-        if C==20:
-            break
         try:
             item_url = ((i.split('normal" href="')[1]).split('"'))[0]
             title = ((i.split('title="')[1]).split('"')[0])
@@ -222,7 +207,6 @@ def joo_amazon(username,KEYWORDS):
                 x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
                 j=json.loads(x)
                 items_list4.append(j)
-                C=C+1
             #RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
             #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
         except:
@@ -255,6 +239,8 @@ file=open("/tmp/user.txt",'r')
 username=file.read()
 file.close()
 
+#username="shaked1817gmail"
+#KEYWORDS="diesel watch"
 ######################## Connect Search DB ################################
 client2 = MongoClient('ds139425.mlab.com',39425)
 client2.search.authenticate('shakedinero','a57821688')
@@ -266,6 +252,8 @@ command="cursor = db_search.search."+username+".find()"
 exec command
 for document in cursor:
     KEYWORDS=document['search']
+
+
 
 ######################### Connect Results DB ####################################
 client = MongoClient('ds019254.mlab.com',19254)
@@ -295,7 +283,22 @@ t_ebay.join()
 t_dx.join()
 t_amazon.join()
 
+#ali_result = pool1.apply_async(joo_ali, (username, KEYWORDS))
+#ebay_result = pool2.apply_async(joo_ebay, (username, KEYWORDS))
+#dx_result = pool3.apply_async(joo_dx, (username, KEYWORDS))
+#amazon_result = pool4.apply_async(joo_amazon, (username, KEYWORDS))
 
+#ali_list = ali_result.get()
+#ebay_list = ebay_result.get()
+#dx_list = dx_result.get()
+#amazon_list = amazon_result.get()
+
+
+#items=[]
+#items=ali_list+ebay_list+dx_list+amazon_list
+
+#command="db_results.results."+username+".insert_many(items)"
+#exec command
 
 
 
