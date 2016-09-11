@@ -206,9 +206,9 @@ def joo_amazon(username,KEYWORDS):
 ######################################
 #             MAIN                  #
 #####################################
-#file=open("/tmp/user.txt",'r')
-#username=file.read()
-#file.close()
+file=open("/tmp/user.txt",'r')
+username=file.read()
+file.close()
 
 ######################## Connect Search DB ################################
 client2 = MongoClient('ds139425.mlab.com',39425)
@@ -217,13 +217,11 @@ db_search = client2.search
 
 
 ############## get KEYWORDS from Search DB #################################
-#command="cursor = db_search.search."+username+".find()"
-#exec command
-#for document in cursor:
-#    KEYWORDS=document['search']
+command="cursor = db_search.search."+username+".find()"
+exec command
+for document in cursor:
+    KEYWORDS=document['search']
 
-username='shaked1817gmail'
-KEYWORDS='Diesel watch'
 
 
 ######################### Connect Results DB ####################################
@@ -264,8 +262,3 @@ items=ali_list+ebay_list+dx_list+amazon_list
 
 command="db_results.results."+username+".insert_many(items)"
 exec command
-
-
-
-
-
