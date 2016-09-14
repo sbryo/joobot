@@ -319,9 +319,6 @@ def addtofavorites(LINE):
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
-    	client4 = MongoClient('ds019254.mlab.com',19254)
-    	client4.favorites.authenticate('shakedinero','a57821688')
-    	db_favorites = client4.favorites
 	client = MongoClient('ds019254.mlab.com',19254)
     	client.results.authenticate('shakedinero','a57821688')
     	db_results = client.results
@@ -330,6 +327,9 @@ def addtofavorites(LINE):
     	#command="cursor = db_results.results."+username+".find()"
         command = "cursor=db_results.results."+username+".find({'_id': ObjectId('"+STR+"') })"
     	exec command
+       	client4 = MongoClient('ds019254.mlab.com',19254)
+    	client4.favorites.authenticate('shakedinero','a57821688')
+    	db_favorites = client4.favorites
     	#cursor = db_results.results.shaked.find()
     	for doc in cursor:
 #        STR=LINE.replace("%20"," ")
