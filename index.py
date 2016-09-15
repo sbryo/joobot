@@ -108,6 +108,10 @@ def login_failed():
 	return flask.render_template("joobot-login-failed.html")
 
 @app.route("/reset_password")
+def reset_pass():
+	return flask.render_template("reset_password.html")
+	
+@app.route("/send_new_pass")
 def send_pass():
 	return flask.render_template("reset_password.html")
 
