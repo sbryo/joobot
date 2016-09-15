@@ -134,7 +134,8 @@ def signing():
             			j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'"}')
             			db.users.insert(j)
             			flask.session['username'] = email
-            			return flask.redirect("/joobot")
+            			return flask.render_template("after-signup.html")
+            			#return flask.redirect("/joobot")
 
         	except:
         		return flask.redirect("/")
