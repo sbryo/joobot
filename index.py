@@ -719,6 +719,7 @@ def logout():
         		return flask.redirect("/")
         except:
         	print "Exception in /logout"
+        flask.session.clear()
     	return flask.redirect("/")
 
 @app.errorhandler(404)
