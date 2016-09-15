@@ -105,9 +105,9 @@ def signup():
 
 @app.route("/login_failed")
 def login_failed():
-	return flask.render_template("reset_password.html")
+	return flask.render_template("joobot-login-failed.html")
 
-@app.route("/send_new_pass")
+@app.route("/reset_password")
 def send_pass():
 	return flask.render_template("reset_password.html")
 
@@ -165,7 +165,7 @@ def login():
 						#session['logged_in']=False
 						return flask.redirect("/joobot")
 		except:
-			return flask.render_template('joobot-login-failed.html')
+			return flask.redirect('/login_failed')
 	else:
         	return flask.redirect("/")
         return flask.render_template('joobot-login-failed.html')
