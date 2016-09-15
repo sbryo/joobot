@@ -710,6 +710,7 @@ def public_append():
 
 @app.route("/logout")
 def logout():
+	flask.session.clear()
 	if "username" in flask.session:
         	del flask.session["username"]
     		#return flask.redirect("/")
@@ -719,7 +720,6 @@ def logout():
         		return flask.redirect("/")
         except:
         	print "Exception in /logout"
-        flask.session.clear()
     	return flask.redirect("/")
 
 @app.errorhandler(404)
