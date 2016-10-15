@@ -15,13 +15,14 @@ import sys
 import threading
 from multiprocessing.pool import ThreadPool
 
-
+#################################################### ALIEXPRESS ########################################
 def joo_ali(username,KEYWORDS):
     items_list1=[]
-    C=0
-    ########################################################### AliExpress ###################################33
-    url = 'http://aliexpress.com/wholesale?catId=0&initiative_id=AS_20160721045815&SearchText='+KEYWORDS
-    values = {'name': 'Dinero',
+    APP_KEY='21503'
+    KEYWORDS=KEYWORDS.replace(' ','%20')
+    #C=0
+    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&keywords='+KEYWORDS
+    values = {'name': 'Joo',
               'location': 'Northampton',
               'language': 'Python' }
     user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
@@ -31,41 +32,19 @@ def joo_ali(username,KEYWORDS):
     req = urllib2.Request(url,data,headers)
     response = urllib2.urlopen(req)
     the_page = response.read()
-    products_list=the_page.split('<div class="pic">')
+    j=json.loads(str(the_page))
+    products_list=j['result']['products']
+    #print products_list
+    for product in products_list:
+        title=product['productTitle'].split('</font>')[1].split('<font>')[0]
+        item_url=product['productUrl']
+        price=product['salePrice']
+        img=product['imageUrl']
+        shipping='-'
+        x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
+        j=json.loads(x)
+        items_list1.append(j)
 
-    for i in products_list:
-        try:
-            if C==20:
-                break
-            item_url = ((i.split('href="')[1]).split('"'))[0]
-            title = ((i.split('alt="')[1]).split('"'))[0]
-            img = ((i.split('src="')[1]).split('"'))[0]
-            shipping = "-"
-            #response2 = urllib2.urlopen('http:'+item_url)
-            #page_ali = response2.read()
-            #Check about close requests
-            #img = ((i.split('image-src="')[1]).split('"'))[0]
-            #img=((page_ali.split('<a class="ui-image-viewer-thumb-frame" data-role="thumbFrame" href="')[1]).split('src="')[1]).split('"')[0]
-
-            try:
-                price = ((((i.split('<span class="value" itemprop="price">')[1]).split('<'))[0])[3:-1]).replace('$','')
-                if '-' in price:
-                    continue
-            except:
-                continue
-            #ali_results.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
-            #ali-history.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
-            x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
-            j=json.loads(x)
-            items_list1.append(j)
-            C=C+1
-
-        #for i in items_list1:
-        #    print i
-        #    command="db_results.results."+username+".insert_one(i)"
-        #    exec command
-        except:
-            continue
 
     command="db_results.results."+username+".insert_many(items_list1)"
     exec command
@@ -275,10 +254,6 @@ db_results = client.results
 command="result = db_results.results."+username+".delete_many({})"
 exec command
 
-#pool1 = ThreadPool(processes=1)
-#pool2 = ThreadPool(processes=1)
-#pool3 = ThreadPool(processes=1)
-#pool4 = ThreadPool(processes=1)
 
 t_ali=threading.Thread(target=joo_ali,args=(username,KEYWORDS),name="ali")
 t_ebay=threading.Thread(target=joo_ebay,args=(username,KEYWORDS),name="ebay")
