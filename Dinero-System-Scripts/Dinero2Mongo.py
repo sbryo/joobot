@@ -260,15 +260,26 @@ t_ebay=threading.Thread(target=joo_ebay,args=(username,KEYWORDS),name="ebay")
 t_dx=threading.Thread(target=joo_dx,args=(username,KEYWORDS),name="dx")
 t_amazon=threading.Thread(target=joo_amazon,args=(username,KEYWORDS),name="amazon")
 
-t_ali.start()
-t_ebay.start()
-t_dx.start()
-t_amazon.start()
+try:
+    t_ali.start()
+except:
+    print "t_ali thread error"
+try:
+    t_ebay.start()
+except:
+    print "t_ebay thread error"
+try:
+    t_dx.start()
+except:
+    print "t_dx thread error"
+try:
+    t_amazon.start()
+except:
+    print "t_amazon thread error"
 
-t_ali.join()
-t_ebay.join()
-t_dx.join()
-t_amazon.join()
+print "Dinero2Mongo Script is DONE!"
+
+
 
 
 
