@@ -8,3 +8,7 @@ dropbox
 pymongo
 Flask-OAuth
 Flask-Compress
+AmazonAPIWrapper
+python-amazon-product-api
+python-amazon-simple-product-api
+
