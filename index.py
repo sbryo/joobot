@@ -202,13 +202,14 @@ def my_space():
 		if (session['logged_in']==True):
 			data = facebook.get('/me').data
 			username = (data['name'])
-			image = (data['picture'])
+			pic = (data['picture'])
+			print "PIC="+pic
 	except:
 		print "Exception in /my-space"
 	if ("username" in flask.session):
 		username = (str(flask.session['username'])).split('@')[0]
-		image = '../static/img/shops-pic.png'
-	return flask.render_template('my-space.html',username=username,image=image)
+		pic = '../static/img/shops-pic.png'
+	return flask.render_template('my-space.html',username=username,pic=pic)
 
 @app.route("/marketplace")
 @check_login
