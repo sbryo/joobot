@@ -203,7 +203,7 @@ def my_space():
 		if (session['logged_in']==True):
 			data = facebook.get('/me').data
 			username = (data['name'])
-			pic = (data['picture'])
+			pic = (data['ProfilePictureSource'])
 			print "PIC="+pic
 	except:
 		print "Exception in /my-space"
