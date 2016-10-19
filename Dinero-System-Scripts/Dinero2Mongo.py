@@ -235,7 +235,7 @@ exec command
 
 t_ali=threading.Thread(target=joo_ali,args=(username,KEYWORDS),name="ali")
 t_ebay=threading.Thread(target=joo_ebay,args=(username,KEYWORDS),name="ebay")
-t_dx=threading.Thread(target=joo_dx,args=(username,KEYWORDS),name="dx")
+#t_dx=threading.Thread(target=joo_dx,args=(username,KEYWORDS),name="dx")
 t_amazon=threading.Thread(target=joo_amazon,args=(username,KEYWORDS),name="amazon")
 
 try:
@@ -246,10 +246,10 @@ try:
     t_ebay.start()
 except:
     print "t_ebay thread error"
-try:
-    t_dx.start()
-except:
-    print "t_dx thread error"
+#try:
+#    t_dx.start()
+#except:
+#    print "t_dx thread error"
 try:
     t_amazon.start()
 except:
