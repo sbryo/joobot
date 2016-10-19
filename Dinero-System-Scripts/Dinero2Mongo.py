@@ -175,6 +175,7 @@ def joo_dx(username,KEYWORDS):
 
 ########################################################### Amazon ##############################3
 def joo_amazon(username,KEYWORDS):
+    os.system('cp ../test ~/.amazon-product-api')
     items_list4 = []
     C=0
     api = API(locale='us')
