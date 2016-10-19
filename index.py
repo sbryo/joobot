@@ -210,7 +210,6 @@ def my_space():
 		pic = '../static/img/shops-pic.png'
 	if ("username" in flask.session):
 		username = (str(flask.session['username'])).split('@')[0]
-		pic = '../static/img/shops-pic.png'
 	return flask.render_template('my-space.html',username=username,pic=pic)
 
 @app.route("/marketplace")
