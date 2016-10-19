@@ -198,7 +198,7 @@ def test():
 @app.route("/my-space")
 @check_login
 def my_space():
-	pic = '../static/img/shops-pic.png'
+	pic = '../static/img/profile.png'
 	try:
 		if (session['logged_in']==True):
 			data = facebook.get('/me').data
@@ -207,7 +207,7 @@ def my_space():
 			print "PIC="+pic
 	except:
 		print "Exception in /my-space"
-		pic = '../static/img/shops-pic.png'
+		pic = '../static/img/profile.png'
 	if ("username" in flask.session):
 		username = (str(flask.session['username'])).split('@')[0]
 	return flask.render_template('my-space.html',username=username,pic=pic)
