@@ -18,6 +18,7 @@ from multiprocessing.pool import ThreadPool
 #################################################### ALIEXPRESS ########################################
 def joo_ali(username,KEYWORDS):
     items_list1=[]
+    C=0
     APP_KEY='21503'
     KEYWORDS=KEYWORDS.replace(' ','%20')
     #C=0
@@ -36,6 +37,8 @@ def joo_ali(username,KEYWORDS):
     products_list=j['result']['products']
     #print products_list
     for product in products_list:
+        if C==20:
+            break
         title=product['productTitle'].split('</font>')[1].split('<font>')[0]
         item_url=product['productUrl']
         price=product['salePrice']
@@ -44,6 +47,7 @@ def joo_ali(username,KEYWORDS):
         x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
         j=json.loads(x)
         items_list1.append(j)
+        C=C+1
 
 
     command="db_results.results."+username+".insert_many(items_list1)"
