@@ -176,47 +176,21 @@ def joo_dx(username,KEYWORDS):
 def joo_amazon(username,KEYWORDS):
     items_list4 = []
     C=0
-    #items_list4=[]
-    url = 'http://www.amazon.com/s/field-keywords='+KEYWORDS
-    values = {'name': 'Dinero',
-              'location': 'Northampton',
-              'language': 'Python' }
-    user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
-    headers = {'User-Agent': user_agent}
-
-    data = urllib.urlencode(values)
-    data = urllib.urlencode(values)
-    req = urllib2.Request(url,data,headers)
-    response = urllib2.urlopen(req)
-    the_page = response.read()
-    #products_list=the_page.split('id="atfResults')[1]
-    products_list = the_page.split('result_')
-    amazon_list=[]
-    for i in products_list:
-        if C==20:
-            break
+    api = API(locale='us')
+    items = api.item_search('All', Keywords=KEYWORDS,ResponseGroup='Large')
+    for i in items:
         try:
-            item_url = ((i.split('normal" href="')[1]).split('"'))[0]
-            title = ((i.split('title="')[1]).split('"')[0])
-            if KEYWORDS in title:
-                img = ((i.split('img src="')[1]).split('"')[0])
-                price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
-                shipping = "-"
-                x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
-                j=json.loads(x)
-                items_list4.append(j)
-                C=C+1
-            #RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
-            #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
+            title=i.ItemAttributes.Title
+            item_url=i.DetailPageURL
+            img=i.MediumImage.URL
+            price=i.OfferSummary.LowestNewPrice.FormattedPrice
+            shipping='-'
+            x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
+            j=json.loads(x)
+            items_list4.append(j)
+            C=C+1
         except:
             continue
-        #try:
-        #    for i in items_list4:
-        #        print i
-        #        command="db_results.results."+username+".insert_one(i)"
-        #        exec command
-        #except:
-        #    print "test"
     command="db_results.results."+username+".insert_many(items_list4)"
     try:
         exec command
@@ -282,12 +256,3 @@ except:
     print "t_amazon thread error"
 
 print "Dinero2Mongo Script is DONE!"
-
-
-
-
-
-
-
-
-
