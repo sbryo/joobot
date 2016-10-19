@@ -14,6 +14,7 @@ import requests
 import sys
 import threading
 from multiprocessing.pool import ThreadPool
+from amazonproduct import API
 
 #################################################### ALIEXPRESS ########################################
 def joo_ali(username,KEYWORDS):
