@@ -228,12 +228,18 @@ body {margin:0;}
 		</a>
 		</div>
 		</p></td>
+<td>
+                  <div class="btn-group-justified">
+    <div class="btn-group">
+                  <form action={{x[3]}} target="_blank"><button type="submit" class="btn btn-primary" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button>
+                </form>
+        </div>
+<div class="btn-group">
+                <form action="http://joobot-web.herokuapp.com/results/add_to_favorites/{{x[6]}}"><button type="submit" class="btn btn-success" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> ♥">Like</button></form>
+          </div>
+          </div>
+            </td>
 
-
-                <td><form action={{x[3]}} target="_blank"><button type="submit" class="btn btn-primary btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button>
-                </form></td>
-
-                <td><form action="http://joobot-web.herokuapp.com/results/add_to_favorites/{{x[6]}}"><button type="submit" class="btn btn-success btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> ♥">Like</button></form></td>
             </tr>
         {% endfor %}
        </tbody>
