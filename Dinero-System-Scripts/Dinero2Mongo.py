@@ -177,7 +177,13 @@ def joo_dx(username,KEYWORDS):
 def joo_amazon(username,KEYWORDS):
     items_list4 = []
     C=0
-    api = API(locale='us',cfg='../test')
+    client = MongoClient('ds063186.mlab.com',63186)
+    client.credentials.authenticate('shakedinero','a/c57821688')
+    db = client.credentials
+    cursor = db.amazon.find()
+    for i in cursor:
+        config=i
+    api = API(cfg=config)
     items = api.item_search('All', Keywords=KEYWORDS,ResponseGroup='Large')
     for i in items:
         try:
