@@ -175,10 +175,9 @@ def joo_dx(username,KEYWORDS):
 
 ########################################################### Amazon ##############################3
 def joo_amazon(username,KEYWORDS):
-    os.system('cp ../test ~/.amazon-product-api')
     items_list4 = []
     C=0
-    api = API(locale='us')
+    api = API(locale='us',cfg='../test')
     items = api.item_search('All', Keywords=KEYWORDS,ResponseGroup='Large')
     for i in items:
         try:
