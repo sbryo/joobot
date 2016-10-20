@@ -14,13 +14,16 @@ import requests
 import sys
 import threading
 from multiprocessing.pool import ThreadPool
+from amazonproduct import API
 
-
+#################################################### ALIEXPRESS ########################################
 def joo_ali(username,KEYWORDS):
     items_list1=[]
-    ########################################################### AliExpress ###################################33
-    url = 'http://aliexpress.com/wholesale?catId=0&initiative_id=AS_20160721045815&SearchText='+KEYWORDS
-    values = {'name': 'Dinero',
+    APP_KEY='21503'
+    KEYWORDS=KEYWORDS.replace(' ','%20')
+    #C=0
+    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&keywords='+KEYWORDS
+    values = {'name': 'Joo',
               'location': 'Northampton',
               'language': 'Python' }
     user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
@@ -30,38 +33,19 @@ def joo_ali(username,KEYWORDS):
     req = urllib2.Request(url,data,headers)
     response = urllib2.urlopen(req)
     the_page = response.read()
-    products_list=the_page.split('<div class="pic">')
+    j=json.loads(str(the_page))
+    products_list=j['result']['products']
+    #print products_list
+    for product in products_list:
+        title=product['productTitle'].split('</font>')[1].split('<font>')[0]
+        item_url=product['productUrl']
+        price=product['salePrice']
+        img=product['imageUrl']
+        shipping='-'
+        x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
+        j=json.loads(x)
+        items_list1.append(j)
 
-    for i in products_list:
-        try:
-            item_url = ((i.split('href="')[1]).split('"'))[0]
-            title = ((i.split('alt="')[1]).split('"'))[0]
-            img = ((i.split('src="')[1]).split('"'))[0]
-            shipping = "-"
-            #response2 = urllib2.urlopen('http:'+item_url)
-            #page_ali = response2.read()
-            #Check about close requests
-            #img = ((i.split('image-src="')[1]).split('"'))[0]
-            #img=((page_ali.split('<a class="ui-image-viewer-thumb-frame" data-role="thumbFrame" href="')[1]).split('src="')[1]).split('"')[0]
-
-            try:
-                price = ((((i.split('<span class="value" itemprop="price">')[1]).split('<'))[0])[3:-1]).replace('$','')
-                if '-' in price:
-                    continue
-            except:
-                continue
-            #ali_results.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
-            #ali-history.append(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img)
-            x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
-            j=json.loads(x)
-            items_list1.append(j)
-
-        #for i in items_list1:
-        #    print i
-        #    command="db_results.results."+username+".insert_one(i)"
-        #    exec command
-        except:
-            continue
 
     command="db_results.results."+username+".insert_many(items_list1)"
     exec command
@@ -180,44 +164,27 @@ def joo_dx(username,KEYWORDS):
 ########################################################### Amazon ##############################3
 def joo_amazon(username,KEYWORDS):
     items_list4 = []
-    #items_list4=[]
-    url = 'http://www.amazon.com/s/field-keywords='+KEYWORDS
-    values = {'name': 'Dinero',
-              'location': 'Northampton',
-              'language': 'Python' }
-    user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
-    headers = {'User-Agent': user_agent}
-
-    data = urllib.urlencode(values)
-    data = urllib.urlencode(values)
-    req = urllib2.Request(url,data,headers)
-    response = urllib2.urlopen(req)
-    the_page = response.read()
-    #products_list=the_page.split('id="atfResults')[1]
-    products_list = the_page.split('result_')
-    amazon_list=[]
-    for i in products_list:
+    client = MongoClient('ds063186.mlab.com',63186)
+    client.credentials.authenticate('shakedinero','a/c57821688')
+    db = client.credentials
+    cursor = db.amazon.find()
+    for i in cursor:
+        x=i
+    config={"access_key":str(x['access_key']),"secret_key":str(x['secret_key']),"associate_tag":str(x['associate_tag']),"locale":str(x['locale'])}
+    api = API(cfg=config)
+    items = api.item_search('All', Keywords=KEYWORDS,ResponseGroup='Large')
+    for i in items:
         try:
-            item_url = ((i.split('normal" href="')[1]).split('"'))[0]
-            title = ((i.split('title="')[1]).split('"')[0])
-            if KEYWORDS in title:
-                img = ((i.split('img src="')[1]).split('"')[0])
-                price = ((i.split('class="a-size-base a-color-price s-price a-text-bold">')[1].split('<')[0]))
-                shipping = "-"
-                x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
-                j=json.loads(x)
-                items_list4.append(j)
-            #RESULTS_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
-            #HISTORY_FILE.write(title+" = "+price+" = "+shipping+" = "+item_url+" = "+img+'\n')
+            title=i.ItemAttributes.Title
+            item_url=i.DetailPageURL
+            img=i.MediumImage.URL
+            price=i.OfferSummary.LowestNewPrice.FormattedPrice
+            shipping='-'
+            x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
+            j=json.loads(x)
+            items_list4.append(j)
         except:
             continue
-        #try:
-        #    for i in items_list4:
-        #        print i
-        #        command="db_results.results."+username+".insert_one(i)"
-        #        exec command
-        #except:
-        #    print "test"
     command="db_results.results."+username+".insert_many(items_list4)"
     try:
         exec command
@@ -239,8 +206,6 @@ file=open("/tmp/user.txt",'r')
 username=file.read()
 file.close()
 
-#username="shaked1817gmail"
-#KEYWORDS="diesel watch"
 ######################## Connect Search DB ################################
 client2 = MongoClient('ds139425.mlab.com',39425)
 client2.search.authenticate('shakedinero','a57821688')
@@ -253,8 +218,6 @@ exec command
 for document in cursor:
     KEYWORDS=document['search']
 
-
-
 ######################### Connect Results DB ####################################
 client = MongoClient('ds019254.mlab.com',19254)
 client.results.authenticate('shakedinero','a57821688')
@@ -263,44 +226,27 @@ db_results = client.results
 command="result = db_results.results."+username+".delete_many({})"
 exec command
 
-#pool1 = ThreadPool(processes=1)
-#pool2 = ThreadPool(processes=1)
-#pool3 = ThreadPool(processes=1)
-#pool4 = ThreadPool(processes=1)
 
 t_ali=threading.Thread(target=joo_ali,args=(username,KEYWORDS),name="ali")
 t_ebay=threading.Thread(target=joo_ebay,args=(username,KEYWORDS),name="ebay")
-t_dx=threading.Thread(target=joo_dx,args=(username,KEYWORDS),name="dx")
+#t_dx=threading.Thread(target=joo_dx,args=(username,KEYWORDS),name="dx")
 t_amazon=threading.Thread(target=joo_amazon,args=(username,KEYWORDS),name="amazon")
 
-t_ali.start()
-t_ebay.start()
-t_dx.start()
-t_amazon.start()
+try:
+    t_ali.start()
+except:
+    print "t_ali thread error"
+try:
+    t_ebay.start()
+except:
+    print "t_ebay thread error"
+#try:
+#    t_dx.start()
+#except:
+#    print "t_dx thread error"
+try:
+    t_amazon.start()
+except:
+    print "t_amazon thread error"
 
-t_ali.join()
-t_ebay.join()
-t_dx.join()
-t_amazon.join()
-
-#ali_result = pool1.apply_async(joo_ali, (username, KEYWORDS))
-#ebay_result = pool2.apply_async(joo_ebay, (username, KEYWORDS))
-#dx_result = pool3.apply_async(joo_dx, (username, KEYWORDS))
-#amazon_result = pool4.apply_async(joo_amazon, (username, KEYWORDS))
-
-#ali_list = ali_result.get()
-#ebay_list = ebay_result.get()
-#dx_list = dx_result.get()
-#amazon_list = amazon_result.get()
-
-
-#items=[]
-#items=ali_list+ebay_list+dx_list+amazon_list
-
-#command="db_results.results."+username+".insert_many(items)"
-#exec command
-
-
-
-
-
+print "Dinero2Mongo Script is DONE!"
