@@ -204,7 +204,7 @@ def my_space():
 			data = facebook.get('/me').data
 			username = (data['name'])
 			id = str((data['id']))
-			pic = 'http://graph.facebook.com/v2.8/'+id+'/picture'
+			pic = 'http://graph.facebook.com/v2.8/'+id+'/picture?type=large'
 	except:
 		print "Exception in /my-space"
 		pic = '../static/img/profile.png'
