@@ -182,7 +182,8 @@ def joo_amazon(username,KEYWORDS):
     db = client.credentials
     cursor = db.amazon.find()
     for i in cursor:
-        config=i
+        x=i
+    config={"access_key":str(x['access_key']),"secret_key":str(x['secret_key']),"associate_tag":str(x['associate_tag']),"locale":str(x['locale'])}
     api = API(cfg=config)
     items = api.item_search('All', Keywords=KEYWORDS,ResponseGroup='Large')
     for i in items:
