@@ -185,9 +185,9 @@ body {margin:0;}
                <center><div id="load"></div></center>
 <div id="contents">
 
- {% for x in list %}
 <div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
+						 {% for x in list %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -213,14 +213,16 @@ body {margin:0;}
 									
 								</div>
 							</div>
+							
 						</div>
-
+				{% endfor %}
 
                 </div>
-	 {% endfor %}
+	
             </div>
 
     </section>
+			 
 
     <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
