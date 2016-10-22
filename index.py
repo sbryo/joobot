@@ -183,6 +183,7 @@ def login():
 @check_login
 def joobot():
 	x = []  ### This is the list for html
+	list=[]
 	client = MongoClient('ds063856.mlab.com',63856)
 	client.top_shop.authenticate('shakedinero','a/c57821688')
 	db = client.top_shop
