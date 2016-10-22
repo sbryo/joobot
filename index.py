@@ -599,7 +599,7 @@ def cheap():
 
     for i in new_list:
         for doc in docs_list:
-            if float(doc['price'].replace('$','')) == float(i):
+            if float((doc['price'].replace('$','').replace('US',''))) == float(i):
                 cheap_list.append(doc)
             else:
                  continue
