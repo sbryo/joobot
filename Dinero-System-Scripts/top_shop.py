@@ -22,7 +22,7 @@ def joo_ali():
     C=0
     APP_KEY='21503'
     #C=0
-    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listHotProducts/'+APP_KEY+'?localCurrency=USD&categoryId=200000297&language=en'
+    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listHotProducts/'+APP_KEY+'?localCurrency=USD&categoryId=3&language=en'
     values = {'name': 'Joo',
               'location': 'Northampton',
               'language': 'Python' }
@@ -53,6 +53,43 @@ def joo_ali():
     command="db.top_shop.insert_many(items_list1)"
     exec command
     return items_list1
+
+def joo_ali6():
+    items_list6=[]
+    C=0
+    APP_KEY='21503'
+    #C=0
+    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listHotProducts/'+APP_KEY+'?localCurrency=USD&categoryId=509&language=en'
+    values = {'name': 'Joo',
+              'location': 'Northampton',
+              'language': 'Python' }
+    user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+    headers = {'User-Agent': user_agent}
+
+    data = urllib.urlencode(values)
+    req = urllib2.Request(url,data,headers)
+    response = urllib2.urlopen(req)
+    the_page = response.read()
+    j=json.loads(str(the_page))
+    products_list=j['result']['products']
+    #print products_list
+    for product in products_list:
+        if C==20:
+            break
+        title=product['productTitle']
+        item_url=product['productUrl']
+        price=product['salePrice']
+        img=product['imageUrl']
+        shipping='-'
+        x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
+        j=json.loads(x)
+        items_list6.append(j)
+        C=C+1
+
+
+    command="db.top_shop.insert_many(items_list6)"
+    exec command
+    return items_list6
 
 ########################################################### EBAY ########################################################
 def joo_ebay():
@@ -226,12 +263,18 @@ exec command
 
 
 t_ali=threading.Thread(target=joo_ali,args=(),name="ali")
+t_ali6=threading.Thread(target=joo_ali6,args=(),name="ali6")
 t_ebay=threading.Thread(target=joo_ebay,args=(),name="ebay")
 #t_dx=threading.Thread(target=joo_dx,args=(),name="dx")
 t_amazon=threading.Thread(target=joo_amazon,args=(),name="amazon")
 
 try:
     t_ali.start()
+except:
+    print "t_ali thread error"
+
+try:
+    t_ali6.start()
 except:
     print "t_ali thread error"
 #try:

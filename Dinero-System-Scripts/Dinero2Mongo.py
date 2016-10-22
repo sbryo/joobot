@@ -42,7 +42,7 @@ def joo_ali(username,KEYWORDS):
             break
         title=product['productTitle'].split('</font>')[1].split('<font>')[0]
         item_url=product['productUrl']
-        price=product['salePrice']
+        price=str(product['salePrice']).replace('$','')
         img=product['imageUrl']
         shipping='-'
         x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"AliExpress"}'
@@ -91,7 +91,7 @@ def joo_ebay(username,KEYWORDS):
                 LIST = str(ITEM).split("'galleryURL':")
                 IMG = (LIST[1].split("'"))[1]
                 LIST = (str(ITEM).split("'currentPrice':"))[1].split("'value':")
-                PRICE = (LIST[1].split("'"))[1]
+                PRICE = (LIST[1].split("'"))[1].replace('$','')
 
                 #if SHIPPING_PRICE == 'Free':
                 #    S = 0
@@ -152,7 +152,7 @@ def joo_dx(username,KEYWORDS):
             title = str(html_product_page.split('<title>')[1].split('</title>')[0].strip())
             title = title.split('-')[0]
             shipping = str(html_product_page.split('<span class="f_shipping">')[1].split('</span>')[0])
-            price = str(html_product_page.split('<span id="price" class="fl" itemprop="price">')[1].split('</span>')[0])
+            price = str(html_product_page.split('<span id="price" class="fl" itemprop="price">')[1].split('</span>')[0]).replace('$','')
             product_photo = html_product_page.split("product_photo")[1]
             link_href = product_photo.split('href=')[1]
             img = link_href.split(" ")[0]
@@ -191,7 +191,7 @@ def joo_amazon(username,KEYWORDS):
             title=i.ItemAttributes.Title
             item_url=i.DetailPageURL
             img=i.MediumImage.URL
-            price=i.OfferSummary.LowestNewPrice.FormattedPrice
+            price=str(i.OfferSummary.LowestNewPrice.FormattedPrice).replace('$','')
             shipping='-'
             x='{"title":"'+title+'","url":"'+item_url+'","image":"'+img+'","price":"'+price+'","shipping":"'+shipping+'","web":"Amazon"}'
             j=json.loads(x)
