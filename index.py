@@ -581,7 +581,7 @@ def cheap():
     command="cursor = db.results."+username+".find()"
     exec command
     for document in cursor:
-        LIST.append(float(document['price'].replace('$','')))
+        LIST.append(float(((document['price'].replace('$','')).replace('US','')).replace(' ','')))
 
     while LIST:
         minimum = LIST[0]  # arbitrary number in list
