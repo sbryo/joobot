@@ -182,7 +182,26 @@ def login():
 @app.route("/joobot")
 @check_login
 def joobot():
-	return flask.render_template('index.html')
+	x = []  ### This is the list for html
+	client = MongoClient('ds063856.mlab.com',63856)
+	client.top_shop.authenticate('shakedinero','a/c57821688')
+	db = client.top_shop
+	command="cursor = db.top_shop.find()"
+	exec command
+#Make list for html page
+	for document in cursor:
+		x = []
+		x.append(document['title'])
+		x.append(document['price'])
+		x.append(document['shipping'])
+		x.append(document['url'])
+		x.append(document['image'])
+		x.append(document['web'])
+		x.append(str(document['_id']))
+		#x.append(str(datetime.datetime.now()).split('.')[0])
+		list.append(x)
+	random.shuffle(list)
+	return flask.render_template('index.html',list=list)
 
 
 @app.route("/loading")
