@@ -2,13 +2,11 @@
 <html lang="en">
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.semanticui.min.css">
- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
 
     <title>Shops</title>
 
@@ -27,18 +25,18 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
 
-        <![endif]-->
-
+    <![endif]-->
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!-- js script for loading button -->
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-         <link rel="stylesheet" type="text/css" href="../static/DataTables/datatables.css">
-      <style>
+<style>
 body {margin:0;}
 
 .icon_bar {
-	position: fixed;
-   
+	position: fixed;   
 	bottom: 0;
 	width: 100%;
     text-align: center;
@@ -46,6 +44,7 @@ body {margin:0;}
     overflow: auto;
     z-index: 99999;
 }
+
 .icon_bar a {
     width: 20%;
     float: left;
@@ -54,6 +53,7 @@ body {margin:0;}
     color: white;
     font-size: 36px;
 }
+
 .icon_bar a:hover {
     background-color: #01B5F0;
 }
@@ -62,7 +62,26 @@ body {margin:0;}
     background-color: #58D3F7 !important;
 }
 </style>
-        <style>#results { color:black;  }
+    <!-- style tag for icons -->
+    <style>
+.floating-box {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border: 1px solid #0B2161;
+    display: inline;
+}
+
+.after-box {
+    text-align: center;
+    height: 65px;
+
+
+}
+</style>
+
+ <style>#results { color:black;  }
 
         #load{
     width:100%;
@@ -74,41 +93,41 @@ body {margin:0;}
     background:url("../static/img/flickr.gif") 50% 50% no-repeat rgb(255,255,255);
 }
 
-
-
         </style>
-
-
 
 </head>
 
 <body id="page-top" class="index">
+
 <div class="icon_bar">
   <a href="http://joobot-web.herokuapp.com/joobot"><i class="fa fa-arrow-up"></i></a>
   <a href="http://joobot-web.herokuapp.com/my-space"><i class="fa fa-home"></i></a>
-  <a class="active" href="http://joobot-web.herokuapp.com/favorites"><i class="fa fa-heart"></i></a>
+  <a href="http://joobot-web.herokuapp.com/favorites"><i class="fa fa-heart"></i></a>
   <a href="http://joobot-web.herokuapp.com/history"><i class="fa fa-history"></i></a>
   <a href="http://joobot-web.herokuapp.com/marketplace"><i class="fa fa-users"></i></a>
 </div>
-
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
+
         <div class="container">
+
             <!-- Brand and toggle get grouped for better mobile display -->
+
             <div class="navbar-header page-scroll">
+
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+  <a class="navbar-brand" href="#page-top">  Shops  </a>
 
 
-             <a class="navbar-brand" href="#page-top">  Shops  </a>
 
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
+          <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    
 		    	    <!-- SEARCH -->
@@ -155,42 +174,47 @@ body {margin:0;}
         <!-- /.container-fluid -->
     </nav>
 
-      <!-- Portfolio Grid Section -->
+
+    <!-- Portfolio Grid Section -->
     <section id="portfolio">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Favorites</h2>
-                    <!--           <hr class="star-primary"> -->
+                <div class="col-lg-12 text-center">
+                	 <p style="padding-top: 10px"></p>
+                    <h2>Smart Search</h2>
+                  <!--           <hr class="star-primary"> -->
+					
+<h4>Easy To Shop !</h4>
 
-<h5>Your Favorites Items</h5>
-
-
-                               <center><div id="load"></div></center>
+                                   <center><div id="load"></div></center>
 <div id="contents">
+ <p style="padding-top: 20px"></p>
+<form method="post" action="/search">
+<p style="padding-top: 20px"><input class="form-control" type="text" name="add" placeholder="Your Item"></p>
+      <!-- icons buttons:
+    <div id="icons">
+<p><input id=ebay class="floating-box img-thumbnail" type="image" src="../static/img/ebay.png" width="48" height="48"></p>
+    <p><input class="floating-box img-thumbnail" type="image" src="../static/img/alii.png"  alt="checkbox" width="48" height="48"></p>
+    <p><input class="floating-box img-thumbnail" type="image" src="../static/img/dealextreame.png"  alt="checkbox" width="48" height="48"></p>
+    <p><input class="floating-box img-thumbnail" type="image" src="../static/img/amazon.jpg"  alt="checkbox" width="48" height="48"></p>
+</div>
+ -->
 
-  <table id="favorites" cellspacing="0" width="100%" class="ui celled table">
-        <tbody>
-        {% for x in list %}
-             <tr>
-                <td><big><b> <font color="#18bc9c">{{x[0]}}</font></big></td></b>
-                <td><b>Price:</b> {{x[1]}}$</td>
-                <td><b>Shipping:</b> {{x[2]}}$</td>
-                <!-- <td><div class="img-thumbnail"><img src={{x[4]}} height="120" width="120"></div></td> -->
-                <td><p>
-                <div class="img-thumbnail">
-		<a href={{x[3]}}>
-		<img border="0" alt="ItemPic" src={{x[4]}} width="120" height="120">
-		</a>
-		</div>
-		</p></td>
-                <td><form method="post" action={{x[3]}}><button type="submit" class="btn btn-primary btn-block" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Opening...">Open in {{ x[5] }}</button></form></td>
-                <td><form method="post" action="http://joobot-web.herokuapp.com/favorites/delete/{{x[6]}}"><button type="submit" class="btn btn-danger btn-block" id="{{ x[0] }}"  data-loading-text="<i class='fa fa-spinner fa-spin '></i> Deleting...">Delete</button></form></td>
-
-                </tr>
-        {% endfor %}
-       </tbody>
-    </table>
+<!--
+<p class="submit" style="width: 200px; height: 65px; display: inline-block;"><input type="submit" id="search" autocomplete="off" data-loading-text="Loading..." value="Search Now" class="btn btn-success btn-block after-box"></p>
+-->
+    <p style="padding-top: 10px"></p>
+  <!-- <button style="width: 300px; height: 65px; display: inline-block;" type="submit" id="searchButton" autocomplete="off" data-loading-text="Loading..." class="btn btn-success btn-block after-box">Search Now</button> -->
+<!--
+<button style="width: 300px; height: 65px; display: inline-block;" type="submit" class="btn btn-success btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Loading ...">Search Now</button>
+-->
+<center>
+<div style="text-align:center;">
+<button type="submit" style="width: 200px; height: 65px; display: inline-block;" class="btn btn-info btn-lg" id="loads" data-loading-text="<i class='fa fa-spinner fa-spin '></i>">Search Now</button>
+</div>
+</center>
+</form>
 
 
 
@@ -200,6 +224,22 @@ body {margin:0;}
 
     </section>
 
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <!--
+    <div class="scroll-top page-scroll visible-xs visible-sm">
+        <a class="btn btn-primary" onclick="goBack()">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+    </div>
+</div>
+-->
 
     <!-- jQuery -->
     <script src="../static/js/jquery.js"></script>
@@ -218,38 +258,12 @@ body {margin:0;}
 
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/freelancer.js"></script>
+<script type="text/css" >#icons{border:solid 1px red;}.icon{border:solid 1px black; display:inline;}</script>
 
-	 <script type="../static/text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+	 <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
                         <script>
                         $(document).ready(function() {
-                                $('#example').DataTable({
-    buttons: [
-        {
-            extend: 'excel',
-            text: 'Save current page',
-            exportOptions: {
-                modifier: {
-                    page: 'current'
-                }
-            }
-        }
-    ]
-} );
-                                $("#favorites").DataTable(
-
-                                        {
-            "columns": [
-                null,
-                null,
-                { "orderDataType": "dom-text" },
-                { "orderDataType": "dom-text", "type": "numeric" },
-                { "orderDataType": "dom-select" },
-                { "orderDataType": "dom-checkbox" }
-            ]
-        }
-
-                                );
-
+                                  $("#results").DataTable();
                         } );
                         </script>
 
@@ -268,30 +282,13 @@ body {margin:0;}
   }
 }</script>
 
-    <!-- To The Back Page -->
 
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
-
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '275750752809365',
-      xfbml      : true,
-      version    : 'v2.7'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+    <script>
+  $('#searchButton').on('click', function () {
+    var $btn = $(this).button('loading')
+    // business logic...
+    $btn.button('reset')
+  })
 </script>
 
 <script>
@@ -303,16 +300,7 @@ function goBack() {
    }, 100000);
 });
 </script>
-<!--
-    <div class="scroll-top page-scroll visible-xs visible-sm">
-        <a class="btn btn-primary" onclick="goBack()">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-    </div>
-</div>
--->
-<script type="text/javascript" src="jquery.dataTables.js"></script>
-<script type="text/javascript" src="dataTables.dataSourcePlugins.js"></script>
+
 
 </body>
 

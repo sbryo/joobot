@@ -115,6 +115,9 @@ def reset_pass():
 def send_pass():
 	return flask.render_template("reset_password.html")
 
+@app.route("/search_page")
+def search_page():
+	return flask.render_template("search_page.html")
 
 @app.route("/signing", methods=['GET','POST'])
 def signing():
