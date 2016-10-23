@@ -373,6 +373,46 @@ def addtofavorites(LINE):
             #continue
         return flask.redirect("/results")
 
+
+@app.route("/joobot/add_to_favorites/<LINE>",methods=['GET','POST'])
+@check_login
+def addTOPSHOPtofavorites(LINE):
+	try:
+		if (session['logged_in']==True):
+			data = facebook.get('/me').data
+			if 'id' in data and 'name' in data:
+    				user_id = data['id']
+    				username = (data['name']).replace(' ','')+str(user_id)
+    	except:
+    		print "exception in /add_to_favorites"
+        if ("username" in flask.session):
+        	email = flask.session['username']
+        	user = email.split("@")[0]
+        	domain = ((email.split("@")[1]).split("."))[0]
+        	username=user+domain
+	client = MongoClient('ds063856.mlab.com',63856)
+    	client.top_shop.authenticate('shakedinero','a/c57821688')
+    	db = client.top_shop
+
+    	STR=LINE
+    	#command="cursor = db_results.results."+username+".find()"
+        command = "cursor=db.top_shop.find({'_id': ObjectId('"+STR+"') })"
+    	exec command
+       	client4 = MongoClient('ds019254.mlab.com',19254)
+    	client4.favorites.authenticate('shakedinero','a57821688')
+    	db_favorites = client4.favorites
+    	#cursor = db_results.results.shaked.find()
+    	for doc in cursor:
+#        STR=LINE.replace("%20"," ")
+        	#if STR in str(doc['_id']):
+            #db_favorites.favorites.shaked.insert(doc)
+            command="db_favorites.favorites."+username+".insert(doc)"
+            exec command
+        	#else:
+            #continue
+        return flask.redirect("/joobot")
+
+
 @app.route("/favorites")
 @check_login
 def my_archive_page():
