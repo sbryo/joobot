@@ -273,6 +273,25 @@ function goBack() {
   }
 }</script>
 
+
+    <script>
+  $('#searchButton').on('click', function () {
+    var $btn = $(this).button('loading')
+    // business logic...
+    $btn.button('reset')
+  })
+</script>
+
+<script>
+	$('.btn').on('click', function() {
+    var $this = $(this);
+  $this.button('loading');
+    setTimeout(function() {
+       $this.button('reset');
+   }, 100000);
+});
+</script>
+
 <script>
   window.fbAsyncInit = function() {
     FB.init({
