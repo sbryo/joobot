@@ -317,6 +317,15 @@ span.onclick = function() {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
+
+   <script>
+  $('#searchButton').on('click', function () {
+    var $btn = $(this).button('loading')
+    // business logic...
+    $btn.button('reset')
+  })
+</script>
+
 <!--
     <div class="scroll-top page-scroll visible-xs visible-sm">
         <a class="btn btn-primary" onclick="goBack()">
