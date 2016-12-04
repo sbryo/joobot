@@ -788,6 +788,7 @@ def logout():
     		#return flask.redirect("/")
     	try:
     		if (session['logged_in']==True):
+			pop_login_session()
     			session['logged_in']=False
         		return flask.redirect("/")
         except:
