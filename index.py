@@ -780,6 +780,21 @@ def public_append():
                 file.close()
                 return flask.redirect("/public")
 
+#@app.route("/logout")
+#def logout():
+	#flask.session.clear()
+	#if "username" in flask.session:
+       # 	del flask.session["username"]
+    		#return flask.redirect("/")
+   # 	try:
+   # 		if (session['logged_in']==True):
+#			pop_login_session()
+#    			session['logged_in']=False
+#        		return flask.redirect("/")
+#        except:
+#        	print "Exception in /logout"
+#    	return flask.redirect("/")
+
 @app.route("/logout")
 def logout():
 	flask.session.clear()
@@ -788,8 +803,20 @@ def logout():
     		#return flask.redirect("/")
     	try:
     		if (session['logged_in']==True):
-			pop_login_session()
-    			session['logged_in']=False
+			cookie = facebook.get_user_from_cookie(request.cookies, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET)
+        		if cookie:
+            			graph = facebook.GraphAPI(cookie["access_token"])
+           		 	try:
+                			graph.revoke_auth(g.user.facebook_id)
+            			except facebook.GraphAPIError, e:
+                			logging.info(e)
+			data = facebook.get('/me').data
+			session.pop((data['id']))
+			#pop_login_session()
+			try:
+    				session['logged_in']=False
+			except:
+				print "Session is already logged_in=false !!!"
         		return flask.redirect("/")
         except:
         	print "Exception in /logout"
