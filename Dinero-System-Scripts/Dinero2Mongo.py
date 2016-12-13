@@ -60,7 +60,8 @@ def joo_ebay(username,KEYWORDS):
     items_list2 = []
     C=0
     try:
-        api = Connection(appid='Shaked-B-976d-45bc-a23a-71ab251884fb',config_file=None)
+        #api = Connection(appid='Shaked-B-976d-45bc-a23a-71ab251884fb',config_file=None)
+        api = Connection(appid='ShakedYo-Shops-PRD-245f0c74d-4fb55ac9',config_file=None)
     #response details:
         response = api.execute('findItemsAdvanced',{'keywords':KEYWORDS})
 
