@@ -20,7 +20,7 @@ from amazonproduct import API
 def joo_ali(username,KEYWORDS):
     items_list1=[]
     C=0
-    APP_KEY='21503'
+    APP_KEY='28880'
     KEYWORDS=KEYWORDS.replace(' ','%20')
     #C=0
     url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&keywords='+KEYWORDS
