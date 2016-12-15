@@ -276,22 +276,14 @@ function goBack() {
 <!--
     <script>
   $('#searchButton').on('click', function () {
-    var $btn = $(this).button('loading')
+    var $btn = $(this).button('')
     // business logic...
     $btn.button('reset')
   })
 </script>
 -->
 	
-<script>
-	$('.btn').on('click', function() {
-    var $this = $(this);
-  $this.button('loading');
-    setTimeout(function() {
-       $this.button('reset');
-   }, 100000);
-});
-</script>
+
 
 <script>
   window.fbAsyncInit = function() {
