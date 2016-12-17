@@ -212,7 +212,6 @@ function goBack() {
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-    <!--
 <script>
   $('#loginButton').on('click', function () {
     var $btn = $(this).button('loading')
@@ -220,18 +219,6 @@ function goBack() {
     $btn.button('reset')
   })
 </script>
--->
-
-<script>
-	$('.btn').on('click', function() {
-    var $this = $(this);
-  $this.button('Loading');
-    setTimeout(function() {
-       $this.button('reset');
-   }, 100000);
-});
-</script>
-
 
 </body>
 
