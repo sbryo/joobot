@@ -3482,7 +3482,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #18bc9c;
+  color: #D8D8D8;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -4061,7 +4061,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #ecf0f1;
-  border-color: #18bc9c;
+  border-color: #D8D8D8;
 }
 .nav .nav-divider {
   height: 1px;
@@ -4558,7 +4558,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #18bc9c;
+  color: #D8D8D8;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
@@ -4569,7 +4569,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #18bc9c;
+  color: #D8D8D8;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
@@ -4610,7 +4610,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #18bc9c;
+    color: #D8D8D8;
     background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
@@ -4630,14 +4630,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #ffffff;
 }
 .navbar-default .navbar-link:hover {
-  color: #18bc9c;
+  color: #D8D8D8;
 }
 .navbar-default .btn-link {
   color: #ffffff;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
-  color: #18bc9c;
+  color: #D8D8D8;
 }
 .navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
@@ -4646,7 +4646,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #cccccc;
 }
 .navbar-inverse {
-  background-color: #18bc9c;
+  background-color: #D8D8D8;
   border-color: transparent;
 }
 .navbar-inverse .navbar-brand {
@@ -4672,7 +4672,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #15a589;
+  background-color: #D8D8D8;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
@@ -4697,7 +4697,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #15a589;
+  background-color: #D8D8D8;
   color: #ffffff;
 }
 @media (max-width: 767px) {
@@ -4719,7 +4719,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color: #15a589;
+    background-color: #D8D8D8;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -4874,7 +4874,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pager li > span {
   display: inline-block;
   padding: 5px 14px;
-  background-color: #18bc9c;
+  background-color: #D8D8D8;
   border: 1px solid transparent;
   border-radius: 15px;
 }
@@ -4896,7 +4896,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pager .disabled > a:focus,
 .pager .disabled > span {
   color: #ffffff;
-  background-color: #18bc9c;
+  background-color: #D8D8D8;
   cursor: not-allowed;
 }
 .label {
@@ -4939,7 +4939,7 @@ a.label:focus {
   background-color: #1a242f;
 }
 .label-success {
-  background-color: #18bc9c;
+  background-color: #D8D8D8;
 }
 .label-success[href]:hover,
 .label-success[href]:focus {
@@ -5073,7 +5073,7 @@ a.badge:focus {
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: #18bc9c;
+  border-color: #D8D8D8;
 }
 .thumbnail .caption {
   padding: 9px;
