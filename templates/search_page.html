@@ -224,24 +224,12 @@ body {margin:0;}
 
     </section>
 
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
+		    
+		    
 
-
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <!--
-    <div class="scroll-top page-scroll visible-xs visible-sm">
-        <a class="btn btn-primary" onclick="goBack()">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-    </div>
-</div>
--->
 
     <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="../static/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -258,14 +246,48 @@ function goBack() {
 
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/freelancer.js"></script>
-<script type="text/css" >#icons{border:solid 1px red;}.icon{border:solid 1px black; display:inline;}</script>
+	
 
-	 <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-                        <script>
-                        $(document).ready(function() {
-                                  $("#results").DataTable();
-                        } );
+	 <script type="../static/text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<script type="../static/text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+        <script type="../static/text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"
+<script>
+
+$(document).ready(function() {
+
+    // Setup - add a text input to each footer cell
+    $('#results tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    // DataTable
+    var table = $('#results').DataTable();
+
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+}
                         </script>
+
+
+
+<script type="text/css">
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+</script>
 
 
 <script type="text/javascript">document.onreadystatechange = function () {
@@ -282,8 +304,63 @@ function goBack() {
   }
 }</script>
 
+    <!-- To The Back Page -->
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 
     <script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById('myImg');
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    modalImg.alt = this.alt;
+    captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+</script>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '275750752809365',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+   <script>
   $('#searchButton').on('click', function () {
     var $btn = $(this).button('loading')
     // business logic...
@@ -291,15 +368,14 @@ function goBack() {
   })
 </script>
 
-<script>
-	$('.btn').on('click', function() {
-    var $this = $(this);
-  $this.button('loading');
-    setTimeout(function() {
-       $this.button('reset');
-   }, 100000);
-});
-</script>
+<!--
+    <div class="scroll-top page-scroll visible-xs visible-sm">
+        <a class="btn btn-primary" onclick="goBack()">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+    </div>
+</div>
+-->
 
 
 </body>
