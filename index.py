@@ -154,7 +154,9 @@ def signing():
                             		msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+id+"   \n Enjoy !"
             			    #flask.session['username'] = email
                             		mail.send(msg)
-				return flask.render_template("after-signup.html")
+					return flask.render_template("after-signup.html")
+			else:
+				return flask.redirect("/signup")
             			#return flask.redirect("/joobot")
 
         	except:
