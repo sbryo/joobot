@@ -194,7 +194,7 @@ def login():
         		for doc in cursor:
 					if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
                         try:
-                            if doc['ID']=='0'
+                            if doc['ID']=='0':
 						        flask.session['username'] = doc['email']
                             else:
                                 return flask.redirect('/')
