@@ -28,9 +28,25 @@ import string
 
 
 
-mail = Mail()
+
 app = flask.Flask(__name__)
-mail.init_app(app)
+
+
+#---- Mail Configuration ----#
+app.config.update(dict(
+    DEBUG = True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = 'applicationshops@gmail.com',
+    MAIL_PASSWORD = 'abc5678910',
+))
+
+mail = Mail(app)
+
+
+
 #compress = Compress()
 Compress(app)
 #compress.init_app(app)
@@ -150,7 +166,7 @@ def signing():
 				ID=id_generator()
 				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":"'+ID+'"}')
 				db.users.insert(j)
-				msg = Message("Accept Sign-Up to Shops !",sender="shops@app.com",recipients=[email])
+				msg = Message("Accept Sign-Up to Shops !",recipients=[email])
 				msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
 			    #flask.session['username'] = email
 				mail.send(msg)
