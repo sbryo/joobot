@@ -39,7 +39,7 @@ app.config.update(dict(
     MAIL_PORT = 587,
     MAIL_USE_TLS = True,
     MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'applicationshops@gmail.com',
+    MAIL_DEFAULT_SENDER = 'applicationshops@gmail.com',
     MAIL_PASSWORD = 'abc5678910',
 ))
 
@@ -165,7 +165,7 @@ def signing():
 				ID=id_generator()
 				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":"'+ID+'"}')
 				db.users.insert(j)
-				msg = Message("Accept Sign-Up to Shops !",sender="applicationshops@gmail.com",recipients=[email])
+				msg = Message("Accept Sign-Up to Shops !",recipients=[email])
 				msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
 			    #flask.session['username'] = email
 				mail.send(msg)
