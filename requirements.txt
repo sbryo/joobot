@@ -11,4 +11,6 @@ Flask-Compress
 AmazonAPIWrapper
 python-amazon-product-api
 python-amazon-simple-product-api
+validate_email
+flask_mail
 
