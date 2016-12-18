@@ -163,7 +163,7 @@ def signing():
         		return flask.redirect("/")
         else:
         	return flask.redirect("/")
-
+	return flask.redirect("/")
 
 
 @app.route("/accept_signup/<ID>", methods=['GET','POST'])
