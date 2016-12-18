@@ -148,15 +148,17 @@ def signing():
 		if x==0:
 			if (validate_email(str(email.lower())))==True:
 				ID=id_generator()
-				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":'+ID+'}')
+				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":"'+ID+'"}')
 				db.users.insert(j)
 				msg = Message("Accept Sign-Up to Shops !",sender="shops@app.com",recipients=[email])
 				msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
 			    #flask.session['username'] = email
 				mail.send(msg)
 				return flask.render_template("after-signup.html")
+			else:
+				return flask.redirect("/signup")
 		else:
-			return flask.redirect("/signup")
+			return flask.redirect("/")
             			#return flask.redirect("/joobot")
 
         	#except:
