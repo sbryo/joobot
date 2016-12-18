@@ -192,21 +192,22 @@ def login():
         		email = flask.request.form['email']
         		password = flask.request.form['password']
         		for doc in cursor:
-					if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
-                        try:
-                            if doc['ID']=='0':
-						        flask.session['username'] = doc['email']
-                            else:
-                                return flask.redirect('/')
-                        except:
-                            flask.session['username'] = doc['email']
-                            return flask.redirect('/')
-						return flask.redirect("/joobot")
+				if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
+					try:
+                            			if doc['ID']=='0':
+							flask.session['username'] = doc['email']
+		    				else:
+							####### Rediect to "Please accept the mail" #############
+                                			return flask.redirect('/')
+					except:
+                            			flask.session['username'] = doc['email']
+                            			return flask.redirect('/')
+					return flask.redirect("/joobot")
 		except:
 			return flask.redirect('/login_failed')
 	else:
-        	return flask.redirect("/")
-        return flask.render_template('joobot-login-failed.html')
+		return flask.redirect("/")
+	return flask.render_template('joobot-login-failed.html')
 
 
 
