@@ -40,7 +40,7 @@ app.config.update(dict(
     MAIL_USE_TLS = True,
     MAIL_USE_SSL = False,
     MAIL_DEFAULT_SENDER = 'applicationshops@gmail.com',
-    MAIL_PASSWORD = 'abc5678910',
+    MAIL_DEFAULT_PASSWORD = 'abc5678910',
 ))
 
 mail = Mail(app)
