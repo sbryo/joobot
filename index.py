@@ -21,8 +21,15 @@ from flask_oauth import OAuth
 from flask.ext.compress import Compress
 import random
 from bson.objectid import ObjectId
+from validate_email import validate_email
+from flask_mail import Mail
+from flask_mail import Message
 
+
+
+mail = Mail()
 app = flask.Flask(__name__)
+mail.init_app(app)
 #compress = Compress()
 Compress(app)
 #compress.init_app(app)
@@ -138,10 +145,15 @@ def signing():
             				return flask.redirect("/")
             			### Create user
             		if x==0:
-            			j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'"}')
-            			db.users.insert(j)
-            			flask.session['username'] = email
-            			return flask.render_template("after-signup.html")
+                        if (validate_email(str(email.lower())))==True:
+                            ID=id_generator()
+            			    j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":'+ID+'}')
+            			    db.users.insert(j)
+                            msg = Message("Accept Sign-Up to Shops !",sender="shops@app.com",recipients=[email])
+                            msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+id+"   \n Enjoy !"
+            			    #flask.session['username'] = email
+                            mail.send(msg)
+            			    return flask.render_template("after-signup.html")
             			#return flask.redirect("/joobot")
 
         	except:
@@ -151,8 +163,21 @@ def signing():
 
 
 
-
-
+@app.route("/accept_signup/<ID>", methods=['GET','POST'])
+def accept(ID):
+    client = MongoClient('ds019254.mlab.com', 19254)
+    client.users.authenticate('shakedinero','a57821688')
+    db = client.users
+    collection = db.users
+    cursor = db.users.find()
+    for doc in cursor:
+        if doc['ID'] == ID:
+            mongo_id=doc['_id']
+            post = collection.find_one({"_id":mongo_id}) 
+            post['ID'] = "0"
+            collection.update({'_id':mongo_id}, {"$set": post}, upsert=False)
+            flask.session['username'] = doc['email']
+            flask.redirect('/joobot')
 
 
 @app.route("/login", methods=['GET','POST'])
@@ -167,7 +192,7 @@ def login():
         		email = flask.request.form['email']
         		password = flask.request.form['password']
         		for doc in cursor:
-					if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
+					if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password'] and doc['ID']=='0':
 						flask.session['username'] = doc['email']
 						#session['logged_in']=False
 						return flask.redirect("/joobot")
@@ -827,8 +852,8 @@ def logout():
 def page_not_found(e):
     return flask.render_template('404.html'), 404
 
-
-
+def id_generator(size=24, chars=string.ascii_uppercase):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 if __name__ == "__main__":
