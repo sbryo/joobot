@@ -37,7 +37,7 @@ app.config.update(dict(
     DEBUG = True,
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = 465,
-    MAIL_USE_TLS = Flase,
+    MAIL_USE_TLS = False,
     MAIL_USE_SSL = True,
     MAIL_DEFAULT_SENDER = 'applicationshops@gmail.com',
     MAIL_PASSWORD = 'abc5678910',
