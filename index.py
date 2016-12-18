@@ -165,7 +165,7 @@ def signing():
 				ID=id_generator()
 				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":"'+ID+'"}')
 				db.users.insert(j)
-				msg = Message("Accept Sign-Up to Shops !",recipients=[email])
+				msg = Message("Accept Sign-Up to Shops !",sender='applicationshops@gmail.com',recipients=[email])
 				msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
 			    #flask.session['username'] = email
 				mail.send(msg)
