@@ -130,39 +130,39 @@ def search_page():
 @app.route("/signing", methods=['GET','POST'])
 def signing():
 	if "email" in flask.request.form:
-		try:
-			x=0
-        		client = MongoClient('ds019254.mlab.com', 19254)
-        		client.users.authenticate('shakedinero','a57821688')
-        		db = client.users
-        		collection = db.users
-        		cursor = db.users.find()
-        		email = flask.request.form['email']
-        		password = flask.request.form['password']
-			for doc in cursor:
-        			### if user already exists
-				if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()):
-					x=x+1
-            				return flask.redirect("/")
+		#try:
+		x=0
+		client = MongoClient('ds019254.mlab.com', 19254)
+		client.users.authenticate('shakedinero','a57821688')
+		db = client.users
+		collection = db.users
+		cursor = db.users.find()
+		email = flask.request.form['email']
+		password = flask.request.form['password']
+		for doc in cursor:
+			### if user already exists
+			if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()):
+				x=x+1
+				return flask.redirect("/")
             			### Create user
-			if x==0:
-				if (validate_email(str(email.lower())))==True:
-					ID=id_generator()
-            			    	j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":'+ID+'}')
-            			    	db.users.insert(j)
-                            		msg = Message("Accept Sign-Up to Shops !",sender="shops@app.com",recipients=[email])
-                            		msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+id+"   \n Enjoy !"
-            			    #flask.session['username'] = email
-                            		mail.send(msg)
-					return flask.render_template("after-signup.html")
-			else:
-				return flask.redirect("/signup")
+		if x==0:
+			if (validate_email(str(email.lower())))==True:
+				ID=id_generator()
+				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":'+ID+'}')
+				db.users.insert(j)
+				msg = Message("Accept Sign-Up to Shops !",sender="shops@app.com",recipients=[email])
+				msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
+			    #flask.session['username'] = email
+				mail.send(msg)
+				return flask.render_template("after-signup.html")
+		else:
+			return flask.redirect("/signup")
             			#return flask.redirect("/joobot")
 
-        	except:
-        		return flask.redirect("/")
-        else:
-        	return flask.redirect("/")
+        	#except:
+        #		return flask.redirect("/")
+	else:
+		return flask.redirect("/signup")
 	return flask.redirect("/")
 
 
