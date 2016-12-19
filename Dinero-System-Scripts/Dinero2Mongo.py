@@ -23,7 +23,7 @@ def joo_ali(username,KEYWORDS):
     APP_KEY='28880'
     KEYWORDS=KEYWORDS.replace(' ','%20')
     #C=0
-    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&keywords='+KEYWORDS
+    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&trackingId=sbyapplication&keywords='+KEYWORDS
     values = {'name': 'Joo',
               'location': 'Northampton',
               'language': 'Python' }
