@@ -165,7 +165,7 @@ def signing():
 				ID=id_generator()
 				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":"'+ID+'"}')
 				db.users.insert(j)
-				s = smtplib.SMTP_SSL("smtp.gmail.com", 587)
+				s = smtplib.SMTP("smtp.gmail.com", 587)
 				s.starttls()
 				s.login('applicationshops@gmail.com', 'abc5678910')
 				s.sendmail('applicationshops@gmail.com', email, 'test')
