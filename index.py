@@ -193,19 +193,20 @@ def signing():
 
 @app.route("/accept_signup/<ID>", methods=['GET','POST'])
 def accept(ID):
-    client = MongoClient('ds019254.mlab.com', 19254)
-    client.users.authenticate('shakedinero','a57821688')
-    db = client.users
-    collection = db.users
-    cursor = db.users.find()
-    for doc in cursor:
-        if doc['ID'] == ID:
-            mongo_id=doc['_id']
-            post = collection.find_one({"_id":mongo_id})
-            post['ID'] = "0"
-            collection.update({'_id':mongo_id}, {"$set": post}, upsert=False)
-            flask.session['username'] = doc['email']
-            flask.redirect('/joobot')
+	client = MongoClient('ds019254.mlab.com', 19254)
+    	client.users.authenticate('shakedinero','a57821688')
+    	db = client.users
+    	collection = db.users
+    	cursor = db.users.find()
+	for doc in cursor:
+        	if doc['ID'] == ID:
+            		mongo_id=doc['_id']
+            		post = collection.find_one({"_id":mongo_id})
+            		post['ID'] = "0"
+            		collection.update({'_id':mongo_id}, {"$set": post}, upsert=False)
+            		flask.session['username'] = doc['email']
+            		return flask.redirect('/joobot')
+	return flask.redirect('/')
 
 
 @app.route("/login", methods=['GET','POST'])
