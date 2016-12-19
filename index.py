@@ -33,15 +33,14 @@ app = flask.Flask(__name__)
 
 
 #---- Mail Configuration ----#
-app.config.update(dict(
+app.config.update(
     DEBUG = True,
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = 465,
-    MAIL_USE_TLS = False,
     MAIL_USE_SSL = True,
     MAIL_DEFAULT_SENDER = 'applicationshops@gmail.com',
     MAIL_PASSWORD = 'abc5678910',
-))
+)
 
 mail = Mail(app)
 
