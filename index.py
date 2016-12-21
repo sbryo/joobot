@@ -169,7 +169,7 @@ def signing():
 				s.starttls()
 				s.login('applicationshops@gmail.com', 'abc5678910')
 				SUBJECT = "Sign-Up to Shops !"
-				TEXT = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
+				TEXT = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://shopsapplication.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
 				message = 'Subject: %s\n\n%s' % (SUBJECT, TEXT)
 				s.sendmail('applicationshops@gmail.com', email, message)
 				s.close()
