@@ -21,8 +21,31 @@ from flask_oauth import OAuth
 from flask.ext.compress import Compress
 import random
 from bson.objectid import ObjectId
+from validate_email import validate_email
+from flask_mail import Mail
+from flask_mail import Message
+import string
+import smtplib
+
+
+
 
 app = flask.Flask(__name__)
+
+
+#---- Mail Configuration ----#
+app.config.update(
+    DEBUG = True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_SSL = False,
+    MAIL_DEFAULT_SENDER = 'applicationshops@gmail.com',
+    MAIL_PASSWORD = 'abc5678910',
+)
+
+mail = Mail(app)
+
+
 #compress = Compress()
 Compress(app)
 #compress.init_app(app)
@@ -122,37 +145,68 @@ def search_page():
 @app.route("/signing", methods=['GET','POST'])
 def signing():
 	if "email" in flask.request.form:
-		try:
-			x=0
-        		client = MongoClient('ds019254.mlab.com', 19254)
-        		client.users.authenticate('shakedinero','a57821688')
-        		db = client.users
-        		collection = db.users
-        		cursor = db.users.find()
-        		email = flask.request.form['email']
-        		password = flask.request.form['password']
-        		for doc in cursor:
-        			### if user already exists
-            			if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()):
-					x=x+1
-            				return flask.redirect("/")
+		#try:
+		x=0
+		client = MongoClient('ds019254.mlab.com', 19254)
+		client.users.authenticate('shakedinero','a57821688')
+		db = client.users
+		collection = db.users
+		cursor = db.users.find()
+		email = flask.request.form['email']
+		password = flask.request.form['password']
+		for doc in cursor:
+			### if user already exists
+			if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()):
+				x=x+1
+				return flask.redirect("/")
             			### Create user
-            		if x==0:
-            			j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'"}')
-            			db.users.insert(j)
-            			flask.session['username'] = email
-            			return flask.render_template("after-signup.html")
+		if x==0:
+			if (validate_email(str(email.lower())))==True:
+				ID=id_generator()
+				j=json.loads('{"email":"'+email.lower()+'","password":"'+password+'","ID":"'+ID+'"}')
+				db.users.insert(j)
+				s = smtplib.SMTP("smtp.gmail.com", 587)
+				s.starttls()
+				s.login('applicationshops@gmail.com', 'abc5678910')
+				SUBJECT = "Sign-Up to Shops !"
+				TEXT = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://shopsapplication.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
+				message = 'Subject: %s\n\n%s' % (SUBJECT, TEXT)
+				s.sendmail('applicationshops@gmail.com', email, message)
+				s.close()
+				#msg = Message("Accept Sign-Up to Shops !",sender='applicationshops@gmail.com',recipients=[email])
+				#msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
+			    #flask.session['username'] = email
+				#mail.send(msg)
+				return flask.render_template("after-signup.html")
+			else:
+				return flask.redirect("/signup")
+		else:
+			return flask.redirect("/")
             			#return flask.redirect("/joobot")
 
-        	except:
-        		return flask.redirect("/")
-        else:
-        	return flask.redirect("/")
+        	#except:
+        #		return flask.redirect("/")
+	else:
+		return flask.redirect("/signup")
+	return flask.redirect("/")
 
 
-
-
-
+@app.route("/accept_signup/<ID>", methods=['GET','POST'])
+def accept(ID):
+	client = MongoClient('ds019254.mlab.com', 19254)
+    	client.users.authenticate('shakedinero','a57821688')
+    	db = client.users
+    	collection = db.users
+    	cursor = db.users.find()
+	for doc in cursor:
+        	if doc['ID'] == ID:
+            		mongo_id=doc['_id']
+            		post = collection.find_one({"_id":mongo_id})
+            		post['ID'] = "0"
+            		collection.update({'_id':mongo_id}, {"$set": post}, upsert=False)
+            		flask.session['username'] = doc['email']
+            		return flask.redirect('/joobot')
+	return flask.redirect('/')
 
 
 @app.route("/login", methods=['GET','POST'])
@@ -167,15 +221,22 @@ def login():
         		email = flask.request.form['email']
         		password = flask.request.form['password']
         		for doc in cursor:
-					if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
-						flask.session['username'] = doc['email']
-						#session['logged_in']=False
-						return flask.redirect("/joobot")
+				if "password" in flask.request.form and str(email.lower()) == str(doc['email']).lower() and password == doc['password']:
+					try:
+                            			if doc['ID']=='0':
+							flask.session['username'] = doc['email']
+		    				else:
+							####### Rediect to "Please accept the mail" #############
+                                			return flask.redirect('/')
+					except:
+                            			flask.session['username'] = doc['email']
+                            			return flask.redirect('/')
+					return flask.redirect("/joobot")
 		except:
 			return flask.redirect('/login_failed')
 	else:
-        	return flask.redirect("/")
-        return flask.render_template('joobot-login-failed.html')
+		return flask.redirect("/")
+	return flask.render_template('joobot-login-failed.html')
 
 
 
@@ -827,8 +888,8 @@ def logout():
 def page_not_found(e):
     return flask.render_template('404.html'), 404
 
-
-
+def id_generator(size=24, chars=string.ascii_uppercase):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 if __name__ == "__main__":
