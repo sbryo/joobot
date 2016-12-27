@@ -21,6 +21,7 @@ def joo_ali(username,KEYWORDS):
     items_list1=[]
     C=0
     APP_KEY='28880'
+    TRACKING_ID = 'sbyapplication'
     KEYWORDS=KEYWORDS.replace(' ','%20')
     #C=0
     url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&trackingId=sbyapplication&keywords='+KEYWORDS
@@ -41,7 +42,16 @@ def joo_ali(username,KEYWORDS):
         if C==20:
             break
         title=product['productTitle'].split('</font>')[1].split('<font>')[0]
-        item_url=product['productUrl']
+        i_url=product['productUrl']
+        #--- promotion ---#
+        promotion_url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.getPromotionLinks/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&trackingId='+TRACKING_ID+'&urls='+i_url
+        promotion_data = urllib.urlencode(values)
+        promotion_req = urllib2.Request(promotion_url,promotion_data,headers)
+        promotion_response = urllib2.urlopen(promotion_req)
+        promotion_page = promotion_response.read()
+        j=json.loads(str(promotion_page))
+        item_url=((j['result']['promotionUrls'])[0])['promotionUrl']
+        #--- continue ---#
         price=str(product['salePrice']).replace('$','')
         img=product['imageUrl']
         shipping='-'
