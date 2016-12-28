@@ -224,10 +224,7 @@ def signing():
 				return flask.render_template("after-signup.html")
 			else:
 				return flask.render_template("signup_mail_not_valid.html")
-		else:
-			return flask.redirect("/")
-
-	return flask.redirect("/")
+    return flask.redirect("/")
 
 
 @app.route("/accept_signup/<ID>", methods=['GET','POST'])
