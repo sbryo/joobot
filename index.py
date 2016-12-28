@@ -165,6 +165,8 @@ def send_pass():
 				return flask.redirect("/sent_new_pass")
 			else:
 				continue
+        if x==0:
+            return flask.render_template("email_not_valid.html")
 	else:
 		return flask.redirect("/")
 	return flask.redirect("/")
