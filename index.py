@@ -153,7 +153,7 @@ def send_pass():
 				s = smtplib.SMTP("smtp.gmail.com", 587)
 				s.starttls()
 				s.login('applicationshops@gmail.com', 'abc5678910')
-				SUBJECT = "Sign-Up to Shops !"
+				SUBJECT = "Reset Password | Shops"
 				TEXT = "Dear "+str(email.split("@")[0])+", to reset you Shops account password - please click on the link: http://shopsapplication.herokuapp.com/reset_password/"+MONGO_ID+"   \n Enjoy !"
 				message = 'Subject: %s\n\n%s' % (SUBJECT, TEXT)
 				s.sendmail('applicationshops@gmail.com', email, message)
