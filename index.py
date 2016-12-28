@@ -196,7 +196,7 @@ def signing():
 			### if user already exists
 			if "password" in flask.request.form and str(email.lower()) == (str(doc['email']).lower()):
 				x=x+1
-				return flask.redirect("/")
+				return flask.render_template("signup_mail_exists.html")
             			### Create user
 		if x==0:
 			if (validate_email(str(email.lower())))==True:
