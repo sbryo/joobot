@@ -149,7 +149,7 @@ def send_pass():
 			### if user is exists
 			if str(email.lower()) == (str(doc['email']).lower()):
 				x=x+1
-				MONGO_ID = doc['_id']
+				MONGO_ID = str(doc['_id'])
 				s = smtplib.SMTP("smtp.gmail.com", 587)
 				s.starttls()
 				s.login('applicationshops@gmail.com', 'abc5678910')
