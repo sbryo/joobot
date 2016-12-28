@@ -217,7 +217,7 @@ def signing():
 				#mail.send(msg)
 				return flask.render_template("after-signup.html")
 			else:
-				return flask.redirect("/signup")
+				return flask.render_template("signup_mail_not_valid.html")
 		else:
 			return flask.redirect("/")
             			#return flask.redirect("/joobot")
