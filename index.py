@@ -136,6 +136,8 @@ def reset_pass():
 	
 @app.route("/send_new_pass",methods=['GET','POST'])
 def send_pass():
+    if "email" not in flask.request.form:
+        return flask.render_template("reset_password_field_alert.html")
 	if "email" in flask.request.form:
 		#try:
 		x=0
