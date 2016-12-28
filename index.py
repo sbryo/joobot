@@ -226,12 +226,7 @@ def signing():
 				return flask.render_template("signup_mail_not_valid.html")
 		else:
 			return flask.redirect("/")
-            			#return flask.redirect("/joobot")
 
-        	#except:
-        #		return flask.redirect("/")
-	else:
-		return flask.redirect("/signup")
 	return flask.redirect("/")
 
 
