@@ -170,6 +170,7 @@ def send_pass():
 	return flask.redirect("/")
 
 @app.route("/sent_new_pass")
+def sent_mail_reset_pass():
 	return flask.render_template("sent_new_pass.html")
 
 
