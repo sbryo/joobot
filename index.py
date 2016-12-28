@@ -134,7 +134,7 @@ def login_failed():
 def reset_pass():
 	return flask.render_template("reset_password.html")
 	
-@app.route("/send_new_pass")
+@app.route("/send_new_pass",methods=['GET','POST'])
 def send_pass():
 	if "email" in flask.request.form:
 		#try:
