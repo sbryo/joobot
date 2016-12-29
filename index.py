@@ -138,37 +138,37 @@ def reset_pass():
 def send_pass():
 	if "email" not in flask.request.form:
         	return flask.render_template("reset_password_field_alert.html")
-		if "email" in flask.request.form:
+	if "email" in flask.request.form:
 		#try:
-			x=0
-			client = MongoClient('ds019254.mlab.com', 19254)
-			client.users.authenticate('shakedinero','a57821688')
-			db = client.users
-			collection = db.users
-			cursor = db.users.find()
-			email = flask.request.form['email']
-			for doc in cursor:
-			### if user is exists
-				if str(email.lower()) == (str(doc['email']).lower()):
-					x=x+1
-					MONGO_ID = str(doc['_id'])
-					s = smtplib.SMTP("smtp.gmail.com", 587)
-					s.starttls()
-					s.login('applicationshops@gmail.com', 'abc5678910')
-					SUBJECT = "Reset Password | Shops"
-					TEXT = "Dear "+str(email.split("@")[0])+", to reset you Shops account password - please click on the link: http://shopsapplication.herokuapp.com/reset_password/"+MONGO_ID+"   \n Enjoy !"
-					message = 'Subject: %s\n\n%s' % (SUBJECT, TEXT)
-					s.sendmail('applicationshops@gmail.com', email, message)
-					s.close()
+		x=0
+		client = MongoClient('ds019254.mlab.com', 19254)
+		client.users.authenticate('shakedinero','a57821688')
+		db = client.users
+		collection = db.users
+		cursor = db.users.find()
+		email = flask.request.form['email']
+		for doc in cursor:
+		### if user is exists
+			if str(email.lower()) == (str(doc['email']).lower()):
+				x=x+1
+				MONGO_ID = str(doc['_id'])
+				s = smtplib.SMTP("smtp.gmail.com", 587)
+				s.starttls()
+				s.login('applicationshops@gmail.com', 'abc5678910')
+				SUBJECT = "Reset Password | Shops"
+				TEXT = "Dear "+str(email.split("@")[0])+", to reset you Shops account password - please click on the link: http://shopsapplication.herokuapp.com/reset_password/"+MONGO_ID+"   \n Enjoy !"
+				message = 'Subject: %s\n\n%s' % (SUBJECT, TEXT)
+				s.sendmail('applicationshops@gmail.com', email, message)
+				s.close()
 				#msg = Message("Accept Sign-Up to Shops !",sender='applicationshops@gmail.com',recipients=[email])
 				#msg.body = "Dear "+str(email.split("@")[0])+", to accept the sign-up please click on the link: http://joobot-web.herokuapp.com/accept_signup/"+ID+"   \n Enjoy !"
 				#flask.session['username'] = email
 				#mail.send(msg)
-					return flask.redirect("/sent_new_pass")
-				else:
-					continue
-        	if x==0:
-            		return flask.render_template("email_not_valid.html")
+				return flask.redirect("/sent_new_pass")
+			else:
+				continue
+		if x==0:
+			return flask.render_template("email_not_valid.html")
 		else:
 			return flask.redirect("/")
 	return flask.redirect("/")
