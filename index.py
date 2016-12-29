@@ -184,10 +184,10 @@ def search_page():
 
 @app.route("/signing", methods=['GET','POST'])
 def signing():
-    if "email" not in flask.request.form:
-        return flask.render_template("signup_fields_alert.html")
-    if "password" not in flask.request.form:
-        return flask.render_template("signup_fields_alert.html")
+	if "email" not in flask.request.form:
+        	return flask.render_template("signup_fields_alert.html")
+    	if "password" not in flask.request.form:
+       		return flask.render_template("signup_fields_alert.html")
 	if "email" in flask.request.form:
 		#try:
 		x=0
@@ -224,7 +224,7 @@ def signing():
 				return flask.render_template("after-signup.html")
 			else:
 				return flask.render_template("signup_mail_not_valid.html")
-    return flask.redirect("/")
+	return flask.redirect("/")
 
 
 @app.route("/accept_signup/<ID>", methods=['GET','POST'])
