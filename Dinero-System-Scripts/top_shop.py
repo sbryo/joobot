@@ -20,7 +20,7 @@ from amazonproduct import API
 def joo_ali():
     items_list1=[]
     C=0
-    APP_KEY='21503'
+    APP_KEY='28880'
     #C=0
     url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listHotProducts/'+APP_KEY+'?localCurrency=USD&categoryId=3&language=en'
     values = {'name': 'Joo',
