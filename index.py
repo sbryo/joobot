@@ -901,16 +901,13 @@ def logout():
     		#return flask.redirect("/")
     	try:
     		if (session['logged_in']==True):
-			#cookie = facebook.get_user_from_cookie(request.cookies, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET)
-        		#if cookie:
-            	#		graph = facebook.GraphAPI(cookie["access_token"])
-           #		 	try:
-           #     			graph.revoke_auth(g.user.facebook_id)
-           # 			except facebook.GraphAPIError, e:
-           #     			logging.info(e)
-			data = facebook.get('/me').data
-			session.pop((data['id']))
-			#pop_login_session()
+			pop_login_session()
+			return flask.redirect('/')
+		
+		#-------- before changes in 30/12/2016:  ---------#
+			#data = facebook.get('/me').data
+			#session.pop((data['id']))
+		#----------------------------------------------#
 			try:
     				session['logged_in']=False
 			except:
