@@ -896,11 +896,6 @@ def public_append():
 @app.route("/logout")
 def logout():
 	flask.session.clear()
-	try:
-		pop_login_session()
-		return flask.redirect('/')
-	except:
-		print "Exception on pop_login_session()"
 	if "username" in flask.session:
         	del flask.session["username"]
     		#return flask.redirect("/")
