@@ -55,6 +55,7 @@ app.secret_key = "abcdefghijklmnoppqrstuvwxyz"
 FACEBOOK_APP_ID = '1407152752632423'
 FACEBOOK_APP_SECRET = '3eae4ca9c231852bb9deb352c80059b5'
 
+
 oauth = OAuth()
 
 facebook = oauth.remote_app('facebook',
@@ -66,6 +67,8 @@ facebook = oauth.remote_app('facebook',
     consumer_secret=FACEBOOK_APP_SECRET,
     request_token_params={'scope': ('email, ')}
 )
+
+cookie = facebook.get_user_from_cookie(request.cookies, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET )
 
 @facebook.tokengetter
 def get_facebook_token():
@@ -895,6 +898,13 @@ def public_append():
 
 @app.route("/logout")
 def logout():
+	cookie = facebook.get_user_from_cookie(request.cookies, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET )
+	if cookie:
+    		graph = facebook.GraphAPI(cookie["access_token"])
+            	try:
+                	graph.revoke_auth(g.user.facebook_id)
+            	except facebook.GraphAPIError, e:
+                	logging.info(e)
 	flask.session.clear()
 	if "username" in flask.session:
         	del flask.session["username"]
