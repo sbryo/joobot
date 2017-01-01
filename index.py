@@ -897,6 +897,7 @@ def public_append():
 
 @app.route("/logout")
 def logout():
+	resp.set_cookie(flask.session['id], '', expires=0)
 	flask.session.clear()
 	if "username" in flask.session:
         	del flask.session["username"]
