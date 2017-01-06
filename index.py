@@ -790,6 +790,27 @@ def favorite_delete(LINE):
     	return flask.redirect("/favorites")
 
 
+@app.route("/delete/all",methods=['GET','POST'])
+@check_login
+def delete_all_history():
+	if (session['logged_in']==True):
+		data = facebook.get('/me').data
+		if 'id' in data and 'name' in data:
+    			user_id = data['id']
+    			username = (data['name']).replace(' ','')+str(user_id)
+        if ("username" in flask.session):
+        	email = flask.session['username']
+        	user = email.split("@")[0]
+        	domain = ((email.split("@")[1]).split("."))[0]
+        	username=user+domain
+    	client = MongoClient('ds019254.mlab.com',19254)
+    	client.history.authenticate('shakedinero','a57821688')
+    	db = client.history
+    	command="db.history."+username+".delete_many({})"
+    	exec command
+    	return flask.redirect("/history")
+
+
 @app.route("/history/delete/<LINE>",methods=['GET','POST'])
 @check_login
 def history_delete(LINE):

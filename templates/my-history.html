@@ -37,6 +37,33 @@
   <style>
 body {margin:0;}
 
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+
 .icon_bar {
 	position: fixed;
    
@@ -168,7 +195,10 @@ body {margin:0;}
                   <!--           <hr class="star-primary"> -->
 					
 <h5>Your Items History</h5>
-
+<form action="/delete/all" method="get">
+                <button style="float: left;" type="submit" name="add" class="btn btn-danger btn-sm btn-circle" id="Raspberry gameboy" data-loading-text="<i class='fa fa-spinner fa-spin '></i> "><i class="fa fa-trash-o"></i></button>
+</form>
+			<p></p>
                                <center><div id="load"></div></center>
 <div id="contents">
 
