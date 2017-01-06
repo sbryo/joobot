@@ -895,7 +895,6 @@ def public_append():
 
 @app.route("/logout")
 def logout():
-	flask.session.clear()
 	if "username" in flask.session:
         	del flask.session["username"]
     		#return flask.redirect("/")
@@ -907,9 +906,11 @@ def logout():
     				session['logged_in']=False
 			except:
 				print "Session is already logged_in=false !!!"
+			flask.session.clear()
         		return flask.redirect("/")
         except:
         	print "Exception in /logout"
+	flask.session.clear()
     	return flask.redirect("/")
 
 @app.errorhandler(404)
