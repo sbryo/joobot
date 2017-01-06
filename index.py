@@ -803,8 +803,6 @@ def delete_all_history():
         	user = email.split("@")[0]
         	domain = ((email.split("@")[1]).split("."))[0]
         	username=user+domain
-    	list=[]
-    	STR = LINE.replace('%20',' ')
     	client = MongoClient('ds019254.mlab.com',19254)
     	client.history.authenticate('shakedinero','a57821688')
     	db = client.history
