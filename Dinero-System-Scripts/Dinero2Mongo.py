@@ -24,7 +24,7 @@ def joo_ali(username,KEYWORDS):
     TRACKING_ID = 'sbyapplication'
     KEYWORDS=KEYWORDS.replace(' ','%20')
     #C=0
-    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&trackingId=sbyapplication&keywords='+KEYWORDS
+    url = 'http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.listPromotionProduct/'+APP_KEY+'?fields=productTitle,salePrice,productUrl,imageUrl&trackingId='+TRACKING_ID+'&keywords='+KEYWORDS
     values = {'name': 'Joo',
               'location': 'Northampton',
               'language': 'Python' }
@@ -265,10 +265,10 @@ try:
     t_ebay.start()
 except:
     print "t_ebay thread error"
-#try:
-#    t_dx.start()
-#except:
-#    print "t_dx thread error"
+try:
+    t_dx.start()
+except:
+    print "t_dx thread error"
 try:
     t_amazon.start()
 except:
